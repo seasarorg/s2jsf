@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="forEachDtoList" class="java.util.ArrayList" instance="session">
+		<initMethod name="add" >
+			<arg>
+				<component class="examples.jsf.dto.ForEachDto" >
+					<property name="key">"111"</property>
+					<property name="name">"aaa"</property>
+				</component>
+			</arg>
+		</initMethod>
+		<initMethod name="add" >
+			<arg>
+				<component class="examples.jsf.dto.ForEachDto" >
+					<property name="key">"222"</property>
+					<property name="name">"bbb"</property>
+				</component>
+			</arg>
+		</initMethod>
+	</component>
+	
+	<component name="forEachResultInitAction" class="examples.jsf.action.impl.ForEachResultInitActionImpl" instance="request"/>
+</components>

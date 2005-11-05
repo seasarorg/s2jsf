@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<include path="examples/jsf/dicon/alldao.dicon"/>
+	<include path="examples/jsf/dicon/allaop.dicon"/>
+	<include path="examples/jsf/dicon/processmode.dicon"/>
+
+	<component name="employeeSearchDto" class="examples.jsf.dto.EmployeeSearchDto" instance="session"/>
+	<component name="employeeDto" class="examples.jsf.dto.EmployeeDto" instance="request"/>
+	
+	<component class="examples.jsf.logic.impl.EmployeeLogicImpl">
+		<aspect>logicInterceptorChain</aspect>
+	</component>
+
+	<component name="employeeSearchInitAction" class="examples.jsf.action.impl.EmployeeSearchInitActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+
+	<component name="employeeSearchAction" class="examples.jsf.action.impl.EmployeeSearchActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+	
+	<component name="employeeListInitAction" class="examples.jsf.action.impl.EmployeeListInitActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+	
+	<component name="employeeListAction" class="examples.jsf.action.impl.EmployeeListActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+	
+	<component name="employeeEditInitAction" class="examples.jsf.action.impl.EmployeeEditInitActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+
+	<component name="employeeEditAction" class="examples.jsf.action.impl.EmployeeEditActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+
+	<component name="employeeConfirmInitAction" class="examples.jsf.action.impl.EmployeeConfirmInitActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+
+	<component name="employeeConfirmAction" class="examples.jsf.action.impl.EmployeeConfirmActionImpl" instance="request">
+		<aspect>actionInterceptorChain</aspect>
+	</component>
+	
+</components>
