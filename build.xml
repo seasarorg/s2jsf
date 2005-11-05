@@ -1,0 +1,22 @@
+<project name="s2jsf-example" default="setup" basedir=".">
+
+	<property name="ver" value="1.0.9" />
+	<property name="releasejarfile" value="../setup2/S2JSFExampleV${ver}.zip" />
+	<property name="setupdir" value="../setup2/s2jsf-example/" />
+
+	<target name="setup">
+		<delete includeemptydirs="true">
+			<fileset dir="${setupdir}" />
+		</delete>
+		<copy todir="${setupdir}">
+			<fileset dir=".">
+				<exclude name="**/CVS/**" />
+				<exclude name="build.xml*" />
+				<exclude name="**/.DS_Store" />
+			</fileset>
+		</copy>
+		<zip zipfile="${releasejarfile}" basedir="../setup2" includes="s2jsf-example/"/>
+	</target>
+
+</project>
+
