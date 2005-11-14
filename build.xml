@@ -1,70 +1,30 @@
 <project name="s2jsf" default="dist" basedir=".">
-
-	<property file="project.properties" />
+	<property name="ver" value="1.0.10-SNAPSHOT"/>
 	
-	<property name="src" value="src" />
-	<property name="build" value="build" />
-
-	<property name="package" value="org/seasar/jsf/" />
-	<property name="lib" value="lib" />
-	<property name="setupdir" value="../setup2/s2jsf/" />
-
-	<fileset id="classpath" dir="${lib}">
-		<include name="*" />
-		<exclude name="s2*" />
-	</fileset>
-	<fileset id="s2classpath" dir="../seasar2/lib">
-		<include name="*" />
-	</fileset>
-
-	<target name="compile">
-		<javac srcdir="${src}" destdir="${build}" debug="on">
-			<classpath>
-				<fileset refid="classpath" />
-				<fileset refid="s2classpath" />
-			</classpath>
-		</javac>
-	</target>
-
-	<target name="copy" depends="compile">
-		<copy todir="${build}">
-			<fileset dir="${src}">
-				<include name="**/*.properties" />
-				<include name="**/*.xml" />
-				<include name="**/*.dtd" />
-				<exclude name="build.xml" />
-			</fileset>
-		</copy>
-		<copy file="src/org/seasar/jsf/resources/Messages_en.properties" tofile="${build}/org/seasar/jsf/resources/Messages.properties" overwrite="true">
-		</copy>
-	</target>
-
-	<target name="dist" depends="compile,copy,cleanjarfile">
-		<jar jarfile="${lib}/${jarfile}" basedir="${build}" includes="${package}, META-INF/" />
+	<target name="dist" depends="cleanjarfile">
+		<mkdir dir="target"/>
+		<zip zipfile="target/S2JSF-${ver}.zip">
+			<zipfileset prefix="s2jsf" dir=".">
+				<exclude name="**/target/**"/>
+				<exclude name="**/.settings/**"/>
+			</zipfileset>
+			<zipfileset prefix="s2jsf/lib" dir="target">
+				<include name="s2-jsf-${ver}.jar"/>
+			</zipfileset>
+			<zipfileset prefix="s2jsf/resources" dir="src/test/resources">
+				<include name="jsf.dicon"/>
+				<include name="jsfErrorPage.dicon"/>
+				<include name="log4j.properties"/>
+			</zipfileset>
+		</zip>
 	</target>
 
 	<target name="cleanjarfile">
 		<delete>
-			<fileset dir="${lib}" defaultexcludes="no">
+			<fileset dir="lib" defaultexcludes="no">
 				<include name="s2-jsf*.jar" />
 			</fileset>
 		</delete>
-	</target>
-
-	<target name="setup" depends="dist">
-		<delete includeemptydirs="true">
-			<fileset dir="${setupdir}" />
-		</delete>
-		<copy todir="${setupdir}">
-			<fileset dir=".">
-				<exclude name="**/CVS/**" />
-				<exclude name="${build}/**" />
-				<exclude name="doc/**" />
-			</fileset>
-		</copy>
-		<delete dir="${setupdir}build"/>
-		<mkdir dir="${setupdir}build"/>
-		<zip zipfile="${releasejarfile}" basedir="../setup2" includes="s2jsf/" excludes="**/.DS_Store"/>
 	</target>
 
 </project>
