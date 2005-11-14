@@ -3,7 +3,7 @@
 	
 	<target name="dist" depends="cleanjarfile">
 		<mkdir dir="target"/>
-		<zip zipfile="target/S2JSF-${ver}.zip">
+		<zip zipfile="target/s2jsf-${ver}.zip">
 			<zipfileset prefix="s2jsf" dir=".">
 				<exclude name="**/target/**"/>
 				<exclude name="**/.settings/**"/>
