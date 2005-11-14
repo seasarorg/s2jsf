@@ -1,7 +1,7 @@
 <project name="s2jsf" default="dist" basedir=".">
 	<property name="ver" value="1.0.10-SNAPSHOT"/>
-	
-	<target name="dist" depends="cleanjarfile">
+
+	<target name="dist">
 		<mkdir dir="target"/>
 		<zip zipfile="target/s2jsf-${ver}.zip">
 			<zipfileset prefix="s2jsf" dir=".">
@@ -17,14 +17,6 @@
 				<include name="log4j.properties"/>
 			</zipfileset>
 		</zip>
-	</target>
-
-	<target name="cleanjarfile">
-		<delete>
-			<fileset dir="lib" defaultexcludes="no">
-				<include name="s2-jsf*.jar" />
-			</fileset>
-		</delete>
 	</target>
 
 </project>
