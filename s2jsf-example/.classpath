@@ -4,13 +4,13 @@
 	<classpathentry kind="src" path="WEB-INF/src"/>
 	<classpathentry output="work" kind="src" path="work"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/junit-3.8.1.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/aopalliance.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-beanutils-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-codec-1.2.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-collections-3.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-digester-1.5.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-fileupload-1.0.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-validator.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/hsqldb.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/jakarta-oro.jar"/>
@@ -19,11 +19,11 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/ognl-2.6.5.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/xercesImpl-2.5.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/nekohtml-0.9.3-nirvana.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/commons-el.jar"/>
-	<classpathentry sourcepath="D:/appl/download/myfaces-1.0.9-src/myfaces-1.0.9-src/src" kind="lib" path="WEB-INF/lib/myfaces.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/javassist.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-el-1.0.jar"/>
+	<classpathentry sourcepath="D:/appl/download/myfaces-1.0.9-src/myfaces-1.0.9-src/src" kind="lib" path="WEB-INF/lib/myfaces-1.0.9.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.26.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
