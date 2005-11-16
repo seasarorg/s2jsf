@@ -16,8 +16,8 @@
 package org.seasar.jsf.processor;
 
 import org.seasar.framework.util.StringUtil;
-import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.JsfConfig;
+import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.exception.TagProcessorNotFoundRuntimeException;
 import org.xml.sax.Attributes;
 
@@ -28,6 +28,7 @@ import org.xml.sax.Attributes;
 public class HtmlProcessor extends ElementProcessor {
 
 	public HtmlProcessor() {
+        addCustomPropertyName(JsfConstants.ACTION_ATTR);
 	}
 	
 	public void setup(String namespaceURI, String localName, String qName,
