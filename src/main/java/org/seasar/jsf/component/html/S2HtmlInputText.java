@@ -46,6 +46,13 @@ public class S2HtmlInputText extends HtmlInputText {
         this.label = label;
     }
 
+    public void updateModel(FacesContext context) {
+        if (isReadonly() || isDisabled()) {
+            return;
+        }
+        super.updateModel(context);
+    }
+
     public void setValue(Object value) {
         Object newValue = value;
         if ("".equals(value)) {
@@ -57,15 +64,15 @@ public class S2HtmlInputText extends HtmlInputText {
     public void validate(FacesContext context) {
         Object submittedValue = getSubmittedValue();
         Object convertedValue = RenderUtil.getConvertedValue(context, this,
-                submittedValue);
+            submittedValue);
         if (!isValid()) {
             return;
         }
         boolean empty = UIValueUtil.isEmpty(convertedValue);
         if (isRequired() && empty) {
             context.addMessage(getClientId(context), MessageUtil
-                    .getErrorMessage(REQUIRED_MESSAGE_ID,
-                            new Object[] { getLabel() }));
+                .getErrorMessage(REQUIRED_MESSAGE_ID,
+                    new Object[] { getLabel() }));
             setValid(false);
             return;
         }
@@ -82,7 +89,7 @@ public class S2HtmlInputText extends HtmlInputText {
             queueEvent(new ValueChangeEvent(this, previousValue, convertedValue));
         }
     }
-    
+
     public Object saveState(FacesContext context) {
         Object[] values = new Object[2];
         values[0] = super.saveState(context);
