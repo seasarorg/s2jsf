@@ -41,16 +41,9 @@ public class S2HtmlInputText extends HtmlInputText {
         ValueBinding vb = getValueBinding(JsfConstants.LABEL_ATTR);
         return vb != null ? (String) vb.getValue(getFacesContext()) : getId();
     }
-
+    
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public void updateModel(FacesContext context) {
-        if (isReadonly() || isDisabled()) {
-            return;
-        }
-        super.updateModel(context);
     }
 
     public void setValue(Object value) {
@@ -80,6 +73,9 @@ public class S2HtmlInputText extends HtmlInputText {
             UIComponentUtil.callValidators(context, this, convertedValue);
         }
         if (!isValid()) {
+            return;
+        }
+        if (isReadonly() || isDisabled()) {
             return;
         }
         Object previousValue = getValue();
