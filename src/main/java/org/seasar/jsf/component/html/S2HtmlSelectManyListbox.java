@@ -78,6 +78,9 @@ public class S2HtmlSelectManyListbox extends HtmlSelectManyListbox {
         if (!isValid()) {
             return;
         }
+        if (isReadonly() || isDisabled()) {
+            return;
+        }
         Object previousValue = getValue();
         setValue(convertedValue);
         setSubmittedValue(null);

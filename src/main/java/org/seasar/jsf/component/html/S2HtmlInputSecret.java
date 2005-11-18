@@ -75,6 +75,9 @@ public class S2HtmlInputSecret extends HtmlInputSecret {
         if (!isValid()) {
             return;
         }
+        if (isReadonly() || isDisabled()) {
+            return;
+        }
         Object previousValue = getValue();
         setValue(convertedValue);
         setSubmittedValue(null);
