@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 
+import org.apache.myfaces.renderkit.html.HtmlRendererUtils;
 import org.seasar.jsf.exception.NoEditableValueHolderRuntimeException;
 import org.seasar.jsf.util.RenderUtil;
 
@@ -47,7 +48,9 @@ public class HtmlSelectOneRadioRenderer extends Renderer {
             }
             ((EditableValueHolder) component).setSubmittedValue(submittedValue);
         } else {
-            ((EditableValueHolder) component).setSubmittedValue("");
+            if (!HtmlRendererUtils.isDisabledOrReadOnly(component)) {
+                ((EditableValueHolder) component).setSubmittedValue("");
+            }
         }
     }
 

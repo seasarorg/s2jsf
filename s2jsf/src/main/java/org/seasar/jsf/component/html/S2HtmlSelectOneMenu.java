@@ -75,6 +75,9 @@ public class S2HtmlSelectOneMenu extends HtmlSelectOneMenu {
         if (!isValid()) {
             return;
         }
+        if (isReadonly() || isDisabled()) {
+            return;
+        }
         Object previousValue = getValue();
         setValue(convertedValue);
         setSubmittedValue(null);

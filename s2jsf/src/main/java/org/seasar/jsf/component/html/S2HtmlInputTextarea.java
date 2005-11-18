@@ -75,6 +75,9 @@ public class S2HtmlInputTextarea extends HtmlInputTextarea {
         if (!isValid()) {
             return;
         }
+        if (isReadonly() || isDisabled()) {
+            return;
+        }
         Object previousValue = getValue();
         setValue(convertedValue);
         setSubmittedValue(null);
