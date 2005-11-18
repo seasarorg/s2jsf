@@ -3,7 +3,7 @@
 
 	<target name="dist">
 		<mkdir dir="target"/>
-		<zip zipfile="target/s2jsf-${ver}.zip">
+		<zip zipfile="target/S2JSFV${ver}.zip">
 			<zipfileset prefix="s2jsf" dir=".">
 				<exclude name="**/target/**"/>
 				<exclude name="**/.settings/**"/>
