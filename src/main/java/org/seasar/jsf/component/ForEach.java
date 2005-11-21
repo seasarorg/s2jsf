@@ -142,6 +142,7 @@ public class ForEach extends UIComponentBase implements NamingContainer {
 
 	public void broadcast(FacesEvent event) throws AbortProcessingException {
 		if (event instanceof ForEachEvent) {
+		    setupRows();
 			ForEachEvent fee = (ForEachEvent) event;
 			setRowIndex(fee.getRowIndex());
 			FacesEvent original = fee.getOriginal();
