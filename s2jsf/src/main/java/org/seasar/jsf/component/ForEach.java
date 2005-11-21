@@ -329,7 +329,9 @@ public class ForEach extends UIComponentBase implements NamingContainer {
 
 	private static class EditableValueHolderState implements Serializable {
 
-		private Object localValue;
+		private static final long serialVersionUID = 1L;
+
+        private Object localValue;
 
 		private boolean localValueSet;
 
@@ -353,6 +355,8 @@ public class ForEach extends UIComponentBase implements NamingContainer {
 	}
 
 	private static class ForEachEvent extends FacesEvent {
+        
+        private static final long serialVersionUID = 1L;
 
 		private FacesEvent original;
 
