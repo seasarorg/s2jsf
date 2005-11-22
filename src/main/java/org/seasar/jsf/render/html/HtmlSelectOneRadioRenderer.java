@@ -24,9 +24,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.renderkit.html.HtmlRendererUtils;
 import org.seasar.jsf.exception.NoEditableValueHolderRuntimeException;
 import org.seasar.jsf.util.RenderUtil;
+import org.seasar.jsf.util.UIComponentUtil;
 
 /**
  * @author higa
@@ -37,7 +37,7 @@ public class HtmlSelectOneRadioRenderer extends Renderer {
     public void decode(FacesContext context, UIComponent component) {
         if (!(component instanceof EditableValueHolder)) {
             throw new NoEditableValueHolderRuntimeException(component
-                    .getClass());
+                .getClass());
         }
         Map paramMap = context.getExternalContext().getRequestParameterMap();
         String clientId = component.getClientId(context);
@@ -48,16 +48,16 @@ public class HtmlSelectOneRadioRenderer extends Renderer {
             }
             ((EditableValueHolder) component).setSubmittedValue(submittedValue);
         } else {
-            if (!HtmlRendererUtils.isDisabledOrReadOnly(component)) {
+            if (!UIComponentUtil.isDisabledOrReadOnly(component)) {
                 ((EditableValueHolder) component).setSubmittedValue("");
             }
         }
     }
 
     public Object getConvertedValue(FacesContext context,
-            UIComponent component, Object submittedValue)
-            throws ConverterException {
-        
-        return RenderUtil.getConvertedUIOutputValue(context, (UIOutput) component, submittedValue);
+        UIComponent component, Object submittedValue) throws ConverterException {
+
+        return RenderUtil.getConvertedUIOutputValue(context,
+            (UIOutput) component, submittedValue);
     }
 }
