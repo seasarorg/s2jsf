@@ -21,12 +21,14 @@ import javax.servlet.ServletContext;
 
 import org.seasar.framework.util.InputStreamUtil;
 import org.seasar.framework.util.ResourceNotFoundRuntimeException;
+import org.seasar.jsf.JsfConfig;
 
 public class ServletContextWebappConfigManagerImpl implements
     WebappConfigManager {
 
     private ServletContext servletContext_;
     private WebappConfig webappConfig_;
+    private JsfConfig jsfConfig_;
 
     public void init() {
         InputStream is = servletContext_
@@ -39,6 +41,12 @@ public class ServletContextWebappConfigManagerImpl implements
         } finally {
             InputStreamUtil.close(is);
         }
+        ContextParam allowJavascript = webappConfig_
+            .getContextParam("org.apache.myfaces.ALLOW_JAVASCRIPT");
+        if (allowJavascript != null) {
+            jsfConfig_.setAllowJavascript(Boolean.valueOf(
+                allowJavascript.getParamValue()).booleanValue());
+        }
     }
 
     public void setServletContext(ServletContext servletContext) {
@@ -47,6 +55,10 @@ public class ServletContextWebappConfigManagerImpl implements
 
     public WebappConfig getWebappConfig() {
         return webappConfig_;
+    }
+
+    public void setJsfConfig(JsfConfig jsfConfig) {
+        jsfConfig_ = jsfConfig;
     }
 
 }
