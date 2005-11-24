@@ -9,7 +9,7 @@
 		<initMethod name="init"/>
 		<destroyMethod name="destroy"/>
 	</component>
-	
+
 	<component class="org.seasar.jsf.runtime.JsfConfigImpl">
 		<initMethod name="addTaglibUri">
 			<arg>"h"</arg>
@@ -154,8 +154,19 @@
 			</arg>
 		</initMethod>
 	</component>
-	
+
 	<component class="org.seasar.jsf.runtime.ViewTemplateFactoryImpl"/>
-	
+
 	<component class="org.seasar.jsf.runtime.ViewRendererImpl"/>
+
+	<component
+		name="webappConfigManager"
+		class="org.seasar.jsf.webapp.ServletContextWebappConfigManagerImpl">
+		<initMethod name="init"/>
+	</component>
+
+	<component name="webappConfig" class="org.seasar.jsf.webapp.WebappConfig">
+		webappConfigManager.getWebappConfig()
+	</component>
+
 </components>

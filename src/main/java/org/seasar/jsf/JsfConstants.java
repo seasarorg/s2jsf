@@ -19,7 +19,7 @@ import org.seasar.framework.util.ArrayUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public interface JsfConstants {
 
@@ -294,6 +294,9 @@ public interface JsfConstants {
     public String[] COMMON_PASSTROUGH_ATTRIBUTES = (String[]) ArrayUtil.add(
             EVENT_HANDLER_ATTRIBUTES, UNIVERSAL_ATTRIBUTES);
 
+    public static final String[] COMMON_PASSTROUGH_ATTRIBUTES_WITHOUT_STYLE = (String[]) ArrayUtil
+        .add(EVENT_HANDLER_ATTRIBUTES, UNIVERSAL_ATTRIBUTES_WITHOUT_STYLE);
+
     public String[] COMMON_FIELD_ATTRIBUTES_WITHOUT_DISABLED = {
             ACCESSKEY_ATTR, TABINDEX_ATTR };
 
@@ -315,6 +318,11 @@ public interface JsfConstants {
 
     public String[] ANCHOR_PASSTHROUGH_ATTRIBUTES = (String[]) ArrayUtil.add(
             ANCHOR_ATTRIBUTES, COMMON_PASSTROUGH_ATTRIBUTES);
+
+    public static final String[] ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE =
+        (String[]) ArrayUtil.add(
+            ANCHOR_ATTRIBUTES,
+            COMMON_PASSTROUGH_ATTRIBUTES_WITHOUT_STYLE);
 
     public String[] SELECT_ATTRIBUTES = { DATAFLD_ATTR, DATASRC_ATTR,
             DATAFORMATAS_ATTR, };

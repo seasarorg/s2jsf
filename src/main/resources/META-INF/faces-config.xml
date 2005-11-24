@@ -96,6 +96,13 @@
 				org.seasar.jsf.render.html.HtmlSelectManyCheckboxRenderer
 			</renderer-class>
 		</renderer>
+		<renderer>
+			<component-family>javax.faces.Command</component-family>
+			<renderer-type>javax.faces.Link</renderer-type>
+			<renderer-class>
+				org.seasar.jsf.render.html.HtmlCommandLinkRenderer
+			</renderer-class>
+		</renderer>
 	</render-kit>
 	
 	<component>
