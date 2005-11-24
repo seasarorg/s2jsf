@@ -165,8 +165,4 @@
 		<initMethod name="init"/>
 	</component>
 
-	<component name="webappConfig" class="org.seasar.jsf.webapp.WebappConfig">
-		webappConfigManager.getWebappConfig()
-	</component>
-
 </components>

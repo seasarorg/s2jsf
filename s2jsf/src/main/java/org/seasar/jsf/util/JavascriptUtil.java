@@ -15,25 +15,75 @@
  */
 package org.seasar.jsf.util;
 
-import org.apache.myfaces.renderkit.html.util.JavascriptUtils;
+import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class JavascriptUtil {
 
-    private static final String AUTO_SCROLL_PARAM = "autoScroll";
-    private static final String AUTO_SCROLL_FUNCTION = "getScrolling()";
-
     public static String getClearHiddenCommandFormParamsFunctionName(
         String formName) {
-        return "clear_"
-            + JavascriptUtils.getValidJavascriptName(formName, false);
+        return "clear_" + getValidJavascriptName(formName, false);
     }
 
-    public static void appendAutoScrollAssignment(StringBuffer onClickValue,
-        String formName) {
-        onClickValue.append("document.forms['").append(formName).append("']");
-        onClickValue.append(".elements['").append(AUTO_SCROLL_PARAM).append(
-            "']");
-        onClickValue.append(".value=").append(AUTO_SCROLL_FUNCTION).append(";");
+    private static final Set RESERVED_WORDS = new HashSet(Arrays
+        .asList(new String[] { "abstract", "boolean", "break", "byte", "case",
+            "catch", "char", "class", "const", "continue", "default", "delete",
+            "do", "double", "else", "enum", "export", "extends", "false",
+            "final", "finally", "float", "for", "function", "goto", "if",
+            "implements", "in", "instanceof", "int", "long", "native", "new",
+            "null", "package", "private", "protected", "public", "return",
+            "short", "static", "super", "switch", "synchronized", "this",
+            "throw", "throws", "transient", "true", "try", "typeof", "var",
+            "void", "while", "with" }));
+
+    private static String getValidJavascriptName(String s,
+        boolean checkForReservedWord) {
+        if (checkForReservedWord && RESERVED_WORDS.contains(s)) {
+            return s + "_";
+        }
+
+        StringBuffer buf = null;
+        for (int i = 0, len = s.length(); i < len; i++) {
+            char c = s.charAt(i);
+            if (Character.isLetterOrDigit(c)) {
+                if (buf != null)
+                    buf.append(c);
+            } else {
+                if (buf == null) {
+                    buf = new StringBuffer(s.length() + 10);
+                    buf.append(s.substring(0, i));
+                }
+
+                buf.append('_');
+                if (c < 16) {
+                    buf.append('0');
+                }
+
+                if (c < 128) {
+                    buf.append(Integer.toHexString(c).toUpperCase());
+                } else {
+                    byte[] bytes;
+                    try {
+                        bytes = Character.toString(c).getBytes("UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    for (int j = 0; j < bytes.length; j++) {
+                        int intVal = bytes[j];
+                        if (intVal < 0) {
+                            intVal = 256 + intVal;
+                        } else if (intVal < 16) {
+                            buf.append('0');
+                        }
+                        buf.append(Integer.toHexString(intVal).toUpperCase());
+                    }
+                }
+            }
+        }
+        return buf == null ? s : buf.toString();
     }
 
 }

@@ -32,65 +32,76 @@ import org.seasar.jsf.exception.UriNotFoundRuntimeException;
  */
 public class JsfConfigImpl implements JsfConfig {
 
-	private Map taglibUris = new HashMap();
-	
-	private Map prefixes = new HashMap();
-	
-	private TaglibManager taglibManager;
-	
-	public JsfConfigImpl() {
-	}
+    private Map taglibUris = new HashMap();
 
-	public void addTaglibUri(String prefix, String uri) {
-		taglibUris.put(prefix, uri);
-		prefixes.put(uri, prefix);
+    private Map prefixes = new HashMap();
 
-	}
+    private TaglibManager taglibManager;
 
-	public boolean hasTaglibUri(String prefix) {
-		return taglibUris.containsKey(prefix);
-	}
+    private boolean allowJavascript = true;
 
-	public String getTaglibUri(String prefix) {
-		String uri = (String) taglibUris.get(prefix);
-		if (uri != null) {
-			return uri;
-		}
-		throw new PrefixNotFoundRuntimeException(prefix);
-	}
-	
-	public String getTaglibPrefix(String uri) {
-		String prefix = (String) prefixes.get(uri);
-		if (prefix != null) {
-			return prefix;
-		}
-		throw new UriNotFoundRuntimeException(uri);
-	}
+    public JsfConfigImpl() {
+    }
 
-	public TagConfig getTagConfig(String prefix, String tagName) {
-		String uri = getTaglibUri(prefix);
-		TaglibConfig taglibConfig = getTaglibManager().getTaglibConfig(uri);
-		return taglibConfig.getTagConfig(tagName);
-	}
+    public void addTaglibUri(String prefix, String uri) {
+        taglibUris.put(prefix, uri);
+        prefixes.put(uri, prefix);
 
-	public TagConfig getTagConfig(String inject) {
-		int index = inject.indexOf(':');
-		if (index < 0) {
-			throw new IllegalArgumentException(inject);
-		}
-		String prefix = inject.substring(0, index);
-		String tagName = inject.substring(index + 1);
-		return getTagConfig(prefix, tagName);
-	}
+    }
 
-	public TaglibManager getTaglibManager() {
-		if (taglibManager != null) {
-			return taglibManager;
-		}
-		throw new EmptyRuntimeException("taglibManager");
-	}
+    public boolean hasTaglibUri(String prefix) {
+        return taglibUris.containsKey(prefix);
+    }
 
-	public void setTaglibManager(TaglibManager taglibManager) {
-		this.taglibManager = taglibManager;
-	}
+    public String getTaglibUri(String prefix) {
+        String uri = (String) taglibUris.get(prefix);
+        if (uri != null) {
+            return uri;
+        }
+        throw new PrefixNotFoundRuntimeException(prefix);
+    }
+
+    public String getTaglibPrefix(String uri) {
+        String prefix = (String) prefixes.get(uri);
+        if (prefix != null) {
+            return prefix;
+        }
+        throw new UriNotFoundRuntimeException(uri);
+    }
+
+    public TagConfig getTagConfig(String prefix, String tagName) {
+        String uri = getTaglibUri(prefix);
+        TaglibConfig taglibConfig = getTaglibManager().getTaglibConfig(uri);
+        return taglibConfig.getTagConfig(tagName);
+    }
+
+    public TagConfig getTagConfig(String inject) {
+        int index = inject.indexOf(':');
+        if (index < 0) {
+            throw new IllegalArgumentException(inject);
+        }
+        String prefix = inject.substring(0, index);
+        String tagName = inject.substring(index + 1);
+        return getTagConfig(prefix, tagName);
+    }
+
+    public TaglibManager getTaglibManager() {
+        if (taglibManager != null) {
+            return taglibManager;
+        }
+        throw new EmptyRuntimeException("taglibManager");
+    }
+
+    public void setTaglibManager(TaglibManager taglibManager) {
+        this.taglibManager = taglibManager;
+    }
+
+    public boolean isAllowJavascript() {
+        return allowJavascript;
+    }
+
+    public void setAllowJavascript(boolean allowJavascript) {
+        this.allowJavascript = allowJavascript;
+    }
+
 }

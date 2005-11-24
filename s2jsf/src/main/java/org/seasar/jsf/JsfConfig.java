@@ -20,7 +20,7 @@ import org.seasar.jsf.exception.UriNotFoundRuntimeException;
 
 /**
  * @author higa
- *
+ * 
  */
 public interface JsfConfig {
 
@@ -37,4 +37,9 @@ public interface JsfConfig {
 	public TagConfig getTagConfig(String inject);
 	
 	public void setTaglibManager(TaglibManager taglibManager);
+    
+    public boolean isAllowJavascript();
+    
+    public void setAllowJavascript(boolean allowJavascript);
+    
 }
