@@ -221,8 +221,7 @@ public class HtmlCommandLinkRenderer extends AbstractHtmlLinkRenderer {
     protected void renderLinkParameter(String name, Object value,
         StringBuffer onClick, String jsForm, UIForm parentForm) {
         if (name == null) {
-            throw new IllegalArgumentException(
-                "Unnamed parameter value not allowed within command link.");
+            throw new IllegalArgumentException("name");
         }
         onClick.append(jsForm);
         onClick.append(".elements['").append(name).append("']");
