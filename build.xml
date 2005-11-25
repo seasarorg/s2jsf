@@ -1,4 +1,5 @@
 <project name="s2jsf" default="dist" basedir=".">
+
 	<property name="ver" value="1.0.10"/>
 
 	<target name="dist">
@@ -15,9 +16,9 @@
 				<include name="jsf.dicon"/>
 				<include name="jsfErrorPage.dicon"/>
 				<include name="log4j.properties"/>
+				<include name="web.xml"/>
 			</zipfileset>
 		</zip>
 	</target>
 
 </project>
-
