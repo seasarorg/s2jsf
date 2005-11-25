@@ -4,14 +4,13 @@
 
 	<target name="dist">
 		<delete includeemptydirs="true" failonerror="false">
-			<fileset dir="target" />
+			<fileset dir="target"/>
 		</delete>
 		<mkdir dir="target"/>
-		<zip zipfile="target/S2JSFBlankV${ver}.zip">
-			<zipfileset prefix="s2jsf-example" dir=".">
+		<zip zipfile="target/s2-jsf-blank-${ver}.zip">
+			<zipfileset prefix="s2jsf-blank" dir=".">
 				<exclude name="target/**"/>
 				<exclude name="**/.settings/**"/>
-				<exclude name="**/CVS/**"/>
 				<exclude name="build.xml"/>
 				<exclude name="**/.DS_Store"/>
 			</zipfileset>
