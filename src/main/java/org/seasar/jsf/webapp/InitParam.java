@@ -15,17 +15,31 @@
  */
 package org.seasar.jsf.webapp;
 
+import java.io.Serializable;
+
 /**
  * @author manhole
  */
-public interface WebappConfig {
+public class InitParam implements Serializable {
 
-    public ContextParam getContextParam(String paramName);
+    private static final long serialVersionUID = 1L;
+    private String paramName_;
+    private String paramValue_;
 
-    public void addContextParam(ContextParam contextParam);
+    public String getParamName() {
+        return paramName_;
+    }
 
-    public Servlet getServlet(String servletName);
+    public void setParamName(String paramName) {
+        paramName_ = paramName;
+    }
 
-    public void addServlet(Servlet servlet);
+    public String getParamValue() {
+        return paramValue_;
+    }
+
+    public void setParamValue(String paramValue) {
+        paramValue_ = paramValue;
+    }
 
 }

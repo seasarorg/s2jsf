@@ -17,6 +17,9 @@ package org.seasar.jsf.webapp;
 
 import org.seasar.framework.xml.TagHandlerRule;
 
+/**
+ * @author manhole
+ */
 public class WebappTagHandlerRule extends TagHandlerRule {
 
     private static final long serialVersionUID = 1L;
@@ -29,6 +32,20 @@ public class WebappTagHandlerRule extends TagHandlerRule {
             new WebappContextParamTagHandler.ParamNameTagHandler());
         addTagHandler("/web-app/context-param/param-value",
             new WebappContextParamTagHandler.ParamValueTagHandler());
+        addTagHandler("/web-app/servlet",
+            new WebappServletTagHandler());
+        addTagHandler("/web-app/servlet/servlet-name",
+            new WebappServletTagHandler.ServletNameTagHandler());
+        addTagHandler("/web-app/servlet/servlet-class",
+            new WebappServletTagHandler.ServletClassTagHandler());
+        addTagHandler("/web-app/servlet/load-on-startup",
+            new WebappServletTagHandler.LoadOnStartupTagHandler());
+        addTagHandler("/web-app/servlet/init-param",
+            new WebappServletTagHandler.InitParamTagHandler());
+        addTagHandler("/web-app/servlet/init-param/param-name",
+            new WebappServletTagHandler.InitParamNameTagHandler());
+        addTagHandler("/web-app/servlet/init-param/param-value",
+            new WebappServletTagHandler.InitParamValueTagHandler());
     }
 
 }

@@ -19,6 +19,9 @@ import org.seasar.framework.xml.TagHandler;
 import org.seasar.framework.xml.TagHandlerContext;
 import org.xml.sax.Attributes;
 
+/**
+ * @author manhole
+ */
 public class WebappTagHandler extends TagHandler {
 
     private static final long serialVersionUID = 1L;

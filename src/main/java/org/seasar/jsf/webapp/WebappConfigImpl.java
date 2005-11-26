@@ -19,11 +19,15 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author manhole
+ */
 public class WebappConfigImpl implements WebappConfig, Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Map contextParams_ = new HashMap();
+    private Map servlets_ = new HashMap();
 
     public ContextParam getContextParam(String name) {
         return (ContextParam) contextParams_.get(name);
@@ -31,6 +35,14 @@ public class WebappConfigImpl implements WebappConfig, Serializable {
 
     public void addContextParam(ContextParam contextParam) {
         contextParams_.put(contextParam.getParamName(), contextParam);
+    }
+
+    public Servlet getServlet(String servletName) {
+        return (Servlet) servlets_.get(servletName);
+    }
+
+    public void addServlet(Servlet servlet) {
+        servlets_.put(servlet.getServletName(), servlet);
     }
 
 }
