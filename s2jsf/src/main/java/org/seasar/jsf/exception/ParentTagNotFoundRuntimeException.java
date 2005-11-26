@@ -17,6 +17,9 @@ package org.seasar.jsf.exception;
 
 import org.seasar.framework.exception.SRuntimeException;
 
+/**
+ * @author manhole
+ */
 public class ParentTagNotFoundRuntimeException extends SRuntimeException {
 
     private static final long serialVersionUID = 1L;
@@ -25,6 +28,10 @@ public class ParentTagNotFoundRuntimeException extends SRuntimeException {
     public ParentTagNotFoundRuntimeException(String parentTagName) {
         super("EJSF0019", new Object[] { parentTagName });
         this.parentTagName = parentTagName;
+    }
+
+    public String getParentTagName() {
+        return parentTagName;
     }
 
 }

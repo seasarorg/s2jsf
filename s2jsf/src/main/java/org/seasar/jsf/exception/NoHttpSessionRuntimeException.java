@@ -23,7 +23,9 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class NoHttpSessionRuntimeException extends SRuntimeException {
 
-	public NoHttpSessionRuntimeException() {
+	private static final long serialVersionUID = 1L;
+
+    public NoHttpSessionRuntimeException() {
 		super("EJSF0001");
 	}
 }

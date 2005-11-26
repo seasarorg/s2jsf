@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class NoUICommandRuntimeException extends SRuntimeException {
 
-	private Class componentClass;
+	private static final long serialVersionUID = 1L;
+    private Class componentClass;
 
 	public NoUICommandRuntimeException(Class componentClass) {
 		super("EJSF0013", new Object[] { componentClass.getName() });

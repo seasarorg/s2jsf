@@ -27,7 +27,9 @@ import org.seasar.jsf.TagConfig;
  */
 public class TaglibTagClassTagHandler extends TagHandler {
 
-	public void end(TagHandlerContext context, String body) {
+	private static final long serialVersionUID = 1L;
+
+    public void end(TagHandlerContext context, String body) {
 		if (body != null) {
 			body = body.trim();
 		}

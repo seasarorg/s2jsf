@@ -26,7 +26,9 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class JspRuntimeException extends SRuntimeException {
 
-	public JspRuntimeException(JspException cause) {
+	private static final long serialVersionUID = 1L;
+
+    public JspRuntimeException(JspException cause) {
 		super("EJSF0009", new Object[]{cause}, cause);
 	}
 }

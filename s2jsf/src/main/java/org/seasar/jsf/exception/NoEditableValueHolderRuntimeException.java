@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class NoEditableValueHolderRuntimeException extends SRuntimeException {
 
-	private Class componentClass;
+	private static final long serialVersionUID = 1L;
+    private Class componentClass;
 
 	public NoEditableValueHolderRuntimeException(Class componentClass) {
 		super("EJSF0011", new Object[] { componentClass.getName() });

@@ -23,14 +23,15 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class InsertProcessorNotFoundRuntimeException extends SRuntimeException {
 
-	private String name;
+    private static final long serialVersionUID = 1L;
+    private String name;
 
-	public InsertProcessorNotFoundRuntimeException(String name) {
-		super("EJSF0016", new Object[] { name });
-		this.name = name;
-	}
+    public InsertProcessorNotFoundRuntimeException(String name) {
+        super("EJSF0016", new Object[] { name });
+        this.name = name;
+    }
 
-	public String getInsertProcessorName() {
-		return name;
-	}
+    public String getInsertProcessorName() {
+        return name;
+    }
 }

@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class NoValueReferenceRuntimeException extends SRuntimeException {
 
-	private String expression;
+	private static final long serialVersionUID = 1L;
+    private String expression;
 
 	public NoValueReferenceRuntimeException(String expression) {
 		super("EJSF0012", new Object[] { expression });

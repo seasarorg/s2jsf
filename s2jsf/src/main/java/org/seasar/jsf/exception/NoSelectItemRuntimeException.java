@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class NoSelectItemRuntimeException extends SRuntimeException {
 
-	private String clientId;
+	private static final long serialVersionUID = 1L;
+    private String clientId;
 
 	public NoSelectItemRuntimeException(String clientId) {
 		super("EJSF0018", new Object[] { clientId });

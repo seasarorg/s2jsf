@@ -23,7 +23,9 @@ import org.seasar.framework.xml.TagHandlerRule;
  */
 public class TaglibTagHandlerRule extends TagHandlerRule {
 
-	public TaglibTagHandlerRule() {
+	private static final long serialVersionUID = 1L;
+
+    public TaglibTagHandlerRule() {
 		addTagHandler("/taglib", new TaglibTaglibTagHandler());
 		addTagHandler("/taglib/uri", new TaglibUriTagHandler());
 		addTagHandler("/taglib/tag", new TaglibTagTagHandler());
