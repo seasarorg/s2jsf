@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class NoValueHolderRuntimeException extends SRuntimeException {
 
-	private Class componentClass;
+	private static final long serialVersionUID = 1L;
+    private Class componentClass;
 
 	public NoValueHolderRuntimeException(Class componentClass) {
 		super("EJSF0010", new Object[] { componentClass.getName() });

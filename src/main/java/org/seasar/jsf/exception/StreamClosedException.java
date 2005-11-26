@@ -23,7 +23,9 @@ import org.seasar.framework.exception.SIOException;
  */
 public class StreamClosedException extends SIOException {
 
-	public StreamClosedException() {
+	private static final long serialVersionUID = 1L;
+
+    public StreamClosedException() {
 		super("EJSF0003", new Object[0]);
 	}
 }

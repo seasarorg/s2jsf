@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class LifecycleIdAlreadyExistRuntimeException extends SRuntimeException {
 
-	private String lifecycleId;
+	private static final long serialVersionUID = 1L;
+    private String lifecycleId;
 
 	public LifecycleIdAlreadyExistRuntimeException(String lifecycleId) {
 		super("EJSF0015", new Object[] { lifecycleId });

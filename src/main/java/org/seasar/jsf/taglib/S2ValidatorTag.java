@@ -37,7 +37,9 @@ import org.seasar.jsf.util.BindingUtil;
  */
 public class S2ValidatorTag extends ValidatorTag {
 
-	private String binding;
+	private static final long serialVersionUID = 1L;
+
+    private String binding;
     
     private Map attributes = new HashMap();
 	

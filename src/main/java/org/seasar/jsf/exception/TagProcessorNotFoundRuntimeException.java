@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class TagProcessorNotFoundRuntimeException extends SRuntimeException {
 
-	private Class tagProcessorClass;
+	private static final long serialVersionUID = 1L;
+    private Class tagProcessorClass;
 
 	public TagProcessorNotFoundRuntimeException(Class tagProcessorClass) {
 		super("EJSF0008", new Object[] { tagProcessorClass.getName() });

@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class UndefinedScopeRuntimeException extends SRuntimeException {
 
-	private int scope;
+	private static final long serialVersionUID = 1L;
+    private int scope;
 
 	public UndefinedScopeRuntimeException(int scope) {
 		super("EJSF0002", new Object[]{String.valueOf(scope)});

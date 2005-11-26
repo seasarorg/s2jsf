@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class LifecycleIdNotFoundRuntimeException extends SRuntimeException {
 
-	private String lifecycleId;
+	private static final long serialVersionUID = 1L;
+    private String lifecycleId;
 
 	public LifecycleIdNotFoundRuntimeException(String lifecycleId) {
 		super("EJSF0014", new Object[] { lifecycleId });

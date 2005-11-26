@@ -23,7 +23,8 @@ import org.seasar.framework.exception.SRuntimeException;
  */
 public class PathNotFoundRuntimeException extends SRuntimeException {
 
-	private String path;
+	private static final long serialVersionUID = 1L;
+    private String path;
 
 	public PathNotFoundRuntimeException(String path) {
 		super("EJSF0007", new Object[] { path });
