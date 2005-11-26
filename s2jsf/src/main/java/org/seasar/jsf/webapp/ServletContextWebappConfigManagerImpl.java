@@ -23,6 +23,9 @@ import org.seasar.framework.util.InputStreamUtil;
 import org.seasar.framework.util.ResourceNotFoundRuntimeException;
 import org.seasar.jsf.JsfConfig;
 
+/**
+ * @author manhole
+ */
 public class ServletContextWebappConfigManagerImpl implements
     WebappConfigManager {
 

@@ -2,6 +2,9 @@ package org.seasar.jsf.webapp;
 
 import org.seasar.extension.unit.S2TestCase;
 
+/**
+ * @author manhole
+ */
 public class ServletContextWebappConfigBuilderTest extends S2TestCase {
 
     private ServletContextWebappConfigManagerImpl manager_;

@@ -15,6 +15,9 @@
  */
 package org.seasar.jsf.webapp;
 
+/**
+ * @author manhole
+ */
 public interface WebappConfigManager {
 
     public WebappConfig getWebappConfig();

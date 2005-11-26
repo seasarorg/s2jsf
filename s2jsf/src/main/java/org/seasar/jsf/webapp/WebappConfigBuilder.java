@@ -24,6 +24,9 @@ import org.seasar.framework.xml.SaxHandler;
 import org.seasar.framework.xml.SaxHandlerParser;
 import org.seasar.framework.xml.TagHandlerRule;
 
+/**
+ * @author manhole
+ */
 public class WebappConfigBuilder {
 
     private static TagHandlerRule rule_ = new WebappTagHandlerRule();
