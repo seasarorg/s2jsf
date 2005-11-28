@@ -125,10 +125,10 @@ public class ViewRendererImpl implements ViewRenderer {
 		RenderKit renderKit = renderFactory.getRenderKit(context, context
 				.getViewRoot().getRenderKitId());
 		ResponseWriter writer = renderKit.createResponseWriter(
-				pageContext.getOut(), 
-				contentType,
-				encoding);
-		context.setResponseWriter(writer);
+            new PageContextWriter(pageContext), 
+            contentType, 
+            encoding);
+        context.setResponseWriter(writer);
 	}
 
 	protected RenderKitFactory getRenderKitFactory() {
