@@ -30,6 +30,8 @@ import org.seasar.framework.xml.TagHandlerRule;
 public class WebappConfigBuilder {
 
     private static TagHandlerRule rule_ = new WebappTagHandlerRule();
+    private static final String DTD_PATH = "javax/servlet/resources/web-app_2_3.dtd";
+    private static final String PUBLIC_ID = "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN";
 
     public WebappConfig build(InputStream is) {
         SaxHandlerParser parser = createSaxHandlerParser();
@@ -39,6 +41,7 @@ public class WebappConfigBuilder {
     private SaxHandlerParser createSaxHandlerParser() {
         SAXParser saxParser = SAXParserFactoryUtil.newSAXParser();
         SaxHandler handler = new SaxHandler(rule_);
+        handler.registerDtdPath(PUBLIC_ID, DTD_PATH);
         return new SaxHandlerParser(handler, saxParser);
     }
 
