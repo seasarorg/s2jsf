@@ -15,6 +15,7 @@
  */
 package org.seasar.jsf;
 
+import org.apache.myfaces.util.ArrayUtils;
 import org.seasar.framework.util.ArrayUtil;
 
 /**
@@ -72,7 +73,7 @@ public interface JsfConstants {
     public String META_ELEM = "meta";
 
     public String ANCHOR_ELEM = "a";
-    
+
     public String BR_ELEM = "br";
 
     public String SPAN_ELEM = "span";
@@ -92,9 +93,9 @@ public interface JsfConstants {
     public String OPTGROUP_ELEM = "optgroup";
 
     public String TEXTAREA_ELEM = "textarea";
-    
+
     public String TABLE_ELEM = "table";
-    
+
     public String TR_ELEM = "tr";
 
     public String TD_ELEM = "td";
@@ -136,7 +137,7 @@ public interface JsfConstants {
     public String NULL_LABEL_ATTR = "nullLabel";
 
     public String LABEL_ATTR = "label";
-    
+
     public String BINDING_ATTR = "binding";
 
     public String SELECTED_ATTR = "selected";
@@ -162,6 +163,8 @@ public interface JsfConstants {
     public String MAXLENGTH_ATTR = "maxlength";
 
     public String READONLY_ATTR = "readonly";
+
+    public String ACCEPT_ATTR = "accept";
 
     public String IMMEDIATE_ATTR = "immediate";
 
@@ -214,11 +217,11 @@ public interface JsfConstants {
     public String EXTENDS_ATTR = "extends";
 
     public String PASSTHROUGH_ATTR = "passthrough";
-    
+
     public String COLS_ATTR = "cols";
-    
+
     public String ROWS_ATTR = "rows";
-    
+
     public String REDISPLAY_ATTR = "redisplay";
 
     public String ONCLICK_ATTR = "onclick";
@@ -248,8 +251,18 @@ public interface JsfConstants {
     public String ONFOCUS_ATTR = "onfocus";
 
     public String ONSELECT_ATTR = "onselect";
-    
+
     public String PAGE_DIRECTION_ATTR = "pageDirection";
+
+    public String ACCEPT_CHARSET_ATTR = "accept-charset";
+
+    public String ENCTYPE_ATTR = "enctype";
+
+    public String ONRESET_ATTR = "onreset";
+
+    public String ONSUMBIT_ATTR = "onsubmit";
+
+    public String SCRIPT_ELEM = "script";
 
     public String TEXT_VALUE = "text";
 
@@ -271,8 +284,10 @@ public interface JsfConstants {
 
     public String CHECKED_VALUE = "checked";
 
+    public String POST_VALUE = "post";
+
     public String NBSP_ENTITY = "&nbsp;";
-    
+
     public String BR_TAG = "<br />";
 
     public String[] EVENT_HANDLER_ATTRIBUTES_WITHOUT_ONCLICK = {
@@ -294,8 +309,8 @@ public interface JsfConstants {
     public String[] COMMON_PASSTROUGH_ATTRIBUTES = (String[]) ArrayUtil.add(
             EVENT_HANDLER_ATTRIBUTES, UNIVERSAL_ATTRIBUTES);
 
-    public static final String[] COMMON_PASSTROUGH_ATTRIBUTES_WITHOUT_STYLE = (String[]) ArrayUtil
-        .add(EVENT_HANDLER_ATTRIBUTES, UNIVERSAL_ATTRIBUTES_WITHOUT_STYLE);
+    public String[] COMMON_PASSTROUGH_ATTRIBUTES_WITHOUT_STYLE = (String[]) ArrayUtil
+            .add(EVENT_HANDLER_ATTRIBUTES, UNIVERSAL_ATTRIBUTES_WITHOUT_STYLE);
 
     public String[] COMMON_FIELD_ATTRIBUTES_WITHOUT_DISABLED = {
             ACCESSKEY_ATTR, TABINDEX_ATTR };
@@ -319,10 +334,8 @@ public interface JsfConstants {
     public String[] ANCHOR_PASSTHROUGH_ATTRIBUTES = (String[]) ArrayUtil.add(
             ANCHOR_ATTRIBUTES, COMMON_PASSTROUGH_ATTRIBUTES);
 
-    public static final String[] ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE =
-        (String[]) ArrayUtil.add(
-            ANCHOR_ATTRIBUTES,
-            COMMON_PASSTROUGH_ATTRIBUTES_WITHOUT_STYLE);
+    public String[] ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE = (String[]) ArrayUtil
+            .add(ANCHOR_ATTRIBUTES, COMMON_PASSTROUGH_ATTRIBUTES_WITHOUT_STYLE);
 
     public String[] SELECT_ATTRIBUTES = { DATAFLD_ATTR, DATASRC_ATTR,
             DATAFORMATAS_ATTR, };
@@ -338,4 +351,17 @@ public interface JsfConstants {
     public String[] INPUT_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED = (String[]) ArrayUtil
             .add(INPUT_ATTRIBUTES,
                     COMMON_FIELD_PASSTROUGH_ATTRIBUTES_WITHOUT_DISABLED);
+
+    public String[] FORM_ATTRIBUTES = { ACCEPT_ATTR, ACCEPT_CHARSET_ATTR,
+            ENCTYPE_ATTR, ONRESET_ATTR, ONSUMBIT_ATTR, TARGET_ATTR, };
+
+    public String[] FORM_PASSTHROUGH_ATTRIBUTES = (String[]) ArrayUtils.concat(
+            FORM_ATTRIBUTES, COMMON_PASSTROUGH_ATTRIBUTES);
+
+    public String HIDDEN_COMMAND_INPUTS_SET_ATTR = "org.apache.myfaces.renderkit.html.HtmlFormRendererBase.HIDDEN_COMMAND_INPUTS_SET";
+
+    public String HIDDEN_SUBMIT_INPUT_SUFFIX = "_SUBMIT";
+
+    public String HIDDEN_SUBMIT_INPUT_VALUE = "1";
+
 }
