@@ -16,10 +16,13 @@
 package org.seasar.jsf.application;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
@@ -39,57 +42,74 @@ import org.seasar.jsf.util.UIParameterUtil;
 
 /**
  * @author higa
- *
+ * 
  */
 public class ActionListenerImpl implements ActionListener {
 
-	private static Logger logger = Logger.getLogger(ActionListenerImpl.class);
-	
-	private ErrorPageManager errorPageManager;
-	
-	public void processAction(ActionEvent actionEvent)
-			throws AbortProcessingException {
+    private static Logger logger = Logger.getLogger(ActionListenerImpl.class);
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		ExternalContext extContext = context.getExternalContext();
-		HttpServletRequest request = ExternalContextUtil.getRequest(extContext);
-		Application app = context.getApplication();
-		UICommand command = (UICommand) actionEvent.getComponent();
-		UIParameterUtil.saveParamsToRequest(command, request);
-		MethodBinding mb = command.getAction();
-		String fromAction = null;
-		String outcome = null;
-		if (mb != null) {
-			fromAction = mb.getExpressionString();
-			try {
-				outcome = InvokeUtil.invoke(mb, context);
-			} catch (EvaluationException ex) {
-				Throwable cause = ex.getCause();
-				ErrorPageManager manager = getErrorPageManager();
-				try {
-					if (manager.handleException(cause, extContext)) {
-						context.responseComplete();
-					} else {
-						throw ex;
-					}
-				} catch (IOException ioe) {
-					logger.log(ioe);
-					throw ex;
-				}
-				
-			}
-		}
-		NavigationHandler navigationHandler = app.getNavigationHandler();
-		navigationHandler.handleNavigation(context, fromAction, outcome);
-		context.renderResponse();
-	}
-	
-	protected ErrorPageManager getErrorPageManager() {
-		if (errorPageManager != null) {
-			return errorPageManager;
-		}
-		S2Container container = SingletonS2ContainerFactory.getContainer();
-		errorPageManager = (ErrorPageManager) container.getComponent(ErrorPageManager.class);
-		return errorPageManager;
-	}
+    private ErrorPageManager errorPageManager;
+
+    public void processAction(ActionEvent actionEvent)
+            throws AbortProcessingException {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext extContext = context.getExternalContext();
+        HttpServletRequest request = ExternalContextUtil.getRequest(extContext);
+        Application app = context.getApplication();
+        UICommand command = (UICommand) actionEvent.getComponent();
+        UIParameterUtil.saveParamsToRequest(command, request);
+        MethodBinding mb = command.getAction();
+        String fromAction = null;
+        String outcome = null;
+        if (mb != null) {
+            fromAction = mb.getExpressionString();
+            try {
+                outcome = InvokeUtil.invoke(mb, context);
+            } catch (EvaluationException ex) {
+                Throwable cause = ex.getCause();
+                ErrorPageManager manager = getErrorPageManager();
+                try {
+                    if (manager.handleException(cause, extContext)) {
+                        context.responseComplete();
+                    } else {
+                        throw ex;
+                    }
+                } catch (IOException ioe) {
+                    logger.log(ioe);
+                    throw ex;
+                }
+
+            }
+        }
+        resetSubmittedValue(context, context.getViewRoot());
+        NavigationHandler navigationHandler = app.getNavigationHandler();
+        navigationHandler.handleNavigation(context, fromAction, outcome);
+        context.renderResponse();
+    }
+
+    protected ErrorPageManager getErrorPageManager() {
+        if (errorPageManager != null) {
+            return errorPageManager;
+        }
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        errorPageManager = (ErrorPageManager) container
+                .getComponent(ErrorPageManager.class);
+        return errorPageManager;
+    }
+
+    private void resetSubmittedValue(FacesContext context, UIComponent component) {
+        for (Iterator i = component.getFacetsAndChildren(); i.hasNext();) {
+            UIComponent child = (UIComponent) i.next();
+            if (child instanceof UIInput) {
+                UIInput input = (UIInput) child;
+                // input.setValid(true);
+                input.setSubmittedValue(null);
+                // input.setValue(null);
+                // input.setLocalValueSet(false);
+            }
+            resetSubmittedValue(context, child);
+        }
+    }
+
 }
