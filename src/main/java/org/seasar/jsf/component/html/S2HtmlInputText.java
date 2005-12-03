@@ -99,10 +99,4 @@ public class S2HtmlInputText extends HtmlInputText {
         label = (String) values[1];
     }
 
-    public void setSubmittedValue(Object submittedValue) {
-        System.out.println("id=" + getId() + ", submittedValue="
-                + submittedValue);
-        super.setSubmittedValue(submittedValue);
-    }
-
 }
