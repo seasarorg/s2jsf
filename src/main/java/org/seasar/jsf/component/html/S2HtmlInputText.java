@@ -28,7 +28,7 @@ import org.seasar.jsf.util.UIValueUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class S2HtmlInputText extends HtmlInputText {
 
@@ -41,7 +41,7 @@ public class S2HtmlInputText extends HtmlInputText {
         ValueBinding vb = getValueBinding(JsfConstants.LABEL_ATTR);
         return vb != null ? (String) vb.getValue(getFacesContext()) : getId();
     }
-    
+
     public void setLabel(String label) {
         this.label = label;
     }
@@ -57,15 +57,15 @@ public class S2HtmlInputText extends HtmlInputText {
     public void validate(FacesContext context) {
         Object submittedValue = getSubmittedValue();
         Object convertedValue = RenderUtil.getConvertedValue(context, this,
-            submittedValue);
+                submittedValue);
         if (!isValid()) {
             return;
         }
         boolean empty = UIValueUtil.isEmpty(convertedValue);
         if (isRequired() && empty) {
             context.addMessage(getClientId(context), MessageUtil
-                .getErrorMessage(REQUIRED_MESSAGE_ID,
-                    new Object[] { getLabel() }));
+                    .getErrorMessage(REQUIRED_MESSAGE_ID,
+                            new Object[] { getLabel() }));
             setValid(false);
             return;
         }
@@ -98,4 +98,11 @@ public class S2HtmlInputText extends HtmlInputText {
         super.restoreState(context, values[0]);
         label = (String) values[1];
     }
+
+    public void setSubmittedValue(Object submittedValue) {
+        System.out.println("id=" + getId() + ", submittedValue="
+                + submittedValue);
+        super.setSubmittedValue(submittedValue);
+    }
+
 }

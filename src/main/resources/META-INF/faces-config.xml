@@ -103,6 +103,11 @@
 				org.seasar.jsf.render.html.HtmlCommandLinkRenderer
 			</renderer-class>
 		</renderer>
+		<renderer>
+			<component-family>javax.faces.Form</component-family>
+			<renderer-type>javax.faces.Form</renderer-type>
+			<renderer-class>org.seasar.jsf.render.html.HtmlFormRenderer</renderer-class>
+		</renderer>
 	</render-kit>
 	
 	<component>
