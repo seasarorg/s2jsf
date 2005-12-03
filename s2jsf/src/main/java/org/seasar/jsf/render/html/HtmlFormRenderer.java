@@ -169,9 +169,6 @@ public class HtmlFormRenderer extends Renderer {
         final boolean submitted = submittedValue != null
                 && submittedValue
                         .equals(JsfConstants.HIDDEN_SUBMIT_INPUT_VALUE);
-        System.out.println("**** " + form.getClientId(facesContext)
-                + ", formIdentifyKey=" + formIdentifyKey + ", submitted="
-                + submitted);
         return submitted;
     }
 
