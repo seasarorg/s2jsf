@@ -16,13 +16,10 @@
 package org.seasar.jsf.application;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.faces.application.Application;
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
@@ -82,7 +79,6 @@ public class ActionListenerImpl implements ActionListener {
 
             }
         }
-        resetSubmittedValue(context, context.getViewRoot());
         NavigationHandler navigationHandler = app.getNavigationHandler();
         navigationHandler.handleNavigation(context, fromAction, outcome);
         context.renderResponse();
@@ -97,19 +93,4 @@ public class ActionListenerImpl implements ActionListener {
                 .getComponent(ErrorPageManager.class);
         return errorPageManager;
     }
-
-    private void resetSubmittedValue(FacesContext context, UIComponent component) {
-        for (Iterator i = component.getFacetsAndChildren(); i.hasNext();) {
-            UIComponent child = (UIComponent) i.next();
-            if (child instanceof UIInput) {
-                UIInput input = (UIInput) child;
-                // input.setValid(true);
-                input.setSubmittedValue(null);
-                // input.setValue(null);
-                // input.setLocalValueSet(false);
-            }
-            resetSubmittedValue(context, child);
-        }
-    }
-
 }
