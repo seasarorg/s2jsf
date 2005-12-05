@@ -40,6 +40,12 @@ public interface JsfConstants {
 
     public String JSP_EXCEPTION = "javax.servlet.jsp.jspException";
 
+    public String SERVLET_ERROR_EXCEPTION = "javax.servlet.error.exception";
+
+    public String SERVLET_ERROR_EXCEPTION_TYPE = "javax.servlet.error.exception_type";
+
+    public String SERVLET_ERROR_EXCEPTION_MESSAGE = "javax.servlet.error.message";
+
     public String ERROR_EXCEPTION = "seasar.jsf.error.exception";
 
     public String ERROR_EXCEPTION_TYPE = "seasar.jsf.error.exception_type";
