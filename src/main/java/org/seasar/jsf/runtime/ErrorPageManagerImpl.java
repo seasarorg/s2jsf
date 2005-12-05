@@ -21,6 +21,7 @@ import java.util.Map;
 
 import javax.faces.context.ExternalContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.seasar.jsf.ErrorPageManager;
 import org.seasar.jsf.JsfConstants;
@@ -28,36 +29,52 @@ import org.seasar.jsf.util.ExternalContextUtil;
 
 /**
  * @author higa
- *
+ * 
  */
 public class ErrorPageManagerImpl implements ErrorPageManager {
 
-	private Map locations = new HashMap();
+    private Map locations = new HashMap();
 
-	public void addErrorPage(Class exceptionType, String location) {
-		locations.put(exceptionType, location);
-	}
+    public void addErrorPage(Class exceptionType, String location) {
+        locations.put(exceptionType, location);
+    }
 
-	public boolean handleException(Throwable exception, ExternalContext extContext) throws IOException {
-		String location = getLocation(exception.getClass());
-		if (location == null) {
-			return false;
-		}
-		HttpServletRequest request = ExternalContextUtil.getRequest(extContext);
-		request.setAttribute(JsfConstants.ERROR_EXCEPTION, exception);
-		request.setAttribute(JsfConstants.ERROR_EXCEPTION_TYPE, exception.getClass());
-		request.setAttribute(JsfConstants.ERROR_MESSAGE, exception.getMessage());
-		extContext.dispatch(location);
-		return true;
-	}
-	
-	protected String getLocation(Class exceptionType) {
-		Class clazz = exceptionType;
-		String location = (String) locations.get(clazz);
-		while (location == null && !clazz.equals(Throwable.class)) {
-			clazz = clazz.getSuperclass();
-			location = (String) locations.get(clazz);
-		}
-		return location;
-	}
+    public boolean handleException(Throwable exception,
+            ExternalContext extContext) throws IOException {
+        String location = getLocation(exception.getClass());
+        if (location == null) {
+            return false;
+        }
+        HttpServletRequest request = ExternalContextUtil.getRequest(extContext);
+        if (request.getAttribute(JsfConstants.ERROR_EXCEPTION) != null) {
+            request.setAttribute(JsfConstants.SERVLET_ERROR_EXCEPTION, request
+                    .getAttribute(JsfConstants.ERROR_EXCEPTION));
+            request.setAttribute(JsfConstants.SERVLET_ERROR_EXCEPTION_TYPE,
+                    request.getAttribute(JsfConstants.ERROR_EXCEPTION_TYPE));
+            request.setAttribute(JsfConstants.SERVLET_ERROR_EXCEPTION_MESSAGE,
+                    request.getAttribute(JsfConstants.ERROR_MESSAGE));
+            HttpServletResponse response = ExternalContextUtil
+                    .getResponse(extContext);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return true;
+        }
+        request.setAttribute(JsfConstants.ERROR_EXCEPTION, exception);
+        request.setAttribute(JsfConstants.ERROR_EXCEPTION_TYPE, exception
+                .getClass());
+        request
+                .setAttribute(JsfConstants.ERROR_MESSAGE, exception
+                        .getMessage());
+        extContext.dispatch(location);
+        return true;
+    }
+
+    protected String getLocation(Class exceptionType) {
+        Class clazz = exceptionType;
+        String location = (String) locations.get(clazz);
+        while (location == null && !clazz.equals(Throwable.class)) {
+            clazz = clazz.getSuperclass();
+            location = (String) locations.get(clazz);
+        }
+        return location;
+    }
 }
