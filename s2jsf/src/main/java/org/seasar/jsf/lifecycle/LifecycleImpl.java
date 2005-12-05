@@ -90,6 +90,7 @@ public class LifecycleImpl extends Lifecycle {
 			requestMap.put(EXECUTED_ATTR, null);
 			applyRequestValues(context);
 			if (isFinished(context)) {
+                initializeChildren(context, context.getViewRoot());
 				return;
 			}
 			if (postback || hasEvent(context)) {
