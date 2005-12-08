@@ -38,7 +38,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.log.Logger;
 import org.seasar.framework.util.ArrayUtil;
 import org.seasar.jsf.JsfConfig;
 import org.seasar.jsf.ViewTemplate;
@@ -48,8 +47,6 @@ import org.seasar.jsf.processor.ViewProcessor;
 import org.seasar.jsf.util.ExternalContextUtil;
 
 public class LifecycleImpl extends Lifecycle {
-
-    private static Logger logger = Logger.getLogger(LifecycleImpl.class);
 
     private static final String VIEW_ID_ATTR = LifecycleImpl.class.getName()
             + ".VIEW_ID";
@@ -218,11 +215,11 @@ public class LifecycleImpl extends Lifecycle {
     }
 
     public void render(FacesContext context) throws FacesException {
-        saveRequestAttributes(context.getViewRoot().getViewId(), context
-                .getExternalContext());
+        String viewId = context.getViewRoot().getViewId();
+        saveRequestAttributes(viewId, context.getExternalContext());
         if (context.getResponseComplete()) {
             context.getExternalContext().getSessionMap().put(
-                    REDIRECT_FROM_ATTR, context.getViewRoot().getViewId());
+                    REDIRECT_FROM_ATTR, viewId);
             return;
         }
         beforePhase(context, PhaseId.RENDER_RESPONSE);
@@ -321,14 +318,17 @@ public class LifecycleImpl extends Lifecycle {
     protected void restoreRequestAttributes(String viewId,
             ExternalContext externalContext) {
         Map sessionMap = externalContext.getSessionMap();
-        String key = createRequestStoreKey(viewId);
-        Map attributes = (Map) sessionMap.get(key);
+        String requestStoreKey = createRequestStoreKey(viewId);
+        Map attributes = (Map) sessionMap.get(requestStoreKey);
         if (attributes != null) {
-            sessionMap.remove(key);
+            sessionMap.remove(requestStoreKey);
             Map requestMap = externalContext.getRequestMap();
             for (Iterator it = attributes.entrySet().iterator(); it.hasNext();) {
                 Map.Entry entry = (Map.Entry) it.next();
-                requestMap.put(entry.getKey(), entry.getValue());
+                Object key = entry.getKey();
+                if (!requestMap.containsKey(key)) {
+                    requestMap.put(key, entry.getValue());
+                }
             }
         }
     }
@@ -353,8 +353,6 @@ public class LifecycleImpl extends Lifecycle {
                 .remove(REDIRECT_FROM_ATTR);
         if (redirectFromViewId != null
                 && redirectFromViewId.equals(previousViewId)) {
-            logger.debug("redirected from [" + previousViewId + "] to ["
-                    + viewId + "]");
             Map m = (Map) sessionMap.get(createRequestStoreKey(previousViewId));
             sessionMap.put(createRequestStoreKey(viewId), m);
         }
