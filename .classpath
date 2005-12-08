@@ -24,12 +24,12 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-el-1.0.jar"/>
 	<classpathentry sourcepath="D:/appl/download/myfaces-1.0.9-src/myfaces-1.0.9-src/src" kind="lib" path="WEB-INF/lib/myfaces-1.0.9.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.0.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.26.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.29.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/servlet-api.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jasper-runtime.jar"/>
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-extension-2.3.3.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.3.3.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.10.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-extension-2.3.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.3.4.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.11.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
