@@ -262,50 +262,75 @@
 			org.seasar.jsf.component.html.HtmlLink
 		</component-class>
 	</component>
-	
-	<converter>
-		<converter-for-class>java.util.Date</converter-for-class>
-		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
-	</converter>
-	
-	<converter>
-		<converter-for-class>java.sql.Timestamp</converter-for-class>
-		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
-	</converter>
+
+    <converter>
+        <converter-id>javax.faces.DateTime</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Number</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2NumberConverter</converter-class>
+    </converter>
 
 	<converter>
-		<converter-for-class>java.lang.Integer</converter-for-class>
-		<converter-class>javax.faces.convert.IntegerConverter</converter-class>
-	</converter>
-
-	<converter>
-		<converter-for-class>java.lang.Long</converter-for-class>
-		<converter-class>javax.faces.convert.LongConverter</converter-class>
-	</converter>
-
-	<converter>
-		<converter-for-class>java.lang.Short</converter-for-class>
-		<converter-class>javax.faces.convert.ShortConverter</converter-class>
-	</converter>
-
-	<converter>
-		<converter-for-class>java.lang.Float</converter-for-class>
-		<converter-class>javax.faces.convert.FloatConverter</converter-class>
-	</converter>
-
-	<converter>
-		<converter-for-class>java.lang.Double</converter-for-class>
-		<converter-class>javax.faces.convert.DoubleConverter</converter-class>
+		<converter-for-class>java.math.BigInteger</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2BigIntegerConverter</converter-class>
 	</converter>
 
 	<converter>
 		<converter-for-class>java.math.BigDecimal</converter-for-class>
-		<converter-class>javax.faces.convert.BigDecimalConverter</converter-class>
+		<converter-class>org.seasar.jsf.convert.S2BigDecimalConverter</converter-class>
+	</converter>
+
+    <converter>
+        <converter-for-class>java.lang.Byte</converter-for-class>
+        <converter-class>org.seasar.jsf.convert.S2ByteConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>java.lang.Boolean</converter-for-class>
+        <converter-class>org.seasar.jsf.convert.S2BooleanConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>java.lang.Character</converter-for-class>
+        <converter-class>org.seasar.jsf.convert.S2CharacterConverter</converter-class>
+    </converter>
+
+	<converter>
+		<converter-for-class>java.util.Date</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
 	</converter>
 
 	<converter>
-		<converter-for-class>java.math.BigInteger</converter-for-class>
-		<converter-class>javax.faces.convert.BigIntegerConverter</converter-class>
+		<converter-for-class>java.lang.Double</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2DoubleConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-for-class>java.lang.Float</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2FloatConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-for-class>java.lang.Integer</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2IntegerConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-for-class>java.lang.Long</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2LongConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-for-class>java.lang.Short</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2ShortConverter</converter-class>
+	</converter>
+
+	<converter>
+		<converter-for-class>java.sql.Timestamp</converter-for-class>
+		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
 	</converter>
 
 </faces-config>
