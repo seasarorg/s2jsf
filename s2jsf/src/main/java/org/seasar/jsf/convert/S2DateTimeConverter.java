@@ -27,6 +27,7 @@ import javax.faces.convert.DateTimeConverter;
 
 import org.seasar.framework.util.DateConversionUtil;
 import org.seasar.jsf.util.MessageUtil;
+import org.seasar.jsf.util.UIComponentUtil;
 
 /**
  * @author higa
@@ -80,7 +81,7 @@ public class S2DateTimeConverter extends DateTimeConverter {
                 } catch (ParseException e) {
                     throw new ConverterException(MessageUtil.getErrorMessage(
                             CONVERSION_MESSAGE_ID, new Object[] { value,
-                                    component.getId() }), e);
+                                    UIComponentUtil.getLabel(component) }), e);
                 }
             }
         }
