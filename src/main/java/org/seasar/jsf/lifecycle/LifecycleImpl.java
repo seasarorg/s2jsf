@@ -23,8 +23,8 @@ import java.util.Map;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.ViewHandler;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -42,6 +42,7 @@ import org.seasar.framework.util.ArrayUtil;
 import org.seasar.jsf.JsfConfig;
 import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
+import org.seasar.jsf.component.ForEach;
 import org.seasar.jsf.component.S2UIViewRoot;
 import org.seasar.jsf.processor.ViewProcessor;
 import org.seasar.jsf.util.ExternalContextUtil;
@@ -236,19 +237,23 @@ public class LifecycleImpl extends Lifecycle {
 		externalContext.getSessionMap().put(VIEW_ID_ATTR, viewId);
 	}
 
-	protected void initializeChildren(FacesContext context, UIComponent component) {
-		for (Iterator i = component.getFacetsAndChildren(); i.hasNext();) {
-			UIComponent child = (UIComponent) i.next();
-			if (child instanceof UIInput) {
-				UIInput input = (UIInput) child;
-				input.setValid(true);
-				input.setSubmittedValue(null);
-				input.setValue(null);
-				input.setLocalValueSet(false);
-			}
-			initializeChildren(context, child);
-		}
-	}
+    protected void initializeChildren(FacesContext context,
+            UIComponent component) {
+        for (Iterator it = component.getFacetsAndChildren(); it.hasNext();) {
+            UIComponent child = (UIComponent) it.next();
+            if (child instanceof EditableValueHolder) {
+                EditableValueHolder editableValueHolder = (EditableValueHolder) child;
+                editableValueHolder.setValid(true);
+                editableValueHolder.setSubmittedValue(null);
+                editableValueHolder.setValue(null);
+                editableValueHolder.setLocalValueSet(false);
+            } else if (child instanceof ForEach) {
+                ForEach forEach = (ForEach) child;
+                forEach.initializeChildren(context);
+            }
+            initializeChildren(context, child);
+        }
+    }
 
 	protected boolean isFinished(FacesContext context) throws FacesException {
 		return context.getResponseComplete() || context.getRenderResponse();
