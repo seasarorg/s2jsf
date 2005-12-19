@@ -65,7 +65,8 @@ public class TagProcessorHandler extends DefaultHandler {
 			TagProcessor parentProcessor = peekProcessor();
 			if (parentProcessor != null) {
                 if (processor instanceof ElementProcessor &&
-                        JsfConstants.BR_ELEM.equalsIgnoreCase(qName)) {
+                        JsfConstants.BR_ELEM.equalsIgnoreCase(qName) &&
+						attributes.getLength() == 0) {
                     addText(parentProcessor, JsfConstants.BR_TAG);
                 } else {
                     parentProcessor.addChild(processor);
