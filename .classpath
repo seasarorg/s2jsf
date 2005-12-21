@@ -30,6 +30,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.29.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-extension-2.3.4.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.3.4.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.11.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.12.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
