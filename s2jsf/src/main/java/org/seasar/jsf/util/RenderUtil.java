@@ -46,7 +46,7 @@ import org.seasar.jsf.JsfConstants;
 
 /**
  * @author higa
- *  
+ * 
  */
 public final class RenderUtil {
 
@@ -135,7 +135,7 @@ public final class RenderUtil {
         }
         return converter.getAsObject(context, output, (String) submittedValue);
     }
-    
+
     public static Object getConvertedUIOutputValues(FacesContext context,
             UIOutput output, Object submittedValue) throws ConverterException {
 
@@ -150,28 +150,36 @@ public final class RenderUtil {
         Class valueType = getValueType(context, output);
         Object ret = Array.newInstance(valueType, length);
         for (int i = 0; i < length; ++i) {
-            Object o = converter.getAsObject(context, output, (String) Array.get(submittedValue, i));
+            Object o = converter.getAsObject(context, output, (String) Array
+                    .get(submittedValue, i));
             setArrayValue(ret, valueType, o, i);
         }
         return ret;
     }
-    
-    protected static void setArrayValue(Object array, Class valueType, Object value, int index) {
+
+    protected static void setArrayValue(Object array, Class valueType,
+            Object value, int index) {
         if (value == null) {
             return;
         }
         if (valueType == int.class) {
-            Array.setInt(array, index, IntegerConversionUtil.toPrimitiveInt(value));
+            Array.setInt(array, index, IntegerConversionUtil
+                    .toPrimitiveInt(value));
         } else if (valueType == double.class) {
-            Array.setDouble(array, index, DoubleConversionUtil.toPrimitiveDouble(value));
+            Array.setDouble(array, index, DoubleConversionUtil
+                    .toPrimitiveDouble(value));
         } else if (valueType == long.class) {
-            Array.setLong(array, index, LongConversionUtil.toPrimitiveLong(value));
+            Array.setLong(array, index, LongConversionUtil
+                    .toPrimitiveLong(value));
         } else if (valueType == float.class) {
-            Array.setFloat(array, index, FloatConversionUtil.toPrimitiveFloat(value));
+            Array.setFloat(array, index, FloatConversionUtil
+                    .toPrimitiveFloat(value));
         } else if (valueType == short.class) {
-            Array.setShort(array, index, ShortConversionUtil.toPrimitiveShort(value));
+            Array.setShort(array, index, ShortConversionUtil
+                    .toPrimitiveShort(value));
         } else if (valueType == boolean.class) {
-            Array.setBoolean(array, index, BooleanConversionUtil.toPrimitiveBoolean(value));
+            Array.setBoolean(array, index, BooleanConversionUtil
+                    .toPrimitiveBoolean(value));
         } else if (valueType == char.class) {
             Array.setChar(array, index, ((Character) value).charValue());
         }
@@ -199,7 +207,7 @@ public final class RenderUtil {
             return null;
         }
     }
-    
+
     public static Class getValueType(FacesContext context, UIOutput component) {
         ValueBinding vb = component.getValueBinding("value");
         if (vb == null) {
@@ -218,7 +226,7 @@ public final class RenderUtil {
 
     public static Renderer getRenderer(FacesContext context,
             UIComponent component) {
-        
+
         String rendererType = component.getRendererType();
         if (rendererType == null) {
             return null;
@@ -238,18 +246,52 @@ public final class RenderUtil {
                 return renderer.getConvertedValue(context, component,
                         submittedValue);
             } else if (submittedValue instanceof String) {
-                return getConvertedUIOutputValue(context, component, submittedValue);
+                return getConvertedUIOutputValue(context, component,
+                        submittedValue);
             }
         } catch (ConverterException e) {
             FacesMessage facesMessage = e.getFacesMessage();
             if (facesMessage != null) {
-                context.addMessage(component.getClientId(context), facesMessage);
+                context
+                        .addMessage(component.getClientId(context),
+                                facesMessage);
             } else {
-                context.addMessage(component.getClientId(context),
-                        MessageUtil.getErrorMessage(UIInput.CONVERSION_MESSAGE_ID, new Object[] { UIComponentUtil.getLabel(component) }));
+                context.addMessage(component.getClientId(context), MessageUtil
+                        .getErrorMessage(UIInput.CONVERSION_MESSAGE_ID,
+                                new Object[] { UIComponentUtil
+                                        .getLabel(component) }));
             }
             component.setValid(false);
         }
         return submittedValue;
     }
+
+    public static boolean renderAttributesWithOptionalStartElement(
+            ResponseWriter writer, UIComponent component, String elementName,
+            String[] attributes) throws IOException {
+        boolean startElementWritten = false;
+        for (int i = 0, len = attributes.length; i < len; i++) {
+            String attrName = attributes[i];
+            Object value = component.getAttributes().get(attrName);
+            if (!startElementWritten) {
+                writer.startElement(elementName, component);
+                startElementWritten = true;
+            }
+            renderAttribute(writer, attrName, value, attrName);
+        }
+        return startElementWritten;
+    }
+
+    public static boolean renderAttributeWithOptionalStartElement(
+            ResponseWriter writer, UIComponent component, String elementName,
+            String attrName, Object value, boolean startElementWritten)
+            throws IOException {
+        if (!startElementWritten) {
+            writer.startElement(elementName, component);
+            startElementWritten = true;
+        }
+        renderAttribute(writer, attrName, value, attrName);
+        return startElementWritten;
+    }
+
 }

@@ -28,7 +28,7 @@ import org.seasar.jsf.JsfConstants;
 
 /**
  * @author higa
- *  
+ * 
  */
 public final class UIComponentUtil {
 
@@ -36,10 +36,10 @@ public final class UIComponentUtil {
     }
 
     public static UIComponent findParent(UIComponent component,
-        Class parentClass) {
+            Class parentClass) {
 
         for (UIComponent parent = component.getParent(); parent != null; parent = parent
-            .getParent()) {
+                .getParent()) {
             if (parentClass.isInstance(parent)) {
                 return parent;
             }
@@ -49,7 +49,7 @@ public final class UIComponentUtil {
 
     public static String getLabel(UIComponent component) {
         String label = (String) component.getAttributes().get(
-            JsfConstants.LABEL_ATTR);
+                JsfConstants.LABEL_ATTR);
         if (label != null) {
             return label;
         }
@@ -57,7 +57,7 @@ public final class UIComponentUtil {
     }
 
     public static void callValidators(FacesContext context, UIInput input,
-        Object convertedValue) {
+            Object convertedValue) {
 
         Validator[] validators = input.getValidators();
         for (int i = 0; i < validators.length; ++i) {
@@ -69,7 +69,8 @@ public final class UIComponentUtil {
                 FacesMessage facesMessage = e.getFacesMessage();
                 if (facesMessage != null) {
                     context
-                        .addMessage(input.getClientId(context), facesMessage);
+                            .addMessage(input.getClientId(context),
+                                    facesMessage);
                 }
             }
         }
@@ -77,16 +78,16 @@ public final class UIComponentUtil {
         if (validatorBinding != null) {
             try {
                 validatorBinding.invoke(context, new Object[] { context, input,
-                    convertedValue });
+                        convertedValue });
             } catch (EvaluationException e) {
                 input.setValid(false);
                 Throwable cause = e.getCause();
                 if (cause instanceof ValidatorException) {
                     FacesMessage facesMessage = ((ValidatorException) cause)
-                        .getFacesMessage();
+                            .getFacesMessage();
                     if (facesMessage != null) {
                         context.addMessage(input.getClientId(context),
-                            facesMessage);
+                                facesMessage);
                     }
                 } else {
                     throw e;
@@ -97,7 +98,8 @@ public final class UIComponentUtil {
 
     public static boolean isDisabledOrReadOnly(UIComponent component) {
         return isTrue(component.getAttributes().get(JsfConstants.DISABLED_ATTR))
-            || isTrue(component.getAttributes().get(JsfConstants.READONLY_ATTR));
+                || isTrue(component.getAttributes().get(
+                        JsfConstants.READONLY_ATTR));
     }
 
     private static boolean isTrue(Object obj) {
@@ -105,6 +107,17 @@ public final class UIComponentUtil {
             return false;
         }
         return ((Boolean) obj).booleanValue();
+    }
+
+    public static boolean getBooleanAttribute(UIComponent component,
+            String attrName) {
+        return getBooleanAttribute(component, attrName, false);
+    }
+
+    public static boolean getBooleanAttribute(UIComponent component,
+            String attrName, boolean defaultValue) {
+        Boolean b = (Boolean) component.getAttributes().get(attrName);
+        return b != null ? b.booleanValue() : defaultValue;
     }
 
 }
