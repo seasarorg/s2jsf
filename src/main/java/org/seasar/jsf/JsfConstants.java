@@ -370,4 +370,34 @@ public interface JsfConstants {
 
     public String HIDDEN_SUBMIT_INPUT_VALUE = "1";
 
+    public String[] MESSAGE_PASSTHROUGH_ATTRIBUTES_WITHOUT_TITLE_STYLE_AND_STYLE_CLASS = (String[]) ArrayUtils
+            .concat(new String[] { DIR_ATTR, LANG_ATTR },
+                    EVENT_HANDLER_ATTRIBUTES);
+
+    public String ERROR_CLASS_ATTR = "errorClass";
+
+    public String ERROR_STYLE_ATTR = "errorStyle";
+
+    public String FATAL_CLASS_ATTR = "fatalClass";
+
+    public String FATAL_STYLE_ATTR = "fatalStyle";
+
+    public String INFO_CLASS_ATTR = "infoClass";
+
+    public String INFO_STYLE_ATTR = "infoStyle";
+
+    public String WARN_CLASS_ATTR = "warnClass";
+
+    public String WARN_STYLE_ATTR = "warnStyle";
+
+    public String TOOLTIP_ATTR = "tooltip";
+
+    public String FOR_ATTR = "for";
+
+    public String SHOW_SUMMARY_ATTR = "showSummary";
+
+    public String SHOW_DETAIL_ATTR = "showDetail";
+
+    public static final String UL_ELEM = "ul";
+    public static final String LI_ELEM = "li";
 }
