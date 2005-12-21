@@ -10,7 +10,8 @@
 
 <form>
 	<span m:inject="h:messages" m:globalOnly="false" m:showDetail="true"/>
-	<input type="text" m:value="#{converterDto.aaa}"
+	Hire Date:<br/>
+	<input type="text" m:value="#{converterDto.aaa}" m:label="Hire Date"
     	m:converter="#{inputDateTimeConverter}"/><br />
 	<span m:value="#{converterDto.aaa}"
 		m:converter="#{outputDateTimeConverter}"/><br />
