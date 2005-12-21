@@ -2,10 +2,10 @@
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
-	<component name="inputDateTimeConverter" class="javax.faces.convert.DateTimeConverter">
+	<component name="inputDateTimeConverter" class="org.seasar.jsf.convert.S2DateTimeConverter">
 		<property name="pattern">"yyyyMMdd"</property>
 	</component>
-	<component name="outputDateTimeConverter" class="javax.faces.convert.DateTimeConverter">
+	<component name="outputDateTimeConverter" class="org.seasar.jsf.convert.S2DateTimeConverter">
 		<property name="pattern">"yyyy/MM/dd"</property>
 	</component>
 	
