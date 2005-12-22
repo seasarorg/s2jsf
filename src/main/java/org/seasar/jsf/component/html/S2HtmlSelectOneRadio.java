@@ -75,7 +75,7 @@ public class S2HtmlSelectOneRadio extends HtmlSelectOneRadio {
         if (!isValid()) {
             return;
         }
-        if (isReadonly() || isDisabled()) {
+        if (isDisabled()) {
             return;
         }
         Object previousValue = getValue();
