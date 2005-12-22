@@ -78,7 +78,7 @@ public class S2HtmlSelectManyCheckbox extends HtmlSelectManyCheckbox {
         if (!isValid()) {
             return;
         }
-        if (isReadonly() || isDisabled()) {
+        if (isDisabled()) {
             return;
         }
         Object previousValue = getValue();
