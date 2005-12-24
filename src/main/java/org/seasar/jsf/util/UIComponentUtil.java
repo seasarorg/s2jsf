@@ -96,10 +96,8 @@ public final class UIComponentUtil {
         }
     }
 
-    public static boolean isDisabledOrReadOnly(UIComponent component) {
-        return isTrue(component.getAttributes().get(JsfConstants.DISABLED_ATTR))
-                || isTrue(component.getAttributes().get(
-                        JsfConstants.READONLY_ATTR));
+    public static boolean isDisabled(UIComponent component) {
+        return isTrue(component.getAttributes().get(JsfConstants.DISABLED_ATTR));
     }
 
     private static boolean isTrue(Object obj) {

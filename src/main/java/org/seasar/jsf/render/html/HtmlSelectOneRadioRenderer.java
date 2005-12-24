@@ -48,7 +48,7 @@ public class HtmlSelectOneRadioRenderer extends Renderer {
             }
             ((EditableValueHolder) component).setSubmittedValue(submittedValue);
         } else {
-            if (!UIComponentUtil.isDisabledOrReadOnly(component)) {
+            if (!UIComponentUtil.isDisabled(component)) {
                 ((EditableValueHolder) component).setSubmittedValue("");
             }
         }
