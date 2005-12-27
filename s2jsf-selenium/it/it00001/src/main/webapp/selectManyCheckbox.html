@@ -1,0 +1,25 @@
+<html xmlns:m="http://www.seasar.org/maya">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>SelectMamyCheckbox</title>
+</head>
+<body>
+<form m:id="form">
+    A:
+    <span m:inject="s:selectManyCheckbox" m:id="a" m:value="#{selectManyCheckboxDto.a}" disabled="true">
+        <input type="checkbox" m:inject="s:selectItem" m:itemLabel="A1" value="1" disabled="true"/>One
+        <input type="checkbox" m:inject="s:selectItem" m:itemLabel="A2" value="2" disabled="true"/>Two
+        <input type="checkbox" m:inject="s:selectItem" m:itemLabel="A3" value="3" disabled="true"/>Three
+    </span><br />
+
+    B:
+    <span m:inject="s:selectManyCheckbox" m:id="b" m:value="#{selectManyCheckboxDto.b}">
+        <input type="checkbox" m:inject="s:selectItem" m:itemLabel="B1" value="1"/>One
+        <input type="checkbox" m:inject="s:selectItem" m:itemLabel="B2" value="2"/>Two
+        <input type="checkbox" m:inject="s:selectItem" m:itemLabel="B3" value="3"/>Three
+    </span><br />
+
+	<input type="submit" m:id="doSubmit" value="submit"/>
+</form>
+</body>
+</html>

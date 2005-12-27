@@ -1,0 +1,51 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+	m:action="#{selectOneRadioAction.initialize}"
+>
+<html xmlns:m="http://www.seasar.org/maya">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>selectOneRadio</title>
+</head>
+<body>
+<form m:id="form">
+	disabled:
+	<span m:inject="s:selectOneRadio2" id="a" disabled="true" m:value="#{selectOneRadioDto.a}">
+	<input type="radio" m:id="a0"/>Non-selection
+	<input type="radio" m:id="a1" value="1"/>One
+	<input type="radio" m:id="a2" value="2"/>Two
+	<input type="radio" m:id="a3" value="3"/>Three
+	</span><br />
+
+	readonly:
+	<span m:inject="s:selectOneRadio2" id="b" readonly="true" m:value="#{selectOneRadioDto.b}">
+	<input type="radio" m:id="b0"/>Non-selection
+	<input type="radio" m:id="b1" value="1"/>One
+	<input type="radio" m:id="b2" value="2"/>Two
+	<input type="radio" m:id="b3" value="3"/>Three
+	</span><br />
+
+	normal:
+	<span m:inject="s:selectOneRadio2" id="c" m:value="#{selectOneRadioDto.c}">
+	<input type="radio" m:id="c0"/>Non-selection
+	<input type="radio" m:id="c1" value="1"/>One
+	<input type="radio" m:id="c2" value="2"/>Two
+	<input type="radio" m:id="c3" value="3"/>Three
+	</span><br />
+
+	<input type="submit" m:id="doSubmit" m:action="#{selectOneRadioAction.doSomething}" value="submit"/>
+	<hr/>
+
+	requested_A: <span id="requested_A" m:value="#{selectOneRadioDto.requested_A}">requested_A</span><br/>
+	requested_B: <span id="requested_B" m:value="#{selectOneRadioDto.requested_B}">requested_B</span><br/>
+	requested_C: <span id="requested_C" m:value="#{selectOneRadioDto.requested_C}">requested_C</span><br/>
+	<hr/>
+
+	dto_A: <span id="dto_A" m:value="#{selectOneRadioDto.dto_A}">dto_A</span><br/>
+	dto_B: <span id="dto_B" m:value="#{selectOneRadioDto.dto_B}">dto_B</span><br/>
+	dto_C: <span id="dto_C" m:value="#{selectOneRadioDto.dto_C}">dto_C</span><br/>
+	<hr/>
+
+</form>
+</body>
+</html>

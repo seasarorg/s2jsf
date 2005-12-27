@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:m="http://www.seasar.org/maya"
+			m:extends="/layout.html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<span m:inject="s:insert" m:name="body">
+<form id="testViewForm">
+
+	<table border="1" cellspacing="0">
+		<tr bgcolor="#C2D7FF">
+			<th>userID</th>
+			<th>userName</th>
+		</tr>
+		<span id="loop" m:inject="s:forEach" m:items="#{maintenanceUser.userList}" m:var="user">
+		<tr>
+			<td>
+				<a id="selectImmediate" m:action="#{maintenanceUser.select}" m:immediate="true">
+					<span m:value="#{user.userID}" />
+					<span m:inject="f:param" m:name="selectedUserID" m:value="#{user.userID}" />
+				</a>
+			</td>
+			<td>
+				<a id="selectNoImmediate" m:action="#{maintenanceUser.select}">
+					<span m:value="#{user.userName}" />
+					<span m:inject="f:param" m:name="selectedUserID" m:value="#{user.userID}" />
+				</a>
+			</td>
+		</tr>
+		</span>
+	</table>
+	<hr />
+	User Info:<br />
+	userID : <input type="text" id="userID" m:label="ユーザID" m:value="#{testForm.userID}" m:required="true" />&nbsp;<span class="ERRORMESSAGE"><span m:inject="h:message" m:for="userID" /></span><br />
+	userName : <input type="text" id="userName" m:label="ユーザ名" m:value="#{testForm.userName}" m:required="true" />&nbsp;<span class="ERRORMESSAGE"><span m:inject="h:message" m:for="userName" /></span><br />
+	<br />
+	ユーザ名：<br />
+	userID=<span id="spanUserId" m:value="#{testForm.userID}" /><br />
+	userName=<span id="spanUserName" m:value="#{testForm.userName}" /><br />
+
+</form>
+</span>
+</html>

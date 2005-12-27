@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="selectOneRadioDto" class="it00001.SelectOneRadioDto" instance="session">
+		<property name="a">"2"</property>
+		<property name="b">"3"</property>
+	</component>
+</components>

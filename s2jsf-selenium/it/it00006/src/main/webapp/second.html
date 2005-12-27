@@ -1,0 +1,22 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+	m:action="#{secondAction.initialize}"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Hoge</title>
+</head>
+<body>
+<form id="aaa">
+	<span m:inject="s:forEach" id="bbb" m:items="#{hogeList}" m:var="e" m:varindex="i">
+		<span m:value="#{i}">1</span>:
+		<span m:value="#{e.hoge}">aaa</span>
+		<input type="text" id="inputHoge" m:value="#{e.hoge}" />
+		<br/>
+	</span>
+	<br/>
+	<a href="first.html" id="goPrevious" m:immediate="true">previous</a><br/>
+	<input type="submit" m:id="doSubmit" value="submit"/>
+</form>
+</body>
+</html>

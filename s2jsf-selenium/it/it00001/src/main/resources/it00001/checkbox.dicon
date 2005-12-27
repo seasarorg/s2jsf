@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="checkBoxDto" class="it00001.CheckboxDto" instance="session">
+		<property name="a">"true"</property>
+		<property name="b">"false"</property>
+		<property name="c">"true"</property>
+		<property name="d">"false"</property>
+	</component>
+</components>

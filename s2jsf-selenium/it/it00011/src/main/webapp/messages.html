@@ -1,0 +1,29 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>messages</title>
+</head>
+<body>
+<form m:id="form">
+	messages:<br/>
+	<span id="globalMessages"
+		m:inject="h:messages"
+		m:globalOnly="true"
+		m:showDetail="true"
+		m:showSummary="true"
+		m:errorClass="fooErrorClass"
+		m:errorStyle="fooErrorStyle"
+		m:fatalClass="fooFatalClass"
+		m:fatalStyle="fooFatalStyle"
+		m:infoClass="fooInfoClass"
+		m:infoStyle="fooInfoStyle"
+		m:warnClass="fooWarnClass"
+		m:warnStyle="fooWarnStyle"
+	/>
+	<br/>
+	<input type="submit" m:id="showMessages" m:action="#{someAction.showMessages}" value="submit"/>
+</form>
+</body>
+</html>

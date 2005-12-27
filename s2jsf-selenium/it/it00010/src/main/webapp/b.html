@@ -1,0 +1,33 @@
+<html xmlns:m="http://www.seasar.org/maya">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Second Page</title>
+</head>
+<body>
+<form m:id="form">
+	second page.<br/>
+	<span m:inject="h:messages"/>
+	<ul>
+    <span id="loop"
+    	m:inject="s:forEach"
+    	m:items="#{hogeDto.items}"
+    	m:var="e"
+    	m:varIndex="i">
+    	<li>
+    		<span m:value="#{e.value}">hogehoge</span>
+    		<input type="text" id="val" m:value="#{e.value}" m:required="true"/>
+    	</li>
+	</span>
+	</ul>
+	<a href="a.html" id="a1" m:immediate="true">href, immediate="true"</a>
+	<br/>
+	<a href="a.html" id="a2" m:action="a" m:immediate="true">action, immediate="true"</a>
+	<br/>
+	<a href="a.html" id="a3" m:immediate="false">href, m:immediate="false"</a>
+	<br/>
+	<a href="a.html" id="a4" m:action="a" m:immediate="false">action, m:immediate="false"</a>
+	<br/>
+	
+</form>
+</body>
+</html>

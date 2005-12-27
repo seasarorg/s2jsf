@@ -1,0 +1,31 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+	m:action="#{checkboxAction.initialize}"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Checkbox</title>
+</head>
+<body>
+<form m:id="form">
+	disabled: <input type="checkbox" m:id="a" disabled="true" m:value="#{checkboxDto.a}"/>
+	<span m:value="#{checkboxDto.a}"/><br/>
+	readonly: <input type="checkbox" m:id="b" readonly="true" m:value="#{checkboxDto.b}"/>
+	<span m:value="#{checkboxDto.b}"/><br/>
+	normal: <input type="checkbox" m:id="c" m:value="#{checkboxDto.c}"/>
+	<span m:value="#{checkboxDto.c}"/><br/>
+	<br/>
+	<input type="submit" m:id="doSubmit" m:action="#{checkboxAction.doSomething}" value="submit"/>
+	<hr/>
+
+	requested_A: <span id="requested_A" m:value="#{checkboxDto.requested_A}">requested_A</span><br/>
+	requested_B: <span id="requested_B" m:value="#{checkboxDto.requested_B}">requested_B</span><br/>
+	requested_C: <span id="requested_C" m:value="#{checkboxDto.requested_C}">requested_C</span><br/>
+	<hr/>
+
+	dto_A: <span id="dto_A" m:value="#{checkboxDto.dto_A}">dto_A</span><br/>
+	dto_B: <span id="dto_B" m:value="#{checkboxDto.dto_B}">dto_B</span><br/>
+	dto_C: <span id="dto_C" m:value="#{checkboxDto.dto_C}">dto_C</span><br/>
+</form>
+</body>
+</html>

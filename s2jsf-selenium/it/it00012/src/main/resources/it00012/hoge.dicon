@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+
+	<component name="inputTextAction" class="it00012.InputTextActionImpl" instance="request"/>
+	<component name="inputTextDto" class="it00012.InputTextDto" instance="request"/>
+
+	<component name="checkboxAction" class="it00012.CheckboxActionImpl" instance="request"/>
+	<component name="checkboxDto" class="it00012.CheckboxDto" instance="request"/>
+
+	<component name="inputSecretAction" class="it00012.InputSecretActionImpl" instance="request"/>
+	<component name="inputSecretDto" class="it00012.InputSecretDto" instance="request"/>
+
+	<component name="selectManyCheckboxAction" class="it00012.SelectManyCheckboxActionImpl" instance="request"/>
+	<component name="selectManyCheckboxDto" class="it00012.SelectManyCheckboxDto" instance="request"/>
+
+	<component name="selectManyListboxAction" class="it00012.SelectManyListboxActionImpl" instance="request"/>
+	<component name="selectManyListboxDto" class="it00012.SelectManyListboxDto" instance="request"/>
+
+	<component name="selectOneMenuAction" class="it00012.SelectOneMenuActionImpl" instance="request"/>
+	<component name="selectOneMenuDto" class="it00012.SelectOneMenuDto" instance="request"/>
+
+	<component name="selectOneRadioAction" class="it00012.SelectOneRadioActionImpl" instance="request"/>
+	<component name="selectOneRadioDto" class="it00012.SelectOneRadioDto" instance="request"/>
+
+	<component name="textareaAction" class="it00012.TextareaActionImpl" instance="request"/>
+	<component name="textareaDto" class="it00012.TextareaDto" instance="request"/>
+
+</components>

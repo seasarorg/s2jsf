@@ -1,0 +1,80 @@
+<html xmlns:m="http://www.seasar.org/maya">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>First Page</title>
+</head>
+<body>
+<form m:id="form">
+	required:
+	<input type="text" id="a" m:label="あ" m:required="true"/>
+	<span id="message_a"><span m:inject="h:message" m:for="a"/></span>
+	<br/>
+
+	BigDecimalConverter:
+	<input type="text" id="bigDecimal" m:label="びっぐでしまる" m:value="#{converterDto.bigDecimal}"/>
+	<span id="message_bigDecimal"><span m:inject="h:message" m:for="bigDecimal"/></span>
+	<br/>
+
+	BigIntegerConverter:
+	<input type="text" id="bigInteger" m:label="びっぐいんてじゃ" m:value="#{converterDto.bigInteger}"/>
+	<span id="message_bigInteger"><span m:inject="h:message" m:for="bigInteger"/></span>
+	<br/>
+
+	BigIntegerConverter:
+	<input type="text" id="byte" m:label="ばいと" m:value="#{converterDto.byte}"/>
+	<span id="message_byte"><span m:inject="h:message" m:for="byte"/></span>
+	<br/>
+
+	CharacterConverter:
+	<input type="text" id="character" m:label="きゃらくた" m:value="#{converterDto.character}"/>
+	<span id="message_character"><span m:inject="h:message" m:for="character"/></span>
+	<br/>
+
+	DateTimeConverter:
+	<input type="text" id="dateTime" m:label="でーとたいむ" m:value="#{converterDto.dateTime}"/>
+	<span id="message_dateTime"><span m:inject="h:message" m:for="dateTime"/></span>
+	<br/>
+
+	DateTimeConverter(フォーマット指定):
+	<input type="text" id="dateTime2" m:label="でーとたいむ2" m:value="#{converterDto.dateTime2}">
+		<span m:inject="f:convertDateTime" dateStyle="full"/>
+	</input>
+	<span id="message_dateTime2"><span m:inject="h:message" m:for="dateTime2"/></span>
+	<br/>
+
+	DoubleConverter:
+	<input type="text" id="double" m:label="だぶる" m:value="#{converterDto.double}"/>
+	<span id="message_double"><span m:inject="h:message" m:for="double"/></span>
+	<br/>
+
+	FloatConverter:
+	<input type="text" id="float" m:label="ふろーと" m:value="#{converterDto.float}"/>
+	<span id="message_float"><span m:inject="h:message" m:for="float"/></span>
+	<br/>
+
+	IntegerConverter:
+	<input type="text" id="integer" m:label="いんてじゃ" m:value="#{converterDto.integer}"/>
+	<span id="message_integer"><span m:inject="h:message" m:for="integer"/></span>
+	<br/>
+
+	LongConverter:
+	<input type="text" id="long" m:label="ろんぐ" m:value="#{converterDto.long}"/>
+	<span id="message_long"><span m:inject="h:message" m:for="long"/></span>
+	<br/>
+
+	NumberConverter:
+	<input type="text" id="number" m:label="なんば" m:value="#{converterDto.number}">
+		<span m:inject="f:convertNumber" format="0,###.###"/>
+	</input>
+	<span id="message_number"><span m:inject="h:message" m:for="number"/></span>
+	<br/>
+
+	ShortConverter:
+	<input type="text" id="short" m:label="しょーと" m:value="#{converterDto.short}"/>
+	<span id="message_short"><span m:inject="h:message" m:for="short"/></span>
+	<br/>
+
+	<input type="submit" m:id="doSubmit" value="submit"/>
+</form>
+</body>
+</html>

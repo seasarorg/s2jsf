@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<include path="jsf.dicon"/>
+	<include path="it00001/inputText.dicon"/>
+	<include path="it00001/inputSecret.dicon"/>
+	<include path="it00001/checkbox.dicon"/>
+	<include path="it00001/selectManyCheckbox.dicon"/>
+	<include path="it00001/selectManyListbox.dicon"/>
+	<include path="it00001/selectOneRadio.dicon"/>
+	<include path="it00001/selectOneMenu.dicon"/>
+	<include path="it00001/textarea.dicon"/>
+</components>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="selectOneMenuDto" class="it00001.SelectOneMenuDto" instance="session">
+		<property name="a">"2"</property>
+		<property name="b">"1"</property>
+	</component>
+</components>

@@ -1,0 +1,26 @@
+<html xmlns:m="http://www.seasar.org/maya">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>SelectOneRadio</title>
+</head>
+<body>
+<form m:id="form">
+	<span m:inject="s:selectOneRadio2" id="a" m:disabled="true"
+		m:value="#{selectOneRadioDto.a}">
+	<input type="radio" m:id="a0"/>Non-selection
+	<input type="radio" m:id="a1" value="1"/>One
+	<input type="radio" m:id="a2" value="2"/>Two
+	<input type="radio" m:id="a3" value="3"/>Three
+	</span><br />
+	<span m:inject="s:selectOneRadio2" id="b" m:disabled="false"
+		m:value="#{selectOneRadioDto.b}">
+	<input type="radio" m:id="b0"/>Non-selection
+	<input type="radio" m:id="b1" value="1"/>One
+	<input type="radio" m:id="b2" value="2"/>Two
+	<input type="radio" m:id="b3" value="3"/>Three
+	</span><br />
+
+	<input type="submit" m:id="doSubmit" value="submit"/>
+</form>
+</body>
+</html>

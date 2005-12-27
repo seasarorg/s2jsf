@@ -1,0 +1,29 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+	m:action="#{inputTextAction.initialize}"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Hoge</title>
+</head>
+<body>
+<form m:id="form">
+	disabled: <input type="text" id="a" m:value="#{inputTextDto.a}" disabled="true"/><br/>
+	readonly: <input type="text" id="b" m:value="#{inputTextDto.b}" readonly="true"/><br/>
+	normal: <input type="text" id="c" m:value="#{inputTextDto.c}"/><br/>
+	<br/>
+	<input type="submit" m:id="doSubmit" m:action="#{inputTextAction.doSomething}" value="submit"/>
+	<hr/>
+
+	requested_A: <span id="requested_A" m:value="#{inputTextDto.requested_A}">requested_A</span><br/>
+	requested_B: <span id="requested_B" m:value="#{inputTextDto.requested_B}">requested_B</span><br/>
+	requested_C: <span id="requested_C" m:value="#{inputTextDto.requested_C}">requested_C</span><br/>
+	<hr/>
+
+	dto_A: <span id="dto_A" m:value="#{inputTextDto.dto_A}">dto_A</span><br/>
+	dto_B: <span id="dto_B" m:value="#{inputTextDto.dto_B}">dto_B</span><br/>
+	dto_C: <span id="dto_C" m:value="#{inputTextDto.dto_C}">dto_C</span><br/>
+	<hr/>
+</form>
+</body>
+</html>

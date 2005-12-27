@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="selectManyListboxDto" class="it00001.SelectManyListboxDto" instance="session">
+		<property name="a">new String[] {"1", "3"}</property>
+		<property name="b">new String[] {"3"}</property>
+	</component>
+</components>

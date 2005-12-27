@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="converterDto" class="it00009.ConverterDto" instance="request">
+	</component>
+	<component name="booleanDto" class="it00009.BooleanDto" instance="request">
+	</component>
+</components>

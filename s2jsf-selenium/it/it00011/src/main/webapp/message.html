@@ -1,0 +1,84 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>message</title>
+</head>
+<body>
+<form m:id="form">
+	each message:
+	<br/>
+	<span id="a">a:</span> 
+	<span
+		id="a_message"
+		m:inject="h:message"
+		m:for="a"
+		m:showDetail="true"
+		m:showSummary="true"
+		m:errorClass="fooErrorClass"
+		m:errorStyle="fooErrorStyle"
+		m:fatalClass="fooFatalClass"
+		m:fatalStyle="fooFatalStyle"
+		m:infoClass="fooInfoClass"
+		m:infoStyle="fooInfoStyle"
+		m:warnClass="fooWarnClass"
+		m:warnStyle="fooWarnStyle"
+	/>
+	<br/>
+	<span id="b">b:</span> 
+	<span
+		id="b_message"
+		m:inject="h:message"
+		m:for="b"
+		m:showDetail="true"
+		m:showSummary="true"
+		m:errorClass="fooErrorClass"
+		m:errorStyle="fooErrorStyle"
+		m:fatalClass="fooFatalClass"
+		m:fatalStyle="fooFatalStyle"
+		m:infoClass="fooInfoClass"
+		m:infoStyle="fooInfoStyle"
+		m:warnClass="fooWarnClass"
+		m:warnStyle="fooWarnStyle"
+	/>
+	<br/>
+	<span id="c">c:</span> 
+	<span
+		id="c_message"
+		m:inject="h:message"
+		m:for="c"
+		m:showDetail="true"
+		m:showSummary="true"
+		m:errorClass="fooErrorClass"
+		m:errorStyle="fooErrorStyle"
+		m:fatalClass="fooFatalClass"
+		m:fatalStyle="fooFatalStyle"
+		m:infoClass="fooInfoClass"
+		m:infoStyle="fooInfoStyle"
+		m:warnClass="fooWarnClass"
+		m:warnStyle="fooWarnStyle"
+	/>
+	<br/>
+	<span id="d">d:</span> 
+	<span
+		id="d_message"
+		m:inject="h:message"
+		m:for="d"
+		m:showDetail="true"
+		m:showSummary="true"
+		m:errorClass="fooErrorClass"
+		m:errorStyle="fooErrorStyle"
+		m:fatalClass="fooFatalClass"
+		m:fatalStyle="fooFatalStyle"
+		m:infoClass="fooInfoClass"
+		m:infoStyle="fooInfoStyle"
+		m:warnClass="fooWarnClass"
+		m:warnStyle="fooWarnStyle"
+	/>
+	<br/>
+	<br/>
+	<input type="submit" m:id="showMessage" m:action="#{someAction.showMessage}" value="submit"/>
+</form>
+</body>
+</html>
