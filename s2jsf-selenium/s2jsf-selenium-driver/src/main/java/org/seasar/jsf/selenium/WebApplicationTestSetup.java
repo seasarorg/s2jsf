@@ -46,6 +46,7 @@ public class WebApplicationTestSetup extends TestSetup {
         ProjectBuildingException, ArtifactResolutionException,
         ArtifactNotFoundException, CycleDetectedException,
         LifecycleExecutionException, BuildFailureException {
+
         if (_testClass == null) {
             NullPointerException npe = new NullPointerException(
                 "_testClass is null");
