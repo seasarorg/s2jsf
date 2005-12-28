@@ -54,9 +54,7 @@ public class WebApplicationTestSetup extends TestSetup {
             throw npe;
         }
         MavenEmbedder maven = new MavenEmbedder();
-        ClassLoader classLoader = Thread.currentThread()
-            .getContextClassLoader();
-        maven.setClassLoader(classLoader);
+        maven.setClassLoader(Thread.currentThread().getContextClassLoader());
         maven.setLogger(new MavenEmbedderConsoleLogger());
         maven.start();
 
@@ -77,6 +75,7 @@ public class WebApplicationTestSetup extends TestSetup {
                 "resources:testResources", "compiler:testCompile",
                 "war:exploded" }), eventMonitor, new ConsoleDownloadMonitor(),
             prop, projectDirectory);
+        maven.stop();
     }
 
     protected File getProjectPomFile() {
