@@ -54,12 +54,11 @@ public class HtmlElementRenderer extends Renderer {
 	public void encodeEnd(FacesContext facesContext, UIComponent component)
 			throws IOException {
 
-		if (!component.isRendered()) {
-			return;
+	    UIElement elem = (UIElement) component;
+	    ResponseWriter writer = facesContext.getResponseWriter();
+		if (component.isRendered()) {
+		    writer.endElement(elem.getTagName());
 		}
-		ResponseWriter writer = facesContext.getResponseWriter();
-        UIElement elem = (UIElement) component;
-		writer.endElement(elem.getTagName());
         String afterContents = elem.getAfterContents();
         if (afterContents != null) {
             writer.write(afterContents);
