@@ -8,12 +8,13 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
- * [Seasar-user:3045]
+ * [#7749][Seasar-user:3045]
  * 
  * readonlyの場合はDTOへ入力値をセットするようにする。
  * 
- * これまではdisabledとreadonlyを同様に扱っていたが、
- * disabledのみを特殊な扱いにする。
+ * これまではdisabledとreadonlyはDTOへ値をセットしていなかった。
+ * 
+ * disabledとreadonlyを同様に扱っていたが、disabledのみを特殊な扱いにする。
  * 
  * submit時に、disabledはrequest parameterで渡ってこないが
  * readonlyは渡ってくるため、この処置が可能となる。

@@ -9,6 +9,8 @@ import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
 
 /*
+ * [#7673][Seasar-user:2725]
+ * 
  * ErrorPageManagerで遷移した先で再度例外が発生した場合に、
  * dispatchが無限ループしてしまう問題。
  */

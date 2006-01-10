@@ -12,7 +12,10 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
+ * [#7682]
+ * 
  * redirectの場合にaタグ配下のf:paramが効かない問題。
+ * -> [XXX] pending
  */
 public class It00008Test extends SeleneseTestCase {
 

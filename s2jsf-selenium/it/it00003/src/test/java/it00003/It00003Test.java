@@ -12,6 +12,8 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
+ * [#7576]
+ * 
  * org.apache.myfaces.ALLOW_JAVASCRIPTが"false"時に、aタグでの遷移が効かない
  */
 public class It00003Test extends SeleneseTestCase {

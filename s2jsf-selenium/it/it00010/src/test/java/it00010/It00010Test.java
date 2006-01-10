@@ -8,8 +8,10 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
- * [Seasar-user:2969]
+ * [#7675][Seasar-user:2969]
  * 
+ * ForEachの子コンポーネントがlifecycle開始時に初期化されない問題。
+ * 問題の結果として、immediate=true時にsubmittedValueが残ってしまっていた。
  */
 public class It00010Test extends SeleneseTestCase {
 

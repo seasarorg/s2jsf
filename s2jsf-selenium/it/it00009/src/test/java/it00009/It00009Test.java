@@ -8,6 +8,8 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
+ * [#7699]
+ * 
  * convertエラー時に、idではなくlabalからエラーメッセージを構築する。
  */
 public class It00009Test extends SeleneseTestCase {

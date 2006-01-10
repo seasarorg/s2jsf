@@ -8,6 +8,8 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
+ * [#7647][Seasar-user:2955]
+ * 
  * 遷移前後の画面でformのidが等しい場合に、
  * 遷移先のinput値が破壊されてしまう問題。
  * 

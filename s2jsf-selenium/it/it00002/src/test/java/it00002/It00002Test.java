@@ -8,7 +8,9 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
- * [Seasar-user:2812]Listがネストしている際に、内側のListの要素数が異なると
+ * [#7505][Seasar-user:2812]
+ * 
+ * Listがネストしている際に、内側のListの要素数が異なると
  * submit時にjava.lang.ArrayIndexOutOfBoundsExceptionが発生する。
  */
 public class It00002Test extends SeleneseTestCase {

@@ -8,7 +8,9 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
- * [Seasar-user:2811]
+ * [#7503][Seasar-user:2811]
+ * 
+ * disabled=true時に""が入力されたと認識されてしまう問題。
  */
 public class It00001Test extends SeleneseTestCase {
 

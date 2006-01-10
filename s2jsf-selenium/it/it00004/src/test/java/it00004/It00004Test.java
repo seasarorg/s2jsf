@@ -8,7 +8,9 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
- * javax.faces.STATE_SAVING_METHOD=client時に状態が保存されない問題
+ * [#7577]
+ * 
+ * javax.faces.STATE_SAVING_METHOD=client時に状態が保存されない問題。
  * 
  * it00002のweb.xmlだけを変更している。
  */

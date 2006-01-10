@@ -9,7 +9,9 @@ import com.thoughtworks.selenium.Selenium;
 import com.thoughtworks.selenium.SeleniumException;
 
 /*
- * [Seasar-user:2788]リソースファイルに書いたbrタグが、h:messageで表示
+ * [#7645][Seasar-user:2788]
+ * 
+ * リソースファイルに書いたbrタグが、h:messageで表示
  * する際にURLエンコードされてしまう。
  * 
  * h:message, h:messagesでリソースファイルから出力する文字列では、タグを

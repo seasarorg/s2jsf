@@ -33,7 +33,7 @@ public class It00005Test extends SeleneseTestCase {
 
             selenium.type("testViewForm:userID", "12");
 
-            // john T carter
+            // "john T carter"
             selenium.clickAndWait("testViewForm:loop_0:selectNoImmediate");
         }
         {
