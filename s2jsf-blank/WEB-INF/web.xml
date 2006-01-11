@@ -22,6 +22,7 @@
 
 <web-app>
 
+    <!--
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>
@@ -33,6 +34,7 @@
             See JSF 1.0 PRD2, 10.3.2
         </description>
     </context-param>
+    -->
 
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
