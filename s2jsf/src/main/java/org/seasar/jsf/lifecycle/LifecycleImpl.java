@@ -68,7 +68,6 @@ public class LifecycleImpl extends Lifecycle {
 
     public void execute(FacesContext context) throws FacesException {
         try {
-            setupParams(context);
             boolean postback = restoreView(context);
             if (isFinished(context)) {
                 return;
@@ -212,6 +211,7 @@ public class LifecycleImpl extends Lifecycle {
         beforePhase(context, PhaseId.RENDER_RESPONSE);
         Application application = context.getApplication();
         ViewHandler viewHandler = application.getViewHandler();
+        setupParams(context);
         try {
             viewHandler.renderView(context, context.getViewRoot());
         } catch (IOException e) {
@@ -230,13 +230,11 @@ public class LifecycleImpl extends Lifecycle {
     }
 
     protected String getViewIdFromSession(ExternalContext externalContext) {
-
         return (String) externalContext.getSessionMap().get(VIEW_ID_ATTR);
     }
 
     protected void saveViewIdToSession(ExternalContext externalContext,
             String viewId) {
-
         externalContext.getSessionMap().put(VIEW_ID_ATTR, viewId);
     }
 
@@ -304,4 +302,5 @@ public class LifecycleImpl extends Lifecycle {
         S2UIViewRoot viewRoot = (S2UIViewRoot) context.getViewRoot();
         return viewRoot.getEventSize() > 0;
     }
+
 }
