@@ -49,193 +49,196 @@ import org.seasar.jsf.util.ExternalContextUtil;
 
 public class LifecycleImpl extends Lifecycle {
 
-	private static final String VIEW_ID_ATTR = LifecycleImpl.class.getName()
-			+ ".VIEW_ID";
+    private static final String VIEW_ID_ATTR = LifecycleImpl.class.getName()
+            + ".VIEW_ID";
 
-	private static final String EXECUTED_ATTR = LifecycleImpl.class.getName()
-			+ ".EXECUTED";
+    private static final String EXECUTED_ATTR = LifecycleImpl.class.getName()
+            + ".EXECUTED";
 
-	private static final String REDIRECTED_TIME_ATTR = LifecycleImpl.class
-			.getName()
-			+ ".REDIRECTED_TIME";
+    private static final String REDIRECTED_TIME_ATTR = LifecycleImpl.class
+            .getName()
+            + ".REDIRECTED_TIME";
 
-	private static final long REDIRECT_WAIT_TIME = 2000;
+    private static final long REDIRECT_WAIT_TIME = 2000;
 
-	private PhaseListener[] phaseListeners = new PhaseListener[0];
+    private PhaseListener[] phaseListeners = new PhaseListener[0];
 
-	public LifecycleImpl() {
-	}
+    public LifecycleImpl() {
+    }
 
-	public void execute(FacesContext context) throws FacesException {
-		try {
+    public void execute(FacesContext context) throws FacesException {
+        try {
             setupParams(context);
-			boolean postback = restoreView(context);
-			if (isFinished(context)) {
-				return;
-			}
-			ExternalContext extContext = context.getExternalContext();
-			Map sessionMap = extContext.getSessionMap();
-			Long redirectedTime = (Long) sessionMap.get(REDIRECTED_TIME_ATTR);
-			if (redirectedTime != null) {
-				sessionMap.remove(REDIRECTED_TIME_ATTR);
-				if (System.currentTimeMillis() - redirectedTime.longValue() < REDIRECT_WAIT_TIME) {
-					context.renderResponse();
-					return;
-				}
-			}
-			Map requestMap = extContext.getRequestMap();
-			if (requestMap.containsKey(EXECUTED_ATTR)) {
-				context.renderResponse();
-				return;
-			}
-			requestMap.put(EXECUTED_ATTR, null);
-			applyRequestValues(context);
-			if (isFinished(context)) {
+            boolean postback = restoreView(context);
+            if (isFinished(context)) {
+                return;
+            }
+            ExternalContext extContext = context.getExternalContext();
+            Map sessionMap = extContext.getSessionMap();
+            Long redirectedTime = (Long) sessionMap.get(REDIRECTED_TIME_ATTR);
+            if (redirectedTime != null) {
+                sessionMap.remove(REDIRECTED_TIME_ATTR);
+                if (System.currentTimeMillis() - redirectedTime.longValue() < REDIRECT_WAIT_TIME) {
+                    context.renderResponse();
+                    return;
+                }
+            }
+            Map requestMap = extContext.getRequestMap();
+            if (requestMap.containsKey(EXECUTED_ATTR)) {
+                context.renderResponse();
+                return;
+            }
+            requestMap.put(EXECUTED_ATTR, null);
+            applyRequestValues(context);
+            if (isFinished(context)) {
                 initializeChildren(context, context.getViewRoot());
-				return;
-			}
-			if (postback || hasEvent(context)) {
-				processValidations(context);
-				if (isFinished(context)) {
-					return;
-				}
-			}
-			updateModelValues(context);
-			if (isFinished(context)) {
-				return;
-			}
-			invokeApplication(context);
-			if (isGetRedirect(context)) {
-				sessionMap.put(REDIRECTED_TIME_ATTR, new Long(System
-						.currentTimeMillis()));
-			}
-		} catch (EvaluationException ex) {
-			Throwable cause = ex.getCause();
-			if (cause instanceof RuntimeException) {
-				throw (RuntimeException) cause;
-			} else if (cause instanceof Error) {
-				throw (Error) cause;
-			} else {
-				throw ex;
-			}
-		}
-	}
-    
+                return;
+            }
+            if (postback || hasEvent(context)) {
+                processValidations(context);
+                if (isFinished(context)) {
+                    return;
+                }
+            }
+            updateModelValues(context);
+            if (isFinished(context)) {
+                return;
+            }
+            invokeApplication(context);
+            if (isGetRedirect(context)) {
+                sessionMap.put(REDIRECTED_TIME_ATTR, new Long(System
+                        .currentTimeMillis()));
+            }
+        } catch (EvaluationException ex) {
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else if (cause instanceof Error) {
+                throw (Error) cause;
+            } else {
+                throw ex;
+            }
+        }
+    }
+
     protected void setupParams(FacesContext context) {
         ExternalContext externalContext = context.getExternalContext();
         String viewId = ExternalContextUtil.getViewId(externalContext);
         S2Container container = SingletonS2ContainerFactory.getContainer();
         ServletRequest request = container.getRequest();
-        JsfConfig jsfConfig = (JsfConfig) container.getComponent(JsfConfig.class);
-        ViewTemplateFactory viewTemplateFactory = (ViewTemplateFactory) container.getComponent(ViewTemplateFactory.class);
+        JsfConfig jsfConfig = (JsfConfig) container
+                .getComponent(JsfConfig.class);
+        ViewTemplateFactory viewTemplateFactory = (ViewTemplateFactory) container
+                .getComponent(ViewTemplateFactory.class);
         ViewTemplate viewTemplate = viewTemplateFactory.getViewTemplate(viewId);
-        ViewProcessor viewProcessor = (ViewProcessor) viewTemplate.getRootTagProcessor();
+        ViewProcessor viewProcessor = (ViewProcessor) viewTemplate
+                .getRootTagProcessor();
         Map params = new HashMap();
         viewProcessor.setupParams(jsfConfig, params);
-        for (Iterator i = params.keySet().iterator(); i.hasNext(); ) {
+        for (Iterator i = params.keySet().iterator(); i.hasNext();) {
             String key = (String) i.next();
             Object value = params.get(key);
             request.setAttribute(key, value);
         }
     }
 
-	protected boolean restoreView(FacesContext context) throws FacesException {
-		beforePhase(context, PhaseId.RESTORE_VIEW);
-		ExternalContext externalContext = context.getExternalContext();
-		String viewId = ExternalContextUtil.getViewId(externalContext);
-		Application application = context.getApplication();
-		ViewHandler viewHandler = application.getViewHandler();
-		UIViewRoot viewRoot = viewHandler.restoreView(context, viewId);
-		if (viewRoot == null) {
-			viewRoot = viewHandler.createView(context, viewId);
-			//context.renderResponse();
-		}
-		String previousViewId = getViewIdFromSession(externalContext);
-		context.setViewRoot(viewRoot);
-		saveViewIdToSession(externalContext, viewId);
-		initializeChildren(context, viewRoot);
-		if (externalContext.getRequestParameterMap().isEmpty()) {
-			context.renderResponse();
-		}
-		afterPhase(context, PhaseId.RESTORE_VIEW);
-		return viewId.equals(previousViewId);
-	}
+    protected boolean restoreView(FacesContext context) throws FacesException {
+        beforePhase(context, PhaseId.RESTORE_VIEW);
+        ExternalContext externalContext = context.getExternalContext();
+        String viewId = ExternalContextUtil.getViewId(externalContext);
+        Application application = context.getApplication();
+        ViewHandler viewHandler = application.getViewHandler();
+        UIViewRoot viewRoot = viewHandler.restoreView(context, viewId);
+        if (viewRoot == null) {
+            viewRoot = viewHandler.createView(context, viewId);
+            // context.renderResponse();
+        }
+        String previousViewId = getViewIdFromSession(externalContext);
+        context.setViewRoot(viewRoot);
+        saveViewIdToSession(externalContext, viewId);
+        initializeChildren(context, viewRoot);
+        if (externalContext.getRequestParameterMap().isEmpty()) {
+            context.renderResponse();
+        }
+        afterPhase(context, PhaseId.RESTORE_VIEW);
+        return viewId.equals(previousViewId);
+    }
 
-	protected void applyRequestValues(FacesContext context)
-			throws FacesException {
+    protected void applyRequestValues(FacesContext context)
+            throws FacesException {
 
-		beforePhase(context, PhaseId.APPLY_REQUEST_VALUES);
-		context.getViewRoot().processDecodes(context);
-		afterPhase(context, PhaseId.APPLY_REQUEST_VALUES);
-	}
+        beforePhase(context, PhaseId.APPLY_REQUEST_VALUES);
+        context.getViewRoot().processDecodes(context);
+        afterPhase(context, PhaseId.APPLY_REQUEST_VALUES);
+    }
 
-	protected void processValidations(FacesContext context)
-			throws FacesException {
+    protected void processValidations(FacesContext context)
+            throws FacesException {
 
-		beforePhase(context, PhaseId.PROCESS_VALIDATIONS);
-		context.getViewRoot().processValidators(context);
-		afterPhase(context, PhaseId.PROCESS_VALIDATIONS);
-	}
+        beforePhase(context, PhaseId.PROCESS_VALIDATIONS);
+        context.getViewRoot().processValidators(context);
+        afterPhase(context, PhaseId.PROCESS_VALIDATIONS);
+    }
 
-	protected void updateModelValues(FacesContext context)
-			throws FacesException {
+    protected void updateModelValues(FacesContext context)
+            throws FacesException {
 
-		beforePhase(context, PhaseId.UPDATE_MODEL_VALUES);
-		context.getViewRoot().processUpdates(context);
-		afterPhase(context, PhaseId.UPDATE_MODEL_VALUES);
-	}
+        beforePhase(context, PhaseId.UPDATE_MODEL_VALUES);
+        context.getViewRoot().processUpdates(context);
+        afterPhase(context, PhaseId.UPDATE_MODEL_VALUES);
+    }
 
-	protected void invokeApplication(FacesContext context)
-			throws FacesException {
+    protected void invokeApplication(FacesContext context)
+            throws FacesException {
 
-		beforePhase(context, PhaseId.INVOKE_APPLICATION);
-		context.getViewRoot().processApplication(context);
-		afterPhase(context, PhaseId.INVOKE_APPLICATION);
-	}
-	
-	protected boolean isGetRedirect(FacesContext context) {
-		if (!context.getResponseComplete()) {
-			return false;
-		}
-		ExternalContext extContext = context.getExternalContext();
-		HttpServletRequest request = ExternalContextUtil.getRequest(extContext);
-		return request.getMethod().equals("GET");
-	}
+        beforePhase(context, PhaseId.INVOKE_APPLICATION);
+        context.getViewRoot().processApplication(context);
+        afterPhase(context, PhaseId.INVOKE_APPLICATION);
+    }
 
-	public void render(FacesContext context) throws FacesException {
-		if (context.getResponseComplete()) {
-			return;
-		}
-		beforePhase(context, PhaseId.RENDER_RESPONSE);
-		Application application = context.getApplication();
-		ViewHandler viewHandler = application.getViewHandler();
-		try {
-			viewHandler.renderView(context, context.getViewRoot());
-		} catch (IOException e) {
-			throw new FacesException(e.getMessage(), e);
-		} catch (EvaluationException ex) {
-			Throwable cause = ex.getCause();
-			if (cause instanceof RuntimeException) {
-				throw (RuntimeException) cause;
-			} else if (cause instanceof Error) {
-				throw (Error) cause;
-			} else {
-				throw ex;
-			}
-		}
-		afterPhase(context, PhaseId.RENDER_RESPONSE);
-	}
+    protected boolean isGetRedirect(FacesContext context) {
+        if (!context.getResponseComplete()) {
+            return false;
+        }
+        ExternalContext extContext = context.getExternalContext();
+        HttpServletRequest request = ExternalContextUtil.getRequest(extContext);
+        return request.getMethod().equals("GET");
+    }
 
-	protected String getViewIdFromSession(ExternalContext externalContext) {
+    public void render(FacesContext context) throws FacesException {
+        if (context.getResponseComplete()) {
+            return;
+        }
+        beforePhase(context, PhaseId.RENDER_RESPONSE);
+        Application application = context.getApplication();
+        ViewHandler viewHandler = application.getViewHandler();
+        try {
+            viewHandler.renderView(context, context.getViewRoot());
+        } catch (IOException e) {
+            throw new FacesException(e.getMessage(), e);
+        } catch (EvaluationException ex) {
+            Throwable cause = ex.getCause();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else if (cause instanceof Error) {
+                throw (Error) cause;
+            } else {
+                throw ex;
+            }
+        }
+        afterPhase(context, PhaseId.RENDER_RESPONSE);
+    }
 
-		return (String) externalContext.getSessionMap().get(VIEW_ID_ATTR);
-	}
+    protected String getViewIdFromSession(ExternalContext externalContext) {
 
-	protected void saveViewIdToSession(ExternalContext externalContext,
-			String viewId) {
+        return (String) externalContext.getSessionMap().get(VIEW_ID_ATTR);
+    }
 
-		externalContext.getSessionMap().put(VIEW_ID_ATTR, viewId);
-	}
+    protected void saveViewIdToSession(ExternalContext externalContext,
+            String viewId) {
+
+        externalContext.getSessionMap().put(VIEW_ID_ATTR, viewId);
+    }
 
     protected void initializeChildren(FacesContext context,
             UIComponent component) {
@@ -255,50 +258,50 @@ public class LifecycleImpl extends Lifecycle {
         }
     }
 
-	protected boolean isFinished(FacesContext context) throws FacesException {
-		return context.getResponseComplete() || context.getRenderResponse();
-	}
+    protected boolean isFinished(FacesContext context) throws FacesException {
+        return context.getResponseComplete() || context.getRenderResponse();
+    }
 
-	public void addPhaseListener(PhaseListener listener) {
-		phaseListeners = (PhaseListener[]) ArrayUtil.add(phaseListeners,
-				listener);
-	}
+    public void addPhaseListener(PhaseListener listener) {
+        phaseListeners = (PhaseListener[]) ArrayUtil.add(phaseListeners,
+                listener);
+    }
 
-	public void removePhaseListener(PhaseListener listener) {
-		phaseListeners = (PhaseListener[]) ArrayUtil.remove(phaseListeners,
-				listener);
-	}
+    public void removePhaseListener(PhaseListener listener) {
+        phaseListeners = (PhaseListener[]) ArrayUtil.remove(phaseListeners,
+                listener);
+    }
 
-	public PhaseListener[] getPhaseListeners() {
-		return phaseListeners;
-	}
+    public PhaseListener[] getPhaseListeners() {
+        return phaseListeners;
+    }
 
-	protected void beforePhase(FacesContext context, PhaseId phaseId) {
-		for (int i = 0; i < phaseListeners.length; i++) {
-			PhaseListener listener = phaseListeners[i];
-			if (isTargetListener(listener, phaseId)) {
-				listener.beforePhase(new PhaseEvent(context, phaseId, this));
-			}
-		}
-	}
+    protected void beforePhase(FacesContext context, PhaseId phaseId) {
+        for (int i = 0; i < phaseListeners.length; i++) {
+            PhaseListener listener = phaseListeners[i];
+            if (isTargetListener(listener, phaseId)) {
+                listener.beforePhase(new PhaseEvent(context, phaseId, this));
+            }
+        }
+    }
 
-	protected void afterPhase(FacesContext context, PhaseId phaseId) {
-		for (int i = 0; i < phaseListeners.length; i++) {
-			PhaseListener listener = phaseListeners[i];
-			if (isTargetListener(listener, phaseId)) {
-				listener.afterPhase(new PhaseEvent(context, phaseId, this));
-			}
-		}
-	}
+    protected void afterPhase(FacesContext context, PhaseId phaseId) {
+        for (int i = phaseListeners.length - 1; 0 <= i; i--) {
+            PhaseListener listener = phaseListeners[i];
+            if (isTargetListener(listener, phaseId)) {
+                listener.afterPhase(new PhaseEvent(context, phaseId, this));
+            }
+        }
+    }
 
-	protected boolean isTargetListener(PhaseListener listener, PhaseId phaseId) {
-		int listenerOrdinal = listener.getPhaseId().getOrdinal();
-		return listenerOrdinal == PhaseId.ANY_PHASE.getOrdinal()
-				|| listenerOrdinal == phaseId.getOrdinal();
-	}
+    protected boolean isTargetListener(PhaseListener listener, PhaseId phaseId) {
+        int listenerOrdinal = listener.getPhaseId().getOrdinal();
+        return listenerOrdinal == PhaseId.ANY_PHASE.getOrdinal()
+                || listenerOrdinal == phaseId.getOrdinal();
+    }
 
-	protected boolean hasEvent(FacesContext context) {
-		S2UIViewRoot viewRoot = (S2UIViewRoot) context.getViewRoot();
-		return viewRoot.getEventSize() > 0;
-	}
+    protected boolean hasEvent(FacesContext context) {
+        S2UIViewRoot viewRoot = (S2UIViewRoot) context.getViewRoot();
+        return viewRoot.getEventSize() > 0;
+    }
 }
