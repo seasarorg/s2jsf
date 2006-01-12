@@ -1,0 +1,15 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+	m:extends="/parent.html"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Hoge</title>
+</head>
+<body>
+<span m:inject="f:param" m:name="fParamValue" m:value="#{hogeBean.value}"/>
+<form m:id="form">
+	hogeBean.value :: <span m:value="#{hogeBean.value}">値</span>
+</form>
+</body>
+</html>
