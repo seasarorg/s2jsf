@@ -16,6 +16,9 @@
 package org.seasar.jsf.runtime;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -31,6 +34,7 @@ import javax.faces.render.RenderKitFactory;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspException;
@@ -49,6 +53,7 @@ import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.JspRuntimeException;
 import org.seasar.jsf.jsp.PageContextImpl;
 import org.seasar.jsf.processor.ViewProcessor;
+import org.seasar.jsf.util.ExternalContextUtil;
 import org.seasar.jsf.util.InvokeUtil;
 
 /**
@@ -84,6 +89,7 @@ public class ViewRendererImpl implements ViewRenderer {
 		if (initAction != null) {
 			processed = executeInitAction(context, initAction);
 		}
+		setupParams(context);
 		if (!processed) {
 			//response.setCharacterEncoding(viewProcessor.getEncoding());
 			response.setContentType(viewProcessor.getContentType());
@@ -168,4 +174,25 @@ public class ViewRendererImpl implements ViewRenderer {
 		errorPageManager = (ErrorPageManager) container.getComponent(ErrorPageManager.class);
 		return errorPageManager;
 	}
+	
+    protected void setupParams(FacesContext context) {
+        ExternalContext externalContext = context.getExternalContext();
+        String viewId = ExternalContextUtil.getViewId(externalContext);
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        ServletRequest request = container.getRequest();
+        JsfConfig jsfConfig = (JsfConfig) container
+                .getComponent(JsfConfig.class);
+        ViewTemplateFactory viewTemplateFactory = (ViewTemplateFactory) container
+                .getComponent(ViewTemplateFactory.class);
+        ViewTemplate viewTemplate = viewTemplateFactory.getViewTemplate(viewId);
+        ViewProcessor viewProcessor = (ViewProcessor) viewTemplate
+                .getRootTagProcessor();
+        Map params = new HashMap();
+        viewProcessor.setupParams(jsfConfig, params);
+        for (Iterator i = params.keySet().iterator(); i.hasNext();) {
+            String key = (String) i.next();
+            Object value = params.get(key);
+            request.setAttribute(key, value);
+        }
+    }	
 }
