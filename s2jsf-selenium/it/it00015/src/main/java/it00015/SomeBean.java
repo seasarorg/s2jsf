@@ -1,6 +1,6 @@
 package it00015;
 
-public class HogeBean {
+public class SomeBean {
 
     private String value_;
 

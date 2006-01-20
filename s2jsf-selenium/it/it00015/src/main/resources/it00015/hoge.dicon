@@ -4,11 +4,18 @@
 <components>
 
 	<component 
-		name="hogeBean" 
-		class="it00015.HogeBean" 
+		name="someBean" 
+		class="it00015.SomeBean" 
 		instance="session"
 	>
 		<property name="value">"A"</property>
+	</component>
+
+	<component 
+		name="barAction" 
+		class="it00015.BarActionImpl" 
+		instance="session"
+	>
 	</component>
 
 </components>

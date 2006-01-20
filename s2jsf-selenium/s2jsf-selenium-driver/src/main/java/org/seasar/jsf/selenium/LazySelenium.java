@@ -1,10 +1,12 @@
 package org.seasar.jsf.selenium;
 
 import com.thoughtworks.selenium.Selenium;
+import com.thoughtworks.selenium.SeleniumException;
 
 public class LazySelenium implements Selenium {
 
     private Selenium _selenium;
+    private boolean _completed;
 
     public void chooseCancelOnNextConfirmation() {
         getSelenium().chooseCancelOnNextConfirmation();
@@ -74,6 +76,7 @@ public class LazySelenium implements Selenium {
 
     public void testComplete() {
         getSelenium().testComplete();
+        _completed = true;
     }
 
     public void type(String field, String value) {
@@ -149,11 +152,18 @@ public class LazySelenium implements Selenium {
         if (!isStart()) {
             start();
         }
+        if (isCompleted()) {
+            throw new SeleniumException("already completed");
+        }
         return _selenium;
     }
 
     public boolean isStart() {
         return _start;
+    }
+
+    public boolean isCompleted() {
+        return _completed;
     }
 
 }

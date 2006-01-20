@@ -1,0 +1,18 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+	m:action="#{barAction.initialize}"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Foo</title>
+</head>
+<body>
+<span m:inject="f:param" m:name="paramValue" m:value="#{someBean.value}"/>
+<form m:id="form">
+	someBean.value :: <span id="bean" m:value="#{someBean.value}">値</span><br/>
+	fParamValue :: <span id="param" m:value="#{paramValue}">値</span>
+	<br/>
+	<input type="text" id="a" m:value="#{someBean.value}"/><br/>
+</form>
+</body>
+</html>

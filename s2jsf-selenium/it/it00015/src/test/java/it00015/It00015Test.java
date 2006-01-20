@@ -20,13 +20,13 @@ public class It00015Test extends SeleneseTestCase {
         return seleniumTestSetup;
     }
 
-    public void testHoge() throws Exception {
+    public void testReflectNewestValueToFParam() throws Exception {
         // ## Arrange ##
         Selenium selenium = getSelenium();
 
         // ## Act ##
         // ## Assert ##
-        selenium.open("/hoge.html");
+        selenium.open("/foo.html");
         selenium.verifyValue("form:a", "A");
         selenium.verifyText("form:bean", "A");
         selenium.verifyText("form:param", "A");
@@ -37,6 +37,21 @@ public class It00015Test extends SeleneseTestCase {
         selenium.verifyValue("form:a", "い");
         selenium.verifyText("form:bean", "い");
         selenium.verifyText("form:param", "い");
+
+        selenium.testComplete();
+    }
+
+    public void testReflectNewestValueToFParamByInitializeAction()
+        throws Exception {
+        // ## Arrange ##
+        Selenium selenium = getSelenium();
+
+        // ## Act ##
+        // ## Assert ##
+        selenium.open("/bar.html");
+        selenium.verifyValue("form:a", "B");
+        selenium.verifyText("form:bean", "B");
+        selenium.verifyText("form:param", "B");
 
         selenium.testComplete();
     }

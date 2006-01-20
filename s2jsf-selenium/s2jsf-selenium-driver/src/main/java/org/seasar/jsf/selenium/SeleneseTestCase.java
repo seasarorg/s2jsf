@@ -50,6 +50,9 @@ public abstract class SeleneseTestCase extends TestCase {
     protected void tearDown() throws Exception {
         if (_selenium != null && _selenium.isStart()) {
             try {
+                if (!_selenium.isCompleted()) {
+                    _selenium.testComplete();
+                }
                 _selenium.stop();
             } catch (Error th) {
                 th.printStackTrace();

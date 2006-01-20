@@ -3,15 +3,15 @@
 >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<title>Hoge</title>
+<title>Foo</title>
 </head>
 <body>
-<span m:inject="f:param" m:name="paramValue" m:value="#{hogeBean.value}"/>
+<span m:inject="f:param" m:name="paramValue" m:value="#{someBean.value}"/>
 <form m:id="form">
-	hogeBean.value :: <span id="bean" m:value="#{hogeBean.value}">値</span><br/>
+	someBean.value :: <span id="bean" m:value="#{someBean.value}">値</span><br/>
 	fParamValue :: <span id="param" m:value="#{paramValue}">値</span>
 	<br/>
-	<input type="text" id="a" m:value="#{hogeBean.value}"/><br/>
+	<input type="text" id="a" m:value="#{someBean.value}"/><br/>
 	<input type="submit" id="doSubmit" value="submit"/>
 </form>
 </body>
