@@ -16,7 +16,6 @@
 package org.seasar.jsf.lifecycle;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -33,18 +32,11 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
-import org.seasar.framework.container.S2Container;
-import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.ArrayUtil;
-import org.seasar.jsf.JsfConfig;
-import org.seasar.jsf.ViewTemplate;
-import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.component.ForEach;
 import org.seasar.jsf.component.S2UIViewRoot;
-import org.seasar.jsf.processor.ViewProcessor;
 import org.seasar.jsf.util.ExternalContextUtil;
 
 public class LifecycleImpl extends Lifecycle {
@@ -120,27 +112,6 @@ public class LifecycleImpl extends Lifecycle {
         }
     }
 
-    protected void setupParams(FacesContext context) {
-        ExternalContext externalContext = context.getExternalContext();
-        String viewId = ExternalContextUtil.getViewId(externalContext);
-        S2Container container = SingletonS2ContainerFactory.getContainer();
-        ServletRequest request = container.getRequest();
-        JsfConfig jsfConfig = (JsfConfig) container
-                .getComponent(JsfConfig.class);
-        ViewTemplateFactory viewTemplateFactory = (ViewTemplateFactory) container
-                .getComponent(ViewTemplateFactory.class);
-        ViewTemplate viewTemplate = viewTemplateFactory.getViewTemplate(viewId);
-        ViewProcessor viewProcessor = (ViewProcessor) viewTemplate
-                .getRootTagProcessor();
-        Map params = new HashMap();
-        viewProcessor.setupParams(jsfConfig, params);
-        for (Iterator i = params.keySet().iterator(); i.hasNext();) {
-            String key = (String) i.next();
-            Object value = params.get(key);
-            request.setAttribute(key, value);
-        }
-    }
-
     protected boolean restoreView(FacesContext context) throws FacesException {
         beforePhase(context, PhaseId.RESTORE_VIEW);
         ExternalContext externalContext = context.getExternalContext();
@@ -211,7 +182,6 @@ public class LifecycleImpl extends Lifecycle {
         beforePhase(context, PhaseId.RENDER_RESPONSE);
         Application application = context.getApplication();
         ViewHandler viewHandler = application.getViewHandler();
-        setupParams(context);
         try {
             viewHandler.renderView(context, context.getViewRoot());
         } catch (IOException e) {
