@@ -15,7 +15,6 @@
  */
 package org.seasar.jsf;
 
-import org.apache.myfaces.util.ArrayUtils;
 import org.seasar.framework.util.ArrayUtil;
 
 /**
@@ -389,7 +388,7 @@ public interface JsfConstants {
     public String[] FORM_ATTRIBUTES = { ACCEPT_ATTR, ACCEPT_CHARSET_ATTR,
             ENCTYPE_ATTR, ONRESET_ATTR, ONSUMBIT_ATTR, TARGET_ATTR, };
 
-    public String[] FORM_PASSTHROUGH_ATTRIBUTES = (String[]) ArrayUtils.concat(
+    public String[] FORM_PASSTHROUGH_ATTRIBUTES = (String[]) ArrayUtil.add(
             FORM_ATTRIBUTES, COMMON_PASSTROUGH_ATTRIBUTES);
 
     public String HIDDEN_COMMAND_INPUTS_SET_ATTR = "org.apache.myfaces.renderkit.html.HtmlFormRendererBase.HIDDEN_COMMAND_INPUTS_SET";
@@ -398,8 +397,7 @@ public interface JsfConstants {
 
     public String HIDDEN_SUBMIT_INPUT_VALUE = "1";
 
-    public String[] MESSAGE_PASSTHROUGH_ATTRIBUTES_WITHOUT_TITLE_STYLE_AND_STYLE_CLASS = (String[]) ArrayUtils
-            .concat(new String[] { DIR_ATTR, LANG_ATTR },
-                    EVENT_HANDLER_ATTRIBUTES);
+    public String[] MESSAGE_PASSTHROUGH_ATTRIBUTES_WITHOUT_TITLE_STYLE_AND_STYLE_CLASS = (String[]) ArrayUtil
+            .add(new String[] { DIR_ATTR, LANG_ATTR }, EVENT_HANDLER_ATTRIBUTES);
 
 }

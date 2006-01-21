@@ -9,7 +9,7 @@
   <artifactId>s2-jsf</artifactId>
   <packaging>jar</packaging>
   <name>S2JSF</name>
-  <version>1.0.13-SNAPSHOT</version>
+  <version>1.0.13</version>
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <issueManagement>
@@ -89,20 +89,6 @@
           </execution>
         </executions>
       </plugin>
-      <!--
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>javadoc-jar</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      -->
     </plugins>
   </build>
   <repositories>
