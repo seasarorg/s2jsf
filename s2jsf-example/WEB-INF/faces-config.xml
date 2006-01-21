@@ -184,4 +184,10 @@
 		</navigation-case>
 	</navigation-rule>
 
+	<!--
+	<lifecycle>
+		<phase-listener>org.seasar.jsf.event.PhaseChangeTracer</phase-listener>
+	</lifecycle>
+	-->
+
 </faces-config>
