@@ -11,6 +11,7 @@
 			</zipfileset>
 			<zipfileset prefix="s2jsf/lib" dir="target">
 				<include name="s2-jsf-${ver}.jar"/>
+				<include name="s2-jsf-${ver}-sources.jar"/>
 			</zipfileset>
 			<zipfileset prefix="s2jsf/resources" dir="src/test/resources">
 				<include name="jsf.dicon"/>

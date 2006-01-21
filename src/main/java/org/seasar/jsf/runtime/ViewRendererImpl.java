@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2005 the Seasar Foundation and the Others.
+ * Copyright 2004-2006 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -89,8 +89,8 @@ public class ViewRendererImpl implements ViewRenderer {
 		if (initAction != null) {
 			processed = executeInitAction(context, initAction);
 		}
-		setupParams(context);
 		if (!processed) {
+		    setupParams(context);
 			//response.setCharacterEncoding(viewProcessor.getEncoding());
 			response.setContentType(viewProcessor.getContentType());
 			JsfContext jsfContext = createJsfContext(request, response);
