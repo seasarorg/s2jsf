@@ -18,6 +18,7 @@
     <defaultGoal>validate</defaultGoal>
     <pluginManagement>
       <plugins>
+        <!--
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -25,6 +26,7 @@
             <forkMode>once</forkMode>
           </configuration>
         </plugin>
+        -->
       </plugins>
     </pluginManagement>
   </build>
@@ -44,6 +46,7 @@
     <module>it00013</module>
     <module>it00014</module>
     <module>it00015</module>
+    <module>it00016</module>
   </modules>
   <dependencies>
     <dependency>
@@ -56,7 +59,7 @@
     <dependency>
       <groupId>org.seasar.jsf</groupId>
       <artifactId>s2-jsf</artifactId>
-      <version>1.0.13-SNAPSHOT</version>
+      <version>1.0.13</version>
       <type>jar</type>
     </dependency>
     <dependency>

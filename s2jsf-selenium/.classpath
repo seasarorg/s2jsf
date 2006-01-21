@@ -32,6 +32,8 @@
 	<classpathentry output="it/it00014/target/test-classes" kind="src" path="it/it00014/src/test/java"/>
 	<classpathentry output="it/it00015/target/classes" kind="src" path="it/it00015/src/main/java"/>
 	<classpathentry output="it/it00015/target/test-classes" kind="src" path="it/it00015/src/test/java"/>
+	<classpathentry output="it/it00016/target/classes" kind="src" path="it/it00016/src/main/java"/>
+	<classpathentry output="it/it00016/target/test-classes" kind="src" path="it/it00016/src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/cargo/cargo/0.6/cargo-0.6.jar"/>

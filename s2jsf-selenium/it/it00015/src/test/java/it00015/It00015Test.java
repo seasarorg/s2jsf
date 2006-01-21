@@ -41,6 +41,7 @@ public class It00015Test extends SeleneseTestCase {
         selenium.testComplete();
     }
 
+    // initialize actionで変更した値がf:paramへ適用されること
     public void testReflectNewestValueToFParamByInitializeAction()
         throws Exception {
         // ## Arrange ##
