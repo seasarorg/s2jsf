@@ -58,123 +58,128 @@ import org.seasar.jsf.util.InvokeUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class ViewRendererImpl implements ViewRenderer {
 
-	private JsfConfig jsfConfig;
+    private JsfConfig jsfConfig;
 
-	private ViewTemplateFactory viewTemplateFactory;
+    private ViewTemplateFactory viewTemplateFactory;
 
-	private TagPool tagPool;
-	
-	private ErrorPageManager errorPageManager;
+    private TagPool tagPool;
 
-	public ViewRendererImpl(JsfConfig jsfConfig,
-			ViewTemplateFactory viewTemplateFactory, TagPool tagPool) {
+    private ErrorPageManager errorPageManager;
 
-		this.jsfConfig = jsfConfig;
-		this.viewTemplateFactory = viewTemplateFactory;
-		this.tagPool = tagPool;
-	}
+    public ViewRendererImpl(JsfConfig jsfConfig,
+            ViewTemplateFactory viewTemplateFactory, TagPool tagPool) {
 
-	public void renderView(String path, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+        this.jsfConfig = jsfConfig;
+        this.viewTemplateFactory = viewTemplateFactory;
+        this.tagPool = tagPool;
+    }
 
-		ViewTemplate template = viewTemplateFactory.getViewTemplate(path);
-		ViewProcessor viewProcessor = (ViewProcessor) template.getRootTagProcessor();
-		String initAction = viewProcessor.getInitAction();
-		FacesContext context = FacesContext.getCurrentInstance();
-		boolean processed = false;
-		if (initAction != null) {
-			processed = executeInitAction(context, initAction);
-		}
-		if (!processed) {
-		    setupParams(context);
-			//response.setCharacterEncoding(viewProcessor.getEncoding());
-			response.setContentType(viewProcessor.getContentType());
-			JsfContext jsfContext = createJsfContext(request, response);
-			setupResponseWriter(jsfContext.getPageContext(),
-					viewProcessor.getContentType(), viewProcessor.getEncoding());
-			try {
-				viewProcessor.process(jsfContext, null);
-			} catch (JspException ex) {
-				throw new JspRuntimeException(ex);
-			}
-			jsfContext.getPageContext().getOut().flush();
-		}
-	}
+    public void renderView(String path, HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
 
-	protected Servlet getServlet() {
-		return S2ContainerServlet.getInstance();
-	}
+        ViewTemplate template = viewTemplateFactory.getViewTemplate(path);
+        ViewProcessor viewProcessor = (ViewProcessor) template
+                .getRootTagProcessor();
+        String initAction = viewProcessor.getInitAction();
+        FacesContext context = FacesContext.getCurrentInstance();
+        boolean processed = false;
+        if (initAction != null) {
+            processed = executeInitAction(context, initAction);
+        }
+        if (!processed) {
+            setupParams(context);
+            // response.setCharacterEncoding(viewProcessor.getEncoding());
+            response.setContentType(viewProcessor.getContentType());
+            JsfContext jsfContext = createJsfContext(request, response);
+            setupResponseWriter(jsfContext.getPageContext(), viewProcessor
+                    .getContentType(), viewProcessor.getEncoding());
+            try {
+                viewProcessor.process(jsfContext, null);
+            } catch (JspException ex) {
+                throw new JspRuntimeException(ex);
+            }
+            jsfContext.getPageContext().getOut().flush();
+        }
+    }
 
-	protected ServletConfig getServletConfig() {
-		return getServlet().getServletConfig();
-	}
+    protected Servlet getServlet() {
+        return S2ContainerServlet.getInstance();
+    }
 
-	protected ServletContext getServletContext() {
-		return getServletConfig().getServletContext();
-	}
+    protected ServletConfig getServletConfig() {
+        return getServlet().getServletConfig();
+    }
 
-	protected JsfContext createJsfContext(HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+    protected ServletContext getServletContext() {
+        return getServletConfig().getServletContext();
+    }
 
-		PageContextImpl pageContext = new PageContextImpl();
-		pageContext.initialize(getServlet(), request, response, null);
-		return new JsfContextImpl(pageContext, jsfConfig, tagPool);
-	}
+    protected JsfContext createJsfContext(HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
 
-	protected void setupResponseWriter(PageContext pageContext, String contentType, String encoding) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		RenderKitFactory renderFactory = getRenderKitFactory();
-		RenderKit renderKit = renderFactory.getRenderKit(context, context
-				.getViewRoot().getRenderKitId());
-		ResponseWriter writer = renderKit.createResponseWriter(
-            new PageContextWriter(pageContext), 
-            contentType, 
-            encoding);
+        PageContextImpl pageContext = new PageContextImpl();
+        pageContext.initialize(getServlet(), request, response, null);
+        return new JsfContextImpl(pageContext, jsfConfig, tagPool);
+    }
+
+    protected void setupResponseWriter(PageContext pageContext,
+            String contentType, String encoding) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        RenderKitFactory renderFactory = getRenderKitFactory();
+        RenderKit renderKit = renderFactory.getRenderKit(context, context
+                .getViewRoot().getRenderKitId());
+        ResponseWriter writer = renderKit.createResponseWriter(
+                new PageContextWriter(pageContext), contentType, encoding);
         context.setResponseWriter(writer);
-	}
+    }
 
-	protected RenderKitFactory getRenderKitFactory() {
-		return (RenderKitFactory) FactoryFinder
-				.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-	}
-	
-	protected boolean executeInitAction(FacesContext context, String initAction) throws IOException {
-		Application app = context.getApplication();
-		MethodBinding mb = app.createMethodBinding(initAction, null);
-		try {
-			String outcome = InvokeUtil.invoke(mb, context);
-			if (outcome != null && !context.getResponseComplete()) {
-				NavigationHandler nh = app.getNavigationHandler();
-				nh.handleNavigation(context, initAction, outcome);
-				ViewHandler vh = app.getViewHandler();
-				vh.renderView(context, context.getViewRoot());
-				return true;
-			}
-			return false;
-		} catch (EvaluationException ex) {
-			Throwable cause = ex.getCause();
-			ExternalContext extContext = context.getExternalContext();
-			ErrorPageManager manager = getErrorPageManager();
-			if (manager.handleException(cause, extContext)) {
-				return true;
-			}
-			throw ex;
-		}
-	}
-	
-	protected ErrorPageManager getErrorPageManager() {
-		if (errorPageManager != null) {
-			return errorPageManager;
-		}
-		S2Container container = SingletonS2ContainerFactory.getContainer();
-		errorPageManager = (ErrorPageManager) container.getComponent(ErrorPageManager.class);
-		return errorPageManager;
-	}
-	
+    protected RenderKitFactory getRenderKitFactory() {
+        return (RenderKitFactory) FactoryFinder
+                .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    }
+
+    protected boolean executeInitAction(FacesContext context, String initAction)
+            throws IOException {
+        Application app = context.getApplication();
+        MethodBinding mb = app.createMethodBinding(initAction, null);
+        try {
+            String outcome = InvokeUtil.invoke(mb, context);
+            if (outcome == null || context.getResponseComplete()) {
+                return false;
+            }
+            NavigationHandler nh = app.getNavigationHandler();
+            nh.handleNavigation(context, initAction, outcome);
+            if (context.getResponseComplete()) {
+                return true;
+            }
+            ViewHandler vh = app.getViewHandler();
+            vh.renderView(context, context.getViewRoot());
+            return true;
+        } catch (EvaluationException ex) {
+            Throwable cause = ex.getCause();
+            ExternalContext extContext = context.getExternalContext();
+            ErrorPageManager manager = getErrorPageManager();
+            if (manager.handleException(cause, extContext)) {
+                return true;
+            }
+            throw ex;
+        }
+    }
+
+    protected ErrorPageManager getErrorPageManager() {
+        if (errorPageManager != null) {
+            return errorPageManager;
+        }
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        errorPageManager = (ErrorPageManager) container
+                .getComponent(ErrorPageManager.class);
+        return errorPageManager;
+    }
+
     protected void setupParams(FacesContext context) {
         ExternalContext externalContext = context.getExternalContext();
         String viewId = ExternalContextUtil.getViewId(externalContext);
@@ -194,5 +199,5 @@ public class ViewRendererImpl implements ViewRenderer {
             Object value = params.get(key);
             request.setAttribute(key, value);
         }
-    }	
+    }
 }

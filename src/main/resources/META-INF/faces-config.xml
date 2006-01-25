@@ -274,13 +274,71 @@
 	</component>
 
     <converter>
+        <converter-id>javax.faces.BigDecimal</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2BigDecimalConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.BigInteger</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2BigIntegerConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Boolean</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2BooleanConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Byte</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2ByteConverter</converter-class>
+    </converter>
+
+	<!--
+    <converter>
+        <converter-id>javax.faces.Character</converter-id>
+        <converter-class>javax.faces.convert.CharacterConverter</converter-class>
+    </converter>
+	-->
+
+    <converter>
         <converter-id>javax.faces.DateTime</converter-id>
         <converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
+    </converter>
+    <!--
+    <converter>
+        <converter-id>javax.faces.DateTime</converter-id>
+        <converter-class>javax.faces.convert.DateTimeConverter</converter-class>
+    </converter>
+    -->
+
+    <converter>
+        <converter-id>javax.faces.Double</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2DoubleConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Float</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2FloatConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Integer</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2IntegerConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Long</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2LongConverter</converter-class>
     </converter>
 
     <converter>
         <converter-id>javax.faces.Number</converter-id>
         <converter-class>org.seasar.jsf.convert.S2NumberConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>javax.faces.Short</converter-id>
+        <converter-class>org.seasar.jsf.convert.S2ShortConverter</converter-class>
     </converter>
 
 	<converter>
@@ -312,6 +370,12 @@
 		<converter-for-class>java.util.Date</converter-for-class>
 		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
 	</converter>
+	<!--
+    <converter>
+        <converter-for-class>java.util.Date</converter-for-class>
+        <converter-class>javax.faces.convert.DateTimeConverter</converter-class>
+    </converter>
+    -->
 
 	<converter>
 		<converter-for-class>java.lang.Double</converter-for-class>
