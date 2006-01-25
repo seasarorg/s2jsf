@@ -11,12 +11,12 @@
 	<br/>
 
 	BigDecimalConverter:
-	<input type="text" id="bigDecimal" m:label="びっぐでしまる" m:value="#{converterDto.bigDecimal}"/>
+	<input type="text" id="bigDecimal" m:label="びっぐでしまる" m:value="#{converterDto.bigDecimal}" m:converter="javax.faces.BigDecimal"/>
 	<span id="message_bigDecimal"><span m:inject="h:message" m:for="bigDecimal"/></span>
 	<br/>
 
 	BigIntegerConverter:
-	<input type="text" id="bigInteger" m:label="びっぐいんてじゃ" m:value="#{converterDto.bigInteger}"/>
+	<input type="text" id="bigInteger" m:label="びっぐいんてじゃ" m:value="#{converterDto.bigInteger}" m:converter="javax.faces.BigInteger"/>
 	<span id="message_bigInteger"><span m:inject="h:message" m:for="bigInteger"/></span>
 	<br/>
 
@@ -31,7 +31,7 @@
 	<br/>
 
 	DateTimeConverter:
-	<input type="text" id="dateTime" m:label="でーとたいむ" m:value="#{converterDto.dateTime}"/>
+	<input type="text" id="dateTime" m:label="でーとたいむ" m:value="#{converterDto.dateTime}" m:converter="javax.faces.DateTime"/>
 	<span id="message_dateTime"><span m:inject="h:message" m:for="dateTime"/></span>
 	<br/>
 

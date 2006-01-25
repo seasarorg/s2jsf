@@ -47,6 +47,7 @@
     <module>it00014</module>
     <module>it00015</module>
     <module>it00016</module>
+    <module>it00017</module>
   </modules>
   <dependencies>
     <dependency>
@@ -59,7 +60,7 @@
     <dependency>
       <groupId>org.seasar.jsf</groupId>
       <artifactId>s2-jsf</artifactId>
-      <version>1.0.13</version>
+      <version>1.0.14-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
     <dependency>
