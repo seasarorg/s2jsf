@@ -79,7 +79,7 @@ public class LifecycleImpl extends Lifecycle {
                 context.renderResponse();
                 return;
             }
-            requestMap.put(EXECUTED_ATTR, null);
+            requestMap.put(EXECUTED_ATTR, EXECUTED_ATTR);
             applyRequestValues(context);
             if (isFinished(context)) {
                 initializeChildren(context, context.getViewRoot());
