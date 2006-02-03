@@ -230,7 +230,7 @@ public class HtmlCommandLinkRenderer extends AbstractHtmlLinkRenderer {
         }
         onClick.append(jsForm);
         onClick.append(".elements['").append(name).append("']");
-        String strParamValue = value != null ? value.toString() : "";
+        String strParamValue = value != null ? value.toString() : "null";
         onClick.append(".value='").append(strParamValue).append("';");
 
         addHiddenCommandParameter(parentForm, name);
