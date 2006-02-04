@@ -29,6 +29,7 @@ public class It00013Test extends SeleneseTestCase {
         // ## Assert ##
         selenium.open("/hoge.html");
         selenium.verifyTextPresent("A");
+        // XXX verifyTextNotPresent
         try {
             selenium.verifyTextPresent("B");
             fail();

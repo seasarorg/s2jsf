@@ -41,7 +41,7 @@ public class It00008Test extends SeleneseTestCase {
         super.tearDown();
     }
 
-    // TODO
+    // XXX pending
     public void pending_testJavascriptOn() throws Exception {
         // ## Arrange ##
         FileUtils.copyFile(ResourceUtil

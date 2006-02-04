@@ -28,6 +28,7 @@ public class It00007Test extends SeleneseTestCase {
         // ## Act ##
         // ## Assert ##
         selenium.open("/first.html");
+        // XXX verifyTextNotPresent
         try {
             selenium.verifyTextPresent("second error");
             fail();

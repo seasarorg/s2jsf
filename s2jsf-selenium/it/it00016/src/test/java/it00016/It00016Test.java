@@ -8,10 +8,8 @@ import org.seasar.jsf.selenium.WebApplicationTestSetup;
 import com.thoughtworks.selenium.Selenium;
 
 /*
- * 初期化Actionで例外発生
- * ↓
- * ErrorPageManagerで次のhtmlへ遷移
- * した際に、NullPointerExceptionが発生する問題。
+ * 初期化Actionで例外発生→ErrorPageManagerで次のhtmlへ遷移した際に、
+ * NullPointerExceptionが発生する問題。
  */
 public class It00016Test extends SeleneseTestCase {
 
