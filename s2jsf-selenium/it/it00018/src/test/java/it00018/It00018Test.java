@@ -83,7 +83,6 @@ public class It00018Test extends SeleneseTestCase {
         selenium.verifyText("form:textByRequest", "123");
         selenium.verifyText("form:prevTextByRequest", "");
         selenium.type("form:a", "456");
-        System.out.println("********");
         selenium.clickAndWait("form:doCommandLinkWithParam");
 
         selenium.verifyValue("form:a", "456");
