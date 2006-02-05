@@ -171,6 +171,17 @@
     
     <!-- Filter Mappings -->
     
+    <filter-mapping>
+        <filter-name>s2filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	<filter-mapping>
+        <filter-name>encodingfilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    
+
     <!-- see MyFaces Filter above for a description -->
     <!--
     <filter-mapping>
@@ -190,15 +201,7 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
 
-    <filter-mapping>
-        <filter-name>s2filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
 
-	<filter-mapping>
-        <filter-name>encodingfilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
 
 
     <!-- Listener, that does all the startup work (configuration, init). -->

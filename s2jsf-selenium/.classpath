@@ -36,6 +36,8 @@
 	<classpathentry output="it/it00016/target/test-classes" kind="src" path="it/it00016/src/test/java"/>
 	<classpathentry output="it/it00017/target/classes" kind="src" path="it/it00017/src/main/java"/>
 	<classpathentry output="it/it00017/target/test-classes" kind="src" path="it/it00017/src/test/java"/>
+	<classpathentry output="it/it00018/target/classes" kind="src" path="it/it00018/src/main/java"/>
+	<classpathentry output="it/it00018/target/test-classes" kind="src" path="it/it00018/src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/cargo/cargo/0.6/cargo-0.6.jar"/>
@@ -50,10 +52,11 @@
 	<classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.8/log4j-1.2.8.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/nirvana/nekohtml/0.9.3-nirvana/nekohtml-0.9.3-nirvana.jar"/>
-	<classpathentry sourcepath="/ECLIPSE_WORKSPACE/myfaces-1.0.9" kind="var" path="M2_REPO/myfaces/myfaces/1.0.9/myfaces-1.0.9.jar"/>
+	<classpathentry kind="var" path="M2_REPO/myfaces/myfaces/1.0.9/myfaces-1.0.9.jar"/>
 	<classpathentry kind="var" path="M2_REPO/ognl/ognl/2.6.5/ognl-2.6.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/seasar/container/s2-extension/2.3.4/s2-extension-2.3.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/seasar/container/s2-framework/2.3.4/s2-framework-2.3.4.jar"/>
+	<classpathentry sourcepath="/M2_REPO/org/seasar/jsf/s2-jsf/1.0.14-SNAPSHOT/s2-jsf-1.0.14-SNAPSHOT-sources.jar" kind="var" path="M2_REPO/org/seasar/jsf/s2-jsf/1.0.14-SNAPSHOT/s2-jsf-1.0.14-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/poi/poi-2.5.1-final/20040804/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="var" path="M2_REPO/selenium/selenium/0.6.0/selenium-0.6.0.jar"/>
 	<classpathentry kind="var" path="M2_REPO/tomcat/jasper-compiler/4.0.4/jasper-compiler-4.0.4.jar"/>
@@ -92,6 +95,5 @@
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/s2jsf"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

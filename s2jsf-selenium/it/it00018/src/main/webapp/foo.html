@@ -1,0 +1,30 @@
+<html
+	xmlns:m="http://www.seasar.org/maya"
+>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>foo</title>
+</head>
+<body>
+<form m:id="form">
+	textByValueBinding:
+	<span id="textByValueBinding" m:value="#{fooAction.textByValueBinding}">fooAction.textByValueBinding</span>
+	<br />
+	textByRequest:
+	<span id="textByRequest" m:value="#{fooAction.textByRequest}">fooAction.textByRequest</span>
+	<br />
+	prevTextByRequest:
+	<span id="prevTextByRequest" m:value="#{fooAction.prevTextByRequest}">fooAction.prevTextByRequest</span>
+	<br />
+	<input type="text" id="a" m:value="#{fooAction.textByValueBinding}" />
+	<br />
+	<input type="submit" id="doSubmit" m:action="#{fooAction.doSomething}" value="submit"/>
+	<br />
+	<a id="doCommandLink" m:action="#{fooAction.doSomething}">commandLink</a>
+	<a id="doCommandLinkWithParam" m:action="#{fooAction.doSomething}">
+		doCommandLinkWithParam
+		<span m:inject="f:param" m:name="textByRequest" m:value="#{fooAction.textByValueBinding}" />
+	</a>
+</form>
+</body>
+</html>

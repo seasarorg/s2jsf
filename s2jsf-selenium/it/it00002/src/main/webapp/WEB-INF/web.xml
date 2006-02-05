@@ -23,18 +23,6 @@
 <web-app>
 
     <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>
-            /WEB-INF/faces-config.xml
-        </param-value>
-        <description>
-            Comma separated list of URIs of (additional) faces config files.
-            (e.g. /WEB-INF/my-config.xml)
-            See JSF 1.0 PRD2, 10.3.2
-        </description>
-    </context-param>
-
-    <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>
         <description>
@@ -183,17 +171,6 @@
     
     <!-- Filter Mappings -->
     
-    <filter-mapping>
-        <filter-name>s2filter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-
-	<filter-mapping>
-        <filter-name>encodingfilter</filter-name>
-        <url-pattern>*.html</url-pattern>
-    </filter-mapping>
-    
-
     <!-- see MyFaces Filter above for a description -->
     <!--
     <filter-mapping>
@@ -213,7 +190,15 @@
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>s2filter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
+	<filter-mapping>
+        <filter-name>encodingfilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
 
 
     <!-- Listener, that does all the startup work (configuration, init). -->
