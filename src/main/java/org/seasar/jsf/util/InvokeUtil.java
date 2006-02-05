@@ -39,13 +39,13 @@ import org.seasar.framework.util.StringUtil;
 public class InvokeUtil {
 
     private static final String EXPORT_SUFFIX = "_EXPORT";
-    
+
     private static final String ACTION_BINDING_SUFFIX = "_ACTION_BINDING";
-    
+
     private static final String VALUE = "value";
-    
+
     private static final String BINDING_TYPE = "bindingType";
-    
+
     private static final String NONE = "none";
 
     private static final String SESSION = "session";
@@ -106,7 +106,8 @@ public class InvokeUtil {
                 String varName = pd.getPropertyName();
                 String fieldName = pd.getPropertyName() + ACTION_BINDING_SUFFIX;
                 if (beanDesc.hasField(fieldName)) {
-                    String bindingStr = (String) beanDesc.getFieldValue(fieldName, null);
+                    String bindingStr = (String) beanDesc.getFieldValue(
+                            fieldName, null);
                     if (bindingStr != null) {
                         String[] array = StringUtil.split(bindingStr, "=, ");
                         if (array.length == 1) {
@@ -121,7 +122,8 @@ public class InvokeUtil {
                                 } else if (VALUE.equalsIgnoreCase(k)) {
                                     varName = v;
                                 } else {
-                                    throw new IllegalArgumentException(bindingStr);
+                                    throw new IllegalArgumentException(
+                                            bindingStr);
                                 }
                             }
                             if (nobinding) {
@@ -133,8 +135,11 @@ public class InvokeUtil {
                 if (container.hasComponentDef(varName)) {
                     continue;
                 }
-                Object var = BindingUtil.getValue(container.getRequest(), varName);
-                if (var != null) {
+                Object var = BindingUtil.getValue(container.getRequest(),
+                        varName);
+                if ("".equals(var)) {
+                    pd.setValue(component, null);
+                } else if (var != null) {
                     pd.setValue(component, var);
                 }
             }
