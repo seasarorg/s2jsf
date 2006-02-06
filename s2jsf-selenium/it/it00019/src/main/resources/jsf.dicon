@@ -37,6 +37,10 @@
 			<arg>"s"</arg>
 			<arg>"http://www.seasar.org/jsf"</arg>
 		</initMethod>
+		<initMethod name="addTaglibUri">
+			<arg>"it00019"</arg>
+			<arg>"http://s2jsf.seasar.org/it/00019"</arg>
+		</initMethod>
 	</component>
 	
 	<component class="org.seasar.jsf.runtime.TagPoolImpl"/>
@@ -168,9 +172,9 @@
 			</arg>
 		</initMethod>
 	</component>
-
+	
 	<component class="org.seasar.jsf.runtime.ViewTemplateFactoryImpl"/>
-
+	
 	<component class="org.seasar.jsf.runtime.ViewRendererImpl"/>
 
 	<component

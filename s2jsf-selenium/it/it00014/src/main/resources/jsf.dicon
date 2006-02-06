@@ -5,11 +5,25 @@
 
 	<include path="jsfErrorPage.dicon"/>
 
-	<component class="org.seasar.jsf.runtime.ServletContextTaglibManagerImpl">
-		<initMethod name="init"/>
-		<destroyMethod name="destroy"/>
+	<component class="org.seasar.jsf.runtime.CompositeTaglibManager">
+		<initMethod name="addTaglibManager">
+			<arg>
+				<component class="org.seasar.jsf.runtime.ServletContextTaglibManagerImpl">
+					<initMethod name="init"/>
+					<destroyMethod name="destroy"/>
+				</component>
+			</arg>
+		</initMethod>
+		<initMethod name="addTaglibManager">
+			<arg>
+				<component class="org.seasar.jsf.runtime.WebappConfigTaglibManagerImpl">
+					<initMethod name="init"/>
+					<destroyMethod name="destroy"/>
+				</component>
+			</arg>
+		</initMethod>
 	</component>
-	
+
 	<component class="org.seasar.jsf.runtime.JsfConfigImpl">
 		<initMethod name="addTaglibUri">
 			<arg>"h"</arg>
@@ -154,9 +168,9 @@
 			</arg>
 		</initMethod>
 	</component>
-	
+
 	<component class="org.seasar.jsf.runtime.ViewTemplateFactoryImpl"/>
-	
+
 	<component class="org.seasar.jsf.runtime.ViewRendererImpl"/>
 
 	<component
