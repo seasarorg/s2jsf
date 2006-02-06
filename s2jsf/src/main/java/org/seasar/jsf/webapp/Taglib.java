@@ -20,28 +20,28 @@ import java.io.Serializable;
 /**
  * @author manhole
  */
-public class InitParam implements Serializable {
+public class Taglib implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String paramName_;
+    private String taglibUri_;
 
-    private String paramValue_;
+    private String taglibLocation_;
 
-    public String getParamName() {
-        return paramName_;
+    public String getTaglibLocation() {
+        return taglibLocation_;
     }
 
-    public void setParamName(String paramName) {
-        paramName_ = paramName;
+    public void setTaglibLocation(String taglibLocation) {
+        taglibLocation_ = taglibLocation;
     }
 
-    public String getParamValue() {
-        return paramValue_;
+    public String getTaglibUri() {
+        return taglibUri_;
     }
 
-    public void setParamValue(String paramValue) {
-        paramValue_ = paramValue;
+    public void setTaglibUri(String taglibUri) {
+        taglibUri_ = taglibUri;
     }
 
 }

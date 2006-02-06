@@ -26,26 +26,36 @@ public class WebappTagHandlerRule extends TagHandlerRule {
 
     public WebappTagHandlerRule() {
         addTagHandler("/web-app", new WebappTagHandler());
+
+        // context-param
         addTagHandler("/web-app/context-param",
-            new WebappContextParamTagHandler());
+                new WebappContextParamTagHandler());
         addTagHandler("/web-app/context-param/param-name",
-            new WebappContextParamTagHandler.ParamNameTagHandler());
+                new WebappContextParamTagHandler.ParamNameTagHandler());
         addTagHandler("/web-app/context-param/param-value",
-            new WebappContextParamTagHandler.ParamValueTagHandler());
-        addTagHandler("/web-app/servlet",
-            new WebappServletTagHandler());
+                new WebappContextParamTagHandler.ParamValueTagHandler());
+
+        // servlet
+        addTagHandler("/web-app/servlet", new WebappServletTagHandler());
         addTagHandler("/web-app/servlet/servlet-name",
-            new WebappServletTagHandler.ServletNameTagHandler());
+                new WebappServletTagHandler.ServletNameTagHandler());
         addTagHandler("/web-app/servlet/servlet-class",
-            new WebappServletTagHandler.ServletClassTagHandler());
+                new WebappServletTagHandler.ServletClassTagHandler());
         addTagHandler("/web-app/servlet/load-on-startup",
-            new WebappServletTagHandler.LoadOnStartupTagHandler());
+                new WebappServletTagHandler.LoadOnStartupTagHandler());
         addTagHandler("/web-app/servlet/init-param",
-            new WebappServletTagHandler.InitParamTagHandler());
+                new WebappServletTagHandler.InitParamTagHandler());
         addTagHandler("/web-app/servlet/init-param/param-name",
-            new WebappServletTagHandler.InitParamNameTagHandler());
+                new WebappServletTagHandler.InitParamNameTagHandler());
         addTagHandler("/web-app/servlet/init-param/param-value",
-            new WebappServletTagHandler.InitParamValueTagHandler());
+                new WebappServletTagHandler.InitParamValueTagHandler());
+
+        // taglib
+        addTagHandler("/web-app/taglib", new WebappTaglibTagHandler());
+        addTagHandler("/web-app/taglib/taglib-uri",
+                new WebappTaglibTagHandler.TaglibUriTagHandler());
+        addTagHandler("/web-app/taglib/taglib-location",
+                new WebappTaglibTagHandler.TaglibLocationTagHandler());
     }
 
 }

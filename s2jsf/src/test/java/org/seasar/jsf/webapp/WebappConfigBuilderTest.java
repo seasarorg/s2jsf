@@ -17,6 +17,7 @@ package org.seasar.jsf.webapp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -34,19 +35,19 @@ public class WebappConfigBuilderTest extends TestCase {
         // ## Assert ##
         assertNotNull("webappConfig‚ª¶¬‚³‚ê‚é‚±‚Æ", webappConfig);
         ContextParam contextParam = webappConfig
-            .getContextParam("javax.faces.CONFIG_FILES");
+                .getContextParam("javax.faces.CONFIG_FILES");
         assertNotNull("contextParam[javax.faces.CONFIG_FILES]‚ğæ“¾‚Å‚«‚é‚±‚Æ",
-            contextParam);
+                contextParam);
 
         assertEquals("context-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ",
-            "/WEB-INF/faces-config.xml", contextParam.getParamValue());
+                "/WEB-INF/faces-config.xml", contextParam.getParamValue());
         assertEquals("context-param/param-name‚ğæ“¾‚Å‚«‚é‚±‚Æ",
-            "javax.faces.CONFIG_FILES", contextParam.getParamName());
+                "javax.faces.CONFIG_FILES", contextParam.getParamName());
 
         assertEquals(
-            "javax.faces.DEFAULT_SUFFIX‚Ìcontext-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ",
-            ".html", webappConfig.getContextParam("javax.faces.DEFAULT_SUFFIX")
-                .getParamValue());
+                "javax.faces.DEFAULT_SUFFIX‚Ìcontext-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ",
+                ".html", webappConfig.getContextParam(
+                        "javax.faces.DEFAULT_SUFFIX").getParamValue());
     }
 
     public void testServlet() throws Exception {
@@ -57,29 +58,43 @@ public class WebappConfigBuilderTest extends TestCase {
         {
             Servlet servlet = webappConfig.getServlet("Faces Servlet");
             assertEquals("servlet/servlet-name‚ğæ“¾‚Å‚«‚é‚±‚Æ", "Faces Servlet",
-                servlet.getServletName());
+                    servlet.getServletName());
             assertEquals("servlet/servlet-class‚ğæ“¾‚Å‚«‚é‚±‚Æ",
-                "javax.faces.webapp.FacesServlet", servlet.getServletClass());
+                    "javax.faces.webapp.FacesServlet", servlet
+                            .getServletClass());
             assertEquals("servlet/load-on-startup‚ğæ“¾‚Å‚«‚é‚±‚Æ", "2", servlet
-                .getLoadOnStartup());
+                    .getLoadOnStartup());
         }
         {
             Servlet servlet = webappConfig.getServlet("s2servlet");
             InitParam initParam = servlet.getInitParam("debug");
             assertNotNull("servlet/init-param‚ğæ“¾‚Å‚«‚é‚±‚Æ", initParam);
             assertEquals("servlet/init-param/param-name‚ğæ“¾‚Å‚«‚é‚±‚Æ", "debug",
-                initParam.getParamName());
+                    initParam.getParamName());
             assertEquals("servlet/init-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ", "true",
-                initParam.getParamValue());
+                    initParam.getParamValue());
         }
+    }
+
+    public void testTaglib() throws Exception {
+        // ## Act ##
+        WebappConfig webappConfig = buildWebappConfig();
+
+        // ## Assert ##
+        List taglibs = webappConfig.getTaglibs();
+        assertEquals(1, taglibs.size());
+
+        Taglib taglib = (Taglib) taglibs.get(0);
+        assertEquals("/tags/struts-bean", taglib.getTaglibUri());
+        assertEquals("/WEB-INF/struts-bean.tld", taglib.getTaglibLocation());
     }
 
     private WebappConfig buildWebappConfig() throws IOException {
         // ## Arrange ##
         WebappConfigBuilder builder = new WebappConfigBuilder();
         InputStream is = ResourceUtil.getResourceAsStream(getClass()
-            .getPackage().getName().replace('.', '/')
-            + "/WebappConfigBuilderTest-web.xml");
+                .getPackage().getName().replace('.', '/')
+                + "/WebappConfigBuilderTest-web.xml");
 
         // ## Act ##
         WebappConfig webappConfig = builder.build(is);

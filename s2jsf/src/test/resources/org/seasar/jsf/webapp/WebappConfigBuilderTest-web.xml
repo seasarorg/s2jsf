@@ -266,4 +266,9 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
+    <taglib>
+        <taglib-uri>/tags/struts-bean</taglib-uri>
+        <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+    </taglib>
+
 </web-app>

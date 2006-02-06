@@ -16,7 +16,10 @@
 package org.seasar.jsf.webapp;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +30,10 @@ public class WebappConfigImpl implements WebappConfig, Serializable {
     private static final long serialVersionUID = 1L;
 
     private Map contextParams_ = new HashMap();
+
     private Map servlets_ = new HashMap();
+
+    private List taglibs_ = new ArrayList();
 
     public ContextParam getContextParam(String name) {
         return (ContextParam) contextParams_.get(name);
@@ -43,6 +49,14 @@ public class WebappConfigImpl implements WebappConfig, Serializable {
 
     public void addServlet(Servlet servlet) {
         servlets_.put(servlet.getServletName(), servlet);
+    }
+
+    public List getTaglibs() {
+        return Collections.unmodifiableList(taglibs_);
+    }
+
+    public void addTaglib(Taglib taglib) {
+        taglibs_.add(taglib);
     }
 
 }
