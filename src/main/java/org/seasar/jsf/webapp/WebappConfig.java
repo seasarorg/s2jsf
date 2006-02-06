@@ -15,6 +15,8 @@
  */
 package org.seasar.jsf.webapp;
 
+import java.util.List;
+
 /**
  * @author manhole
  */
@@ -27,5 +29,9 @@ public interface WebappConfig {
     public Servlet getServlet(String servletName);
 
     public void addServlet(Servlet servlet);
+
+    public List getTaglibs();
+
+    public void addTaglib(Taglib taglib);
 
 }

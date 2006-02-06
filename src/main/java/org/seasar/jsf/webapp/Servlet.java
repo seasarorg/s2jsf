@@ -15,17 +15,23 @@
  */
 package org.seasar.jsf.webapp;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author manhole
  */
-public class Servlet {
+public class Servlet implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String servletName_;
+
     private String servletClass_;
+
     private String loadOnStartup_;
+
     private Map initParams_ = new HashMap();
 
     public String getServletName() {
