@@ -9,10 +9,4 @@
 		instance="session"
 	>
 	</component>
-	<component 
-		name="fooDto" 
-		class="it00018.FooDto" 
-		instance="session"
-	>
-	</component>
 </components>
