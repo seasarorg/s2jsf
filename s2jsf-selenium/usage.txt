@@ -4,6 +4,8 @@
 
 2. OSのデフォルトブラウザをFirefoxにする。
    (どう言う訳か、IEでは2つまでしかSelenium命令を行えないようです。)
+   → 追記: IEでもある程度動くようになりました。
+            xpathを使っていると動かないようです。
 
 3. S2JSFをMaven2ローカルレポジトリへインストールする
 
@@ -15,7 +17,21 @@ https://www.seasar.org/svn/s2jsf/trunk/s2jsf/
 
 しておく。
 
-4. s2jsf-seleniumディレクトリにて、
+4. driverをinstall
+
+s2jsf-selenium-driverとs2jsf-selenium-driverディレクトリそれぞれにて、
+
+  mvn clean install
+
+する。
+
+面倒ならs2jsf-seleniumディレクトリにて
+
+  mvn clean install -Dmaven.test.skip=true
+
+でもOK。
+
+5. s2jsf-seleniumディレクトリにて、
 
   mvn clean install
 
