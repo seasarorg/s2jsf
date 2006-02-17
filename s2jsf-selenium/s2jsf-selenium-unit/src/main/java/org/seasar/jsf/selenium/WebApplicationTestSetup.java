@@ -34,7 +34,7 @@ public class WebApplicationTestSetup extends TestSetup {
 
     public WebApplicationTestSetup(Class testClass) {
         this(new TestSuite(testClass));
-        _testClass = testClass;
+        setTestClass(testClass);
     }
 
     protected void setUp() throws Exception {
@@ -43,13 +43,13 @@ public class WebApplicationTestSetup extends TestSetup {
     }
 
     protected void buildWebapp() throws MavenEmbedderException,
-        ProjectBuildingException, ArtifactResolutionException,
-        ArtifactNotFoundException, CycleDetectedException,
-        LifecycleExecutionException, BuildFailureException {
+            ProjectBuildingException, ArtifactResolutionException,
+            ArtifactNotFoundException, CycleDetectedException,
+            LifecycleExecutionException, BuildFailureException {
 
         if (_testClass == null) {
             NullPointerException npe = new NullPointerException(
-                "_testClass is null");
+                    "_testClass is null");
             npe.printStackTrace();
             throw npe;
         }
@@ -65,16 +65,16 @@ public class WebApplicationTestSetup extends TestSetup {
 
         MavenProject mavenProject = maven.readProjectWithDependencies(pomFile);
         EventMonitor eventMonitor = new DefaultEventMonitor(
-            new PlexusLoggerAdapter(new MavenEmbedderConsoleLogger()));
+                new PlexusLoggerAdapter(new MavenEmbedderConsoleLogger()));
 
         Properties prop = new Properties();
         prop.put("maven.test.skip", "true");
 
-        maven.execute(mavenProject, Arrays
-            .asList(new String[] { "resources:resources", "compiler:compile",
+        maven.execute(mavenProject, Arrays.asList(new String[] {
+                "resources:resources", "compiler:compile",
                 "resources:testResources", "compiler:testCompile",
                 "war:exploded" }), eventMonitor, new ConsoleDownloadMonitor(),
-            prop, projectDirectory);
+                prop, projectDirectory);
         maven.stop();
     }
 
