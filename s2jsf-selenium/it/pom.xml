@@ -48,11 +48,13 @@
     <module>it00015</module>
     <module>it00016</module>
     <module>it00017</module>
+    <module>it00018</module>
+    <module>it00019</module>
   </modules>
   <dependencies>
     <dependency>
       <groupId>org.seasar.jsf.selenium</groupId>
-      <artifactId>s2-jsf-selenium-driver</artifactId>
+      <artifactId>s2-jsf-selenium-unit</artifactId>
       <version>0.1-SNAPSHOT</version>
       <type>jar</type>
       <scope>test</scope>
