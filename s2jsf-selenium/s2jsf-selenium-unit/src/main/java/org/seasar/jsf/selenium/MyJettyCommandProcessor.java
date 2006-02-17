@@ -17,14 +17,21 @@ package org.seasar.jsf.selenium;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.mortbay.http.HttpContext;
+import org.mortbay.http.HttpException;
+import org.mortbay.http.HttpFields;
 import org.mortbay.http.HttpRequest;
 import org.mortbay.http.HttpResponse;
 import org.mortbay.http.RequestLog;
 import org.mortbay.http.SocketListener;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.servlet.WebApplicationContext;
+import org.mortbay.jetty.servlet.WebApplicationHandler;
 import org.mortbay.util.InetAddrPort;
 import org.mortbay.util.MultiException;
 import org.seasar.framework.exception.IORuntimeException;
@@ -37,22 +44,31 @@ public class MyJettyCommandProcessor implements CommandProcessor {
 
     private Server _server;
 
-    private SeleneseJettyResourceHandler _seleneseJettyResourceHandler = new MySeleneseJettyResourceHandler();
+    private SeleneseJettyResourceHandler _resourceHandler;
 
     private static final int DEFAULT_PORT = 8080;
 
     private int _port = DEFAULT_PORT;
 
     public MyJettyCommandProcessor() {
+        _resourceHandler = new SeleneseJettyResourceHandler() {
+            private static final long serialVersionUID = 1L;
+
+            public void handle(String s, String s1, HttpRequest req,
+                HttpResponse res) throws HttpException, IOException {
+                setNoCacheHeader(res);
+                super.handle(s, s1, req, res);
+            }
+        };
         configureServer();
     }
 
     public void deploySeleniumDriver(File seleniumAppRoot) {
         try {
             WebApplicationContext context = new WebApplicationContext(
-                    seleniumAppRoot.getCanonicalPath());
+                seleniumAppRoot.getCanonicalPath());
             new NullStaticContentHandler().addStaticContent(context);
-            context.addHandler(_seleneseJettyResourceHandler);
+            context.addHandler(_resourceHandler);
             context.setContextPath("/selenium-driver");
             _server.addContext(context);
         } catch (IOException e) {
@@ -63,7 +79,18 @@ public class MyJettyCommandProcessor implements CommandProcessor {
     public void addWebApplication(File webAppRoot) {
         try {
             WebApplicationContext context = new WebApplicationContext(
-                    webAppRoot.getCanonicalPath());
+                webAppRoot.getCanonicalPath());
+            WebApplicationHandler handler = new WebApplicationHandler() {
+                private static final long serialVersionUID = 1L;
+
+                public void handle(String s, String s1, HttpRequest req,
+                    HttpResponse res) throws IOException {
+                    setNoCacheHeader(res);
+                    super.handle(s, s1, req, res);
+                }
+
+            };
+            context.addHandler(handler);
             context.setContextPath("/");
             _server.addContext(context);
         } catch (IOException e) {
@@ -71,11 +98,19 @@ public class MyJettyCommandProcessor implements CommandProcessor {
         }
     }
 
+    private void setNoCacheHeader(HttpResponse res) {
+        res.setField(HttpFields.__Pragma, "no-cache");
+        res.setField(HttpFields.__CacheControl, "no-cache");
+        DateFormat format = new SimpleDateFormat(
+            "EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US);
+        res.setField(HttpFields.__Expires, format.format(new Date(1L)));
+    }
+
     private void configureServer() {
         _server = new Server();
         try {
             SocketListener listener = new SocketListener(new InetAddrPort(
-                    "localhost", _port));
+                "localhost", _port));
             listener.setMaxIdleTimeMs(1000 * 300); // 効いていない?
             _server.addListener(listener);
         } catch (IOException e) {
@@ -85,7 +120,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
     }
 
     public String doCommand(String command, String field, String value) {
-        return _seleneseJettyResourceHandler.doCommand(command, field, value);
+        return _resourceHandler.doCommand(command, field, value);
     }
 
     public void start() {
@@ -98,16 +133,15 @@ public class MyJettyCommandProcessor implements CommandProcessor {
                 System.out.println("  context=" + context);
                 System.out.println("    classpth=" + context.getClassPath());
                 System.out.println("    baseResource="
-                        + context.getBaseResource());
+                    + context.getBaseResource());
                 // System.out.println(" attributes=" + context.getAttributes());
                 System.out.println("    contextPath="
-                        + context.getContextPath());
+                    + context.getContextPath());
             }
 
         } catch (MultiException e) {
             throw new MultiRuntimeException(
-                    "Exception starting Jetty. Port blocked by another process?",
-                    e);
+                "Exception starting Jetty. Port blocked by another process?", e);
         }
     }
 
@@ -118,7 +152,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
             System.out.println("Stopped.");
         } catch (InterruptedException e) {
             throw new InterruptedRuntimeException(
-                    "Jetty Interrupted during stop", e);
+                "Jetty Interrupted during stop", e);
         }
     }
 
@@ -131,7 +165,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
         private static final long serialVersionUID = 1L;
 
         public void log(HttpRequest httprequest, HttpResponse httpresponse,
-                int j) {
+            int j) {
         }
 
         public void start() throws Exception {
