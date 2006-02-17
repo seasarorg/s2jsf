@@ -1,4 +1,4 @@
-package org.seasar.jsf.selenium;
+package org.seasar.selenium;
 
 import javax.servlet.http.HttpServletResponse;
 

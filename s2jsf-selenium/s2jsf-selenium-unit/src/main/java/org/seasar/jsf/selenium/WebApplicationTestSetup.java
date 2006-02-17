@@ -15,6 +15,7 @@ import org.apache.maven.cli.ConsoleDownloadMonitor;
 import org.apache.maven.embedder.MavenEmbedder;
 import org.apache.maven.embedder.MavenEmbedderConsoleLogger;
 import org.apache.maven.embedder.MavenEmbedderException;
+import org.apache.maven.embedder.MavenEmbedderLogger;
 import org.apache.maven.embedder.PlexusLoggerAdapter;
 import org.apache.maven.lifecycle.LifecycleExecutionException;
 import org.apache.maven.monitor.event.DefaultEventMonitor;
@@ -55,7 +56,9 @@ public class WebApplicationTestSetup extends TestSetup {
         }
         MavenEmbedder maven = new MavenEmbedder();
         maven.setClassLoader(Thread.currentThread().getContextClassLoader());
-        maven.setLogger(new MavenEmbedderConsoleLogger());
+        MavenEmbedderLogger mavenLogger = new MavenEmbedderConsoleLogger();
+        mavenLogger.setThreshold(MavenEmbedderLogger.LEVEL_ERROR);
+        maven.setLogger(mavenLogger);
         maven.start();
 
         final File pomFile = getProjectPomFile();
@@ -65,7 +68,7 @@ public class WebApplicationTestSetup extends TestSetup {
 
         MavenProject mavenProject = maven.readProjectWithDependencies(pomFile);
         EventMonitor eventMonitor = new DefaultEventMonitor(
-                new PlexusLoggerAdapter(new MavenEmbedderConsoleLogger()));
+                new PlexusLoggerAdapter(mavenLogger));
 
         Properties prop = new Properties();
         prop.put("maven.test.skip", "true");

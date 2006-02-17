@@ -1,11 +1,11 @@
-*Usage
+* Usage
 
-1.Maven2をインストールする。
+1. Maven2をインストールする。
 
-2.OSのデフォルトブラウザをFirefoxにする。
- (どう言う訳か、IEでは2つまでしかSelenium命令を行えないようです。)
+2. OSのデフォルトブラウザをFirefoxにする。
+   (どう言う訳か、IEでは2つまでしかSelenium命令を行えないようです。)
 
-3.S2JSFをMaven2ローカルレポジトリへインストールする
+3. S2JSFをMaven2ローカルレポジトリへインストールする
 
 時期によってはリリース前のS2JSFをテストする設定になっているため、
 https://www.seasar.org/svn/s2jsf/trunk/s2jsf/
@@ -15,7 +15,7 @@ https://www.seasar.org/svn/s2jsf/trunk/s2jsf/
 
 しておく。
 
-4.s2jsf-seleniumディレクトリにて、
+4. s2jsf-seleniumディレクトリにて、
 
   mvn clean install
 
@@ -23,11 +23,10 @@ https://www.seasar.org/svn/s2jsf/trunk/s2jsf/
 
 Forefoxが起動し、ブラウザが勝手に操作されていく...はず。
 
-*動作環境
+* 動作環境
 
 - JDK 1.4.2_10
 - Windows2000, XP
-- Maven 2.0.1
+- Maven 2.0.2
 
 で動くことを確認しています。
-

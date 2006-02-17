@@ -27,6 +27,7 @@
   </build>
   <modules>
     <module>s2jsf-selenium-unit</module>
+    <module>s2jsf-selenium-driver</module>
     <module>it</module>
   </modules>
   <repositories>

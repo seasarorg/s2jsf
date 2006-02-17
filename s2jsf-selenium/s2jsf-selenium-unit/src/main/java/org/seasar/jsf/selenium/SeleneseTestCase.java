@@ -14,7 +14,9 @@ import com.thoughtworks.selenium.launchers.SystemDefaultBrowserLauncher;
 public abstract class SeleneseTestCase extends TestCase {
 
     private LazySelenium _selenium;
+
     private String _originalJettyEncoding;
+
     private MyJettyCommandProcessor _commandProcessor;
 
     protected void setUp() throws Exception {
@@ -39,8 +41,14 @@ public abstract class SeleneseTestCase extends TestCase {
     }
 
     protected File getSeleniumWarFile() {
-        return new File(TestUtil.getProjectRootPath(),
-            "selenium-driver-0.6.war");
+        // return new File(TestUtil.getProjectRootPath(),
+        // "selenium-driver-0.6.war");
+
+        // String path = TestUtil.getProjectPath("s2jsf-selenium-unit");
+        String path = TestUtil.getProjectPathByClass(getClass());
+        System.out.println("TestCase Project:" + path);
+        File pom = new File(path, "pom.xml");
+        return MavenUtil.getSeleniumDriverWarFromPom(pom);
     }
 
     protected String getHtmlEncoding() {
@@ -68,7 +76,7 @@ public abstract class SeleneseTestCase extends TestCase {
             try {
                 LazySelenium lazySelenum = new LazySelenium();
                 lazySelenum.setSelenium(new DefaultSelenium(_commandProcessor,
-                    new SystemDefaultBrowserLauncher()));
+                        new SystemDefaultBrowserLauncher()));
                 _selenium = lazySelenum;
             } catch (Error th) {
                 th.printStackTrace();

@@ -1,3 +1,18 @@
+/*
+ * Copyright 2004-2006 the Seasar Foundation and the Others.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
 package org.seasar.jsf.selenium;
 
 import java.io.File;
@@ -21,7 +36,9 @@ import com.thoughtworks.selenium.embedded.jetty.SeleneseJettyResourceHandler;
 public class MyJettyCommandProcessor implements CommandProcessor {
 
     private Server _server;
-    private SeleneseJettyResourceHandler _seleneseJettyResourceHandler = new SeleneseJettyResourceHandler();
+
+    private SeleneseJettyResourceHandler _seleneseJettyResourceHandler = new MySeleneseJettyResourceHandler();
+
     private static final int DEFAULT_PORT = 8080;
 
     private int _port = DEFAULT_PORT;
@@ -33,7 +50,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
     public void deploySeleniumDriver(File seleniumAppRoot) {
         try {
             WebApplicationContext context = new WebApplicationContext(
-                seleniumAppRoot.getCanonicalPath());
+                    seleniumAppRoot.getCanonicalPath());
             new NullStaticContentHandler().addStaticContent(context);
             context.addHandler(_seleneseJettyResourceHandler);
             context.setContextPath("/selenium-driver");
@@ -46,7 +63,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
     public void addWebApplication(File webAppRoot) {
         try {
             WebApplicationContext context = new WebApplicationContext(
-                webAppRoot.getCanonicalPath());
+                    webAppRoot.getCanonicalPath());
             context.setContextPath("/");
             _server.addContext(context);
         } catch (IOException e) {
@@ -58,7 +75,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
         _server = new Server();
         try {
             SocketListener listener = new SocketListener(new InetAddrPort(
-                "localhost", _port));
+                    "localhost", _port));
             listener.setMaxIdleTimeMs(1000 * 300); // 効いていない?
             _server.addListener(listener);
         } catch (IOException e) {
@@ -81,15 +98,16 @@ public class MyJettyCommandProcessor implements CommandProcessor {
                 System.out.println("  context=" + context);
                 System.out.println("    classpth=" + context.getClassPath());
                 System.out.println("    baseResource="
-                    + context.getBaseResource());
-                // System.out.println("    attributes=" + context.getAttributes());
+                        + context.getBaseResource());
+                // System.out.println(" attributes=" + context.getAttributes());
                 System.out.println("    contextPath="
-                    + context.getContextPath());
+                        + context.getContextPath());
             }
 
         } catch (MultiException e) {
             throw new MultiRuntimeException(
-                "Exception starting Jetty. Port blocked by another process?", e);
+                    "Exception starting Jetty. Port blocked by another process?",
+                    e);
         }
     }
 
@@ -100,7 +118,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
             System.out.println("Stopped.");
         } catch (InterruptedException e) {
             throw new InterruptedRuntimeException(
-                "Jetty Interrupted during stop", e);
+                    "Jetty Interrupted during stop", e);
         }
     }
 
@@ -113,7 +131,7 @@ public class MyJettyCommandProcessor implements CommandProcessor {
         private static final long serialVersionUID = 1L;
 
         public void log(HttpRequest httprequest, HttpResponse httpresponse,
-            int j) {
+                int j) {
         }
 
         public void start() throws Exception {

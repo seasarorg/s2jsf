@@ -2,7 +2,7 @@
  * Copyright (c) 2005 ARK Systems Co.,Ltd. All rights reserved.
  */
 
-package org.seasar.jsf.selenium;
+package org.seasar.selenium;
 
 import java.io.IOException;
 
