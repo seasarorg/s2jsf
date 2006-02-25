@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry output="s2jsf-webapp-sertup/target/classes" kind="src" path="s2jsf-webapp-sertup/src/main/java"/>
-	<classpathentry output="s2jsf-webapp-sertup/target/classes" kind="src" path="s2jsf-webapp-sertup/src/main/resources"/>
+	<classpathentry output="s2jsf-webapp-setup/target/classes" kind="src" path="s2jsf-webapp-setup/src/main/java"/>
+	<classpathentry output="s2jsf-webapp-setup/target/classes" kind="src" path="s2jsf-webapp-setup/src/main/resources"/>
 	<classpathentry output="it/it00001/target/classes" kind="src" path="it/it00001/src/main/java"/>
 	<classpathentry output="it/it00001/target/test-classes" kind="src" path="it/it00001/src/test/java"/>
 	<classpathentry output="it/it00002/target/classes" kind="src" path="it/it00002/src/main/java"/>
