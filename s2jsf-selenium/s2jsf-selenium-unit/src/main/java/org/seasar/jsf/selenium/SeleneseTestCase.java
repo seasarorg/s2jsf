@@ -48,7 +48,7 @@ public abstract class SeleneseTestCase extends TestCase {
         String path = TestUtil.getProjectPathByClass(getClass());
         System.out.println("TestCase Project:" + path);
         File pom = new File(path, "pom.xml");
-        return MavenUtil.getSeleniumDriverWarFromPom(pom);
+        return MavenUtil.getArtifactFromPom(pom, "s2-jsf-selenium-driver");
     }
 
     protected String getHtmlEncoding() {
@@ -76,7 +76,7 @@ public abstract class SeleneseTestCase extends TestCase {
             try {
                 LazySelenium lazySelenum = new LazySelenium();
                 lazySelenum.setSelenium(new DefaultSelenium(_commandProcessor,
-                        new SystemDefaultBrowserLauncher()));
+                    new SystemDefaultBrowserLauncher()));
                 _selenium = lazySelenum;
             } catch (Error th) {
                 th.printStackTrace();

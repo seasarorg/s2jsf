@@ -27,7 +27,8 @@ public class MavenUtilTest extends TestCase {
     public void testGetSeleniumDriverWar() throws Exception {
         String path = TestUtil.getProjectPath("s2jsf-selenium-unit");
         File pom = new File(path, "pom.xml");
-        File seleniumDriverWar = MavenUtil.getSeleniumDriverWarFromPom(pom);
+        File seleniumDriverWar = MavenUtil.getArtifactFromPom(pom,
+            "s2-jsf-selenium-driver");
         System.out.println(seleniumDriverWar);
         assertNotNull(seleniumDriverWar);
         assertEquals(true, seleniumDriverWar.exists());

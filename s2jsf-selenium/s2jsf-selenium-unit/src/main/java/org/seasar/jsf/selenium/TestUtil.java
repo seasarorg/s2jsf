@@ -14,7 +14,7 @@ public class TestUtil {
         try {
             File project = null;
             for (File current = getResourceAsFile("."); current != null; current = current
-                    .getParentFile()) {
+                .getParentFile()) {
                 if (pomExists(current)) {
                     project = current;
                 }
@@ -28,18 +28,18 @@ public class TestUtil {
         }
     }
 
-    public static String getProjectPath(String projectPath) {
+    public static String getProjectPath(String projectName) {
         try {
             File project = null;
             for (File current = getResourceAsFile("."); current != null; current = current
-                    .getParentFile()) {
-                if (projectPath.equals(current.getName())) {
+                .getParentFile()) {
+                if (projectName.equals(current.getName())) {
                     if (pomExists(current)) {
                         project = current;
                         break;
                     }
                 }
-                File brother = new File(current, projectPath);
+                File brother = new File(current, projectName);
                 if (pomExists(brother)) {
                     project = brother;
                     break;
@@ -63,7 +63,7 @@ public class TestUtil {
         ClassLoader cl = currentThread.getContextClassLoader();
         try {
             currentThread.setContextClassLoader(getCallerClass()
-                    .getClassLoader());
+                .getClassLoader());
             return ResourceUtil.getResourceAsFile(s);
         } finally {
             currentThread.setContextClassLoader(cl);
@@ -88,7 +88,7 @@ public class TestUtil {
         try {
             File project = null;
             for (File current = getResourceAsFile("."); current != null; current = current
-                    .getParentFile()) {
+                .getParentFile()) {
                 if (pomExists(current)) {
                     project = current;
                     break;
@@ -107,7 +107,7 @@ public class TestUtil {
         URL resource = clazz.getClassLoader().getResource(".");
         File f = ResourceUtil.getFile(resource);
         for (File current = f; current != null; current = current
-                .getParentFile()) {
+            .getParentFile()) {
             if (pomExists(current)) {
                 try {
                     return current.getCanonicalPath();

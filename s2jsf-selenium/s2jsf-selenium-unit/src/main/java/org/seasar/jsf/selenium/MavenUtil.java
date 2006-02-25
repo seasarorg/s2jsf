@@ -34,10 +34,10 @@ import org.apache.maven.project.ProjectBuildingException;
  */
 public class MavenUtil {
 
-    public static File getSeleniumDriverWarFromPom(File pom) {
+    public static File getArtifactFromPom(File pom, String artifactId) {
         MavenEmbedder maven = new MavenEmbedder();
         ClassLoader classLoader = Thread.currentThread()
-                .getContextClassLoader();
+            .getContextClassLoader();
         maven.setClassLoader(classLoader);
         MavenEmbedderConsoleLogger logger = new MavenEmbedderConsoleLogger();
         logger.setThreshold(MavenEmbedderLogger.LEVEL_ERROR);
@@ -47,18 +47,18 @@ public class MavenUtil {
             MavenProject mavenProject = maven.readProjectWithDependencies(pom);
             Artifact seleniumDriverArtifact = null;
             for (Iterator it = mavenProject.getArtifacts().iterator(); it
-                    .hasNext();) {
+                .hasNext();) {
                 Artifact artifact = (Artifact) it.next();
-                if ("s2-jsf-selenium-driver".equals(artifact.getArtifactId())) {
+                if (artifactId.equals(artifact.getArtifactId())) {
                     seleniumDriverArtifact = artifact;
                 }
             }
             if (seleniumDriverArtifact == null) {
-                throw new NullPointerException(
-                        "s2-jsf-selenium-driver not found. from " + pom);
+                throw new RuntimeException("[" + artifactId
+                    + "] not found. from " + pom);
             }
             File seleniumDriverFile = seleniumDriverArtifact.getFile()
-                    .getCanonicalFile();
+                .getCanonicalFile();
             maven.stop();
             return seleniumDriverFile;
         } catch (MavenEmbedderException e) {
