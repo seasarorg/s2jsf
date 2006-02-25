@@ -23,7 +23,6 @@ import org.apache.maven.monitor.event.EventMonitor;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingException;
 import org.codehaus.plexus.util.dag.CycleDetectedException;
-import org.seasar.framework.util.ResourceUtil;
 
 public class WebApplicationTestSetup extends TestSetup {
 
@@ -64,7 +63,6 @@ public class WebApplicationTestSetup extends TestSetup {
         final File pomFile = getProjectPomFile();
         System.out.println("pomFile:" + pomFile);
         final File projectDirectory = pomFile.getParentFile();
-        System.out.println("projectDirectory:" + projectDirectory);
 
         MavenProject mavenProject = maven.readProjectWithDependencies(pomFile);
         EventMonitor eventMonitor = new DefaultEventMonitor(
@@ -82,14 +80,7 @@ public class WebApplicationTestSetup extends TestSetup {
     }
 
     protected File getProjectPomFile() {
-        File file = ResourceUtil.getFile(_testClass.getResource("."));
-        for (File f = file; f != null; f = f.getParentFile()) {
-            File pomFile = new File(f, "pom.xml");
-            if (pomFile.exists()) {
-                return pomFile;
-            }
-        }
-        return null;
+        return MavenProjectUtil.getProjectPomFile(_testClass);
     }
 
     public void setTestClass(Class testClass) {
