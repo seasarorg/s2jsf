@@ -27,6 +27,7 @@
     </pluginManagement>
   </build>
   <modules>
+    <module>maven-util</module>
     <module>s2jsf-webapp-setup</module>
     <module>s2jsf-selenium-unit</module>
     <module>s2jsf-selenium-driver</module>

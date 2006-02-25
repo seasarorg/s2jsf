@@ -60,7 +60,7 @@ public class WebApplicationTestSetup extends TestSetup {
         maven.setLogger(mavenLogger);
         maven.start();
 
-        final File pomFile = getProjectPomFile();
+        final File pomFile = getProjectPomFile(_testClass);
         System.out.println("pomFile:" + pomFile);
         final File projectDirectory = pomFile.getParentFile();
 
@@ -79,8 +79,8 @@ public class WebApplicationTestSetup extends TestSetup {
         maven.stop();
     }
 
-    protected File getProjectPomFile() {
-        return MavenProjectUtil.getProjectPomFile(_testClass);
+    protected File getProjectPomFile(Class clazz) {
+        return MavenUtil.getProjectPomFile(clazz);
     }
 
     public void setTestClass(Class testClass) {

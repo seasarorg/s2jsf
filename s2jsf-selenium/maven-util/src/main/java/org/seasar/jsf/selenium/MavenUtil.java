@@ -28,6 +28,7 @@ import org.apache.maven.embedder.MavenEmbedderException;
 import org.apache.maven.embedder.MavenEmbedderLogger;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.ProjectBuildingException;
+import org.seasar.framework.util.ResourceUtil;
 
 /**
  * @author manhole
@@ -37,7 +38,7 @@ public class MavenUtil {
     public static File getArtifactFromPom(File pom, String artifactId) {
         MavenEmbedder maven = new MavenEmbedder();
         ClassLoader classLoader = Thread.currentThread()
-            .getContextClassLoader();
+                .getContextClassLoader();
         maven.setClassLoader(classLoader);
         MavenEmbedderConsoleLogger logger = new MavenEmbedderConsoleLogger();
         logger.setThreshold(MavenEmbedderLogger.LEVEL_ERROR);
@@ -47,7 +48,7 @@ public class MavenUtil {
             MavenProject mavenProject = maven.readProjectWithDependencies(pom);
             Artifact seleniumDriverArtifact = null;
             for (Iterator it = mavenProject.getArtifacts().iterator(); it
-                .hasNext();) {
+                    .hasNext();) {
                 Artifact artifact = (Artifact) it.next();
                 if (artifactId.equals(artifact.getArtifactId())) {
                     seleniumDriverArtifact = artifact;
@@ -55,10 +56,10 @@ public class MavenUtil {
             }
             if (seleniumDriverArtifact == null) {
                 throw new RuntimeException("[" + artifactId
-                    + "] not found. from " + pom);
+                        + "] not found. from " + pom);
             }
             File seleniumDriverFile = seleniumDriverArtifact.getFile()
-                .getCanonicalFile();
+                    .getCanonicalFile();
             maven.stop();
             return seleniumDriverFile;
         } catch (MavenEmbedderException e) {
@@ -74,4 +75,14 @@ public class MavenUtil {
         }
     }
 
+    public static File getProjectPomFile(final Class clazz) {
+        File file = ResourceUtil.getBuildDir(clazz);
+        for (File f = file; f != null; f = f.getParentFile()) {
+            File pomFile = new File(f, "pom.xml");
+            if (pomFile.exists()) {
+                return pomFile;
+            }
+        }
+        return null;
+    }
 }

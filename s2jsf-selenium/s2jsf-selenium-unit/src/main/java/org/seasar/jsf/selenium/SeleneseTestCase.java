@@ -45,9 +45,11 @@ public abstract class SeleneseTestCase extends TestCase {
         // "selenium-driver-0.6.war");
 
         // String path = TestUtil.getProjectPath("s2jsf-selenium-unit");
-        String path = TestUtil.getProjectPathByClass(getClass());
-        System.out.println("TestCase Project:" + path);
-        File pom = new File(path, "pom.xml");
+        // String path = TestUtil.getProjectPathByClass(getClass());
+        // System.out.println("TestCase Project:" + path);
+        // File pom = new File(path, "pom.xml");
+        File pom = MavenUtil.getProjectPomFile(getClass());
+        System.out.println("TestCase Project:" + pom);
         return MavenUtil.getArtifactFromPom(pom, "s2-jsf-selenium-driver");
     }
 
@@ -76,7 +78,7 @@ public abstract class SeleneseTestCase extends TestCase {
             try {
                 LazySelenium lazySelenum = new LazySelenium();
                 lazySelenum.setSelenium(new DefaultSelenium(_commandProcessor,
-                    new SystemDefaultBrowserLauncher()));
+                        new SystemDefaultBrowserLauncher()));
                 _selenium = lazySelenum;
             } catch (Error th) {
                 th.printStackTrace();
