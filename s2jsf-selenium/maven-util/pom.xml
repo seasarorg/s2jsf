@@ -10,9 +10,9 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>s2-jsf-webapp-setup</artifactId>
+  <artifactId>maven-util</artifactId>
   <packaging>jar</packaging>
-  <name>S2JSF Webapp Setup</name>
+  <name>Maven Util</name>
   <url></url>
   <dependencies>
     <dependency>
@@ -25,6 +25,8 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
+      <type>jar</type>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.maven</groupId>
