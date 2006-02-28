@@ -46,22 +46,22 @@ public class MavenUtil {
         try {
             maven.start();
             MavenProject mavenProject = maven.readProjectWithDependencies(pom);
-            Artifact seleniumDriverArtifact = null;
+            Artifact targetArtifact = null;
             for (Iterator it = mavenProject.getArtifacts().iterator(); it
                     .hasNext();) {
                 Artifact artifact = (Artifact) it.next();
                 if (artifactId.equals(artifact.getArtifactId())) {
-                    seleniumDriverArtifact = artifact;
+                    targetArtifact = artifact;
                 }
             }
-            if (seleniumDriverArtifact == null) {
+            if (targetArtifact == null) {
                 throw new RuntimeException("[" + artifactId
                         + "] not found. from " + pom);
             }
-            File seleniumDriverFile = seleniumDriverArtifact.getFile()
+            File targetArtifactFile = targetArtifact.getFile()
                     .getCanonicalFile();
             maven.stop();
-            return seleniumDriverFile;
+            return targetArtifactFile;
         } catch (MavenEmbedderException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

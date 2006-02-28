@@ -80,6 +80,12 @@ public class MavenEmmedderSpikeTest extends TestCase {
                     + element.getValue());
         }
 
+        for (Iterator it = mavenProject.getCompileClasspathElements()
+                .iterator(); it.hasNext();) {
+            final String elem = (String) it.next();
+            System.out.println("CompileClasspathElements:" + elem);
+        }
+
         //
         // EventMonitor eventMonitor = new DefaultEventMonitor(
         // new PlexusLoggerAdapter(new MavenEmbedderConsoleLogger()));
