@@ -91,11 +91,10 @@ public class HtmlCommandLinkRenderer extends AbstractHtmlLinkRenderer {
                 JsfConstants.ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE);
         String style = link.getStyle();
         RenderUtil.renderAttribute(writer, JsfConstants.STYLE_ATTR,
-                JsfConstants.STYLE_ATTR, style);
+                style, JsfConstants.STYLE_ATTR);
         String styleClass = link.getStyleClass();
         RenderUtil.renderAttribute(writer, JsfConstants.STYLE_CLASS_ATTR,
-                JsfConstants.STYLE_CLASS_ATTR, styleClass);
-
+                styleClass, JsfConstants.STYLE_CLASS_ATTR);
         Object value = link.getValue();
         if (value != null) {
             writer.writeText(value.toString(), JsfConstants.VALUE_ATTR);
