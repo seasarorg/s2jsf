@@ -10,21 +10,14 @@ import examples.jsf.dao.DepartmentDtoDao;
  */
 public class DepartmentDtoDaoTest extends S2DaoTestCase {
 
-	private DepartmentDtoDao departmentDtoDao_;
+    private DepartmentDtoDao departmentDtoDao_;
 
-	public DepartmentDtoDaoTest(String arg0) {
-		super(arg0);
-	}
+    public void setUp() {
+        include("examples/jsf/dicon/alldao.dicon");
+    }
 
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(DepartmentDtoDaoTest.class);
-	}
-	
-	public void setUp() {
-		include("examples/jsf/dicon/alldao.dicon");
-	}
-	
-	public void testGetDname() throws Exception {
-		assertNotNull("1", departmentDtoDao_.getDname(new Integer(10)));
-	}
+    public void testGetDname() throws Exception {
+        assertNotNull(departmentDtoDao_.getDname(new Integer(10)));
+    }
+
 }
