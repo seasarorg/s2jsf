@@ -1,0 +1,92 @@
+package org.seasar.jsf.example.it;
+
+
+import junitx.framework.StringAssert;
+
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
+
+/**
+ * @author manhole
+ */
+public class ForEach3Test extends AbstractTestCase {
+
+    public void test1() throws Exception {
+        HtmlPage page1 = getPageFromMenu("ForEach3");
+        String body1 = getBody(page1).trim();
+        System.out.println(body1);
+
+        assertEquals("ForEach3", page1.getTitleText());
+        StringAssert.assertContains("submit", body1);
+
+        // 1
+
+        HtmlForm form1 = getForm(page1);
+
+        HtmlTable table1 = (HtmlTable) new HtmlUnitXPath("table")
+                .selectSingleNode(form1);
+        System.out.println(table1);
+        assertEquals(2, table1.getRowCount());
+
+        HtmlTextInput a1 = getA(table1);
+        HtmlTextInput b1 = getB(table1);
+        HtmlTextInput c1 = getC(table1);
+        HtmlTextInput d1 = getD(table1);
+        assertEquals("11", a1.getValueAttribute());
+        assertEquals("12", b1.getValueAttribute());
+        assertEquals("21", c1.getValueAttribute());
+        assertEquals("22", d1.getValueAttribute());
+
+        HtmlSubmitInput submit1 = (HtmlSubmitInput) new HtmlUnitXPath(
+                "//input[@type='submit']").selectSingleNode(form1);
+        System.out.println(submit1);
+
+        a1.setValueAttribute("11a");
+        b1.setValueAttribute("12b");
+        c1.setValueAttribute("21c");
+        d1.setValueAttribute("22d");
+
+        // 2
+
+        HtmlPage page2 = (HtmlPage) submit1.click();
+        String body2 = getBody(page2).trim();
+        System.out.println(body2);
+
+        HtmlForm form2 = getForm(page2);
+        HtmlTable table2 = (HtmlTable) new HtmlUnitXPath("table")
+                .selectSingleNode(form2);
+        HtmlTextInput a2 = getA(table2);
+        HtmlTextInput b2 = getB(table2);
+        HtmlTextInput c2 = getC(table2);
+        HtmlTextInput d2 = getD(table2);
+        assertEquals("11a", a2.getValueAttribute());
+        assertEquals("12b", b2.getValueAttribute());
+        assertEquals("21c", c2.getValueAttribute());
+        assertEquals("22d", d2.getValueAttribute());
+    }
+
+    private HtmlTextInput getA(HtmlTable table1) {
+        return (HtmlTextInput) getFirstChild(table1.getCellAt(0, 0),
+                HtmlTextInput.class);
+    }
+
+    private HtmlTextInput getB(HtmlTable table1) {
+        return (HtmlTextInput) getFirstChild(table1.getCellAt(0, 1),
+                HtmlTextInput.class);
+    }
+
+    private HtmlTextInput getC(HtmlTable table1) {
+        return (HtmlTextInput) getFirstChild(table1.getCellAt(1, 0),
+                HtmlTextInput.class);
+    }
+
+    private HtmlTextInput getD(HtmlTable table1) {
+        return (HtmlTextInput) getFirstChild(table1.getCellAt(1, 1),
+                HtmlTextInput.class);
+    }
+
+}
