@@ -101,7 +101,7 @@ public abstract class AbstractTestCase extends TestCase {
     }
 
     protected HtmlForm getForm(HtmlPage page) throws JaxenException {
-        return (HtmlForm) new HtmlUnitXPath("//form[1]").selectNodes(page).get(
+        return (HtmlForm) new HtmlUnitXPath(".//form[1]").selectNodes(page).get(
                 1);
     }
 

@@ -13,10 +13,14 @@
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <scm>
-    <connection>scm:svn:https://www.seasar.org/svn/teeda/trunk/s2jsf-example-test/</connection>
-    <developerConnection>scm:svn:https://www.seasar.org/svn/teeda/trunk/s2jsf-example-test/</developerConnection>
-    <url>http://www.seasar.org/websvn/listing.php?repname=teeda</url>
+    <connection>scm:svn:https://www.seasar.org/svn/s2jsf/trunk/s2jsf-example-test/</connection>
+    <developerConnection>scm:svn:https://www.seasar.org/svn/s2jsf/trunk/s2jsf-example-test/</developerConnection>
+    <url>http://www.seasar.org/websvn/listing.php?repname=s2jsf</url>
   </scm>
+  <organization>
+    <name>The Seasar Foundation</name>
+    <url>http://www.seasar.org/</url>
+  </organization>
   <build>
   </build>
   <dependencies>

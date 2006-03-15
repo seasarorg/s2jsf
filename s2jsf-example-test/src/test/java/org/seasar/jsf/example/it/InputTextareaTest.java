@@ -60,7 +60,7 @@ public class InputTextareaTest extends AbstractTestCase {
 
     private HtmlSubmitInput getSubmit(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlSubmitInput) new HtmlUnitXPath("//input[@type='submit']")
+        return (HtmlSubmitInput) new HtmlUnitXPath(".//input[@type='submit']")
                 .selectSingleNode(form);
     }
 

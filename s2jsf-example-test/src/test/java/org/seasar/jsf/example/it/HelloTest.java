@@ -9,7 +9,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public class HelloTest extends AbstractTestCase {
 
-    public void testMenu() throws Exception {
+    public void test1() throws Exception {
         HtmlPage page = getPageFromMenu("Hello");
         String body = getBody(page).trim();
         System.out.println(body);

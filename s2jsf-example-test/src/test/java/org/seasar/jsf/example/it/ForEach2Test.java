@@ -2,6 +2,8 @@ package org.seasar.jsf.example.it;
 
 import junitx.framework.StringAssert;
 
+import org.jaxen.JaxenException;
+
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -25,23 +27,23 @@ public class ForEach2Test extends AbstractTestCase {
 
         // 1
 
-        HtmlForm form1 = getForm(page1);
+        {
+            HtmlTable table = getTable(page1);
+            assertEquals(6, table.getRowCount());
 
-        HtmlTable table1 = (HtmlTable) new HtmlUnitXPath("table")
-                .selectSingleNode(form1);
-        System.out.println(table1);
-        assertEquals(6, table1.getRowCount());
+            HtmlTextInput input = (HtmlTextInput) getFirstChild(table
+                    .getCellAt(2, 1), HtmlTextInput.class);
+            assertEquals("bbb", input.getValueAttribute());
 
-        ((HtmlCheckBoxInput) getFirstChild(table1.getCellAt(1, 0),
-                HtmlCheckBoxInput.class)).setChecked(true);
-        ((HtmlCheckBoxInput) getFirstChild(table1.getCellAt(2, 0),
-                HtmlCheckBoxInput.class)).setChecked(true);
-        ((HtmlCheckBoxInput) getFirstChild(table1.getCellAt(3, 0),
-                HtmlCheckBoxInput.class)).setChecked(true);
+            ((HtmlCheckBoxInput) getFirstChild(table.getCellAt(1, 0),
+                    HtmlCheckBoxInput.class)).setChecked(true);
+            ((HtmlCheckBoxInput) getFirstChild(table.getCellAt(2, 0),
+                    HtmlCheckBoxInput.class)).setChecked(true);
+            ((HtmlCheckBoxInput) getFirstChild(table.getCellAt(3, 0),
+                    HtmlCheckBoxInput.class)).setChecked(true);
+        }
 
-        HtmlSubmitInput submit1 = (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='update']")
-                .selectSingleNode(form1);
+        HtmlSubmitInput submit1 = getUpdateButton(page1);
         System.out.println(submit1);
 
         // 2
@@ -50,18 +52,16 @@ public class ForEach2Test extends AbstractTestCase {
         String body2 = getBody(page2).trim();
         System.out.println(body2);
 
-        HtmlForm form2 = getForm(page2);
-        HtmlTable table2 = (HtmlTable) new HtmlUnitXPath("table")
-                .selectSingleNode(form2);
-        assertEquals(3, table2.getRowCount());
+        {
+            HtmlTable table = getTable(page2);
+            assertEquals(3, table.getRowCount());
 
-        HtmlTextInput input2 = (HtmlTextInput) getFirstChild(table2.getCellAt(
-                1, 1), HtmlTextInput.class);
-        assertEquals("ddd", input2.getValueAttribute());
-        input2.setValueAttribute("abcde");
-        HtmlSubmitInput submit2 = (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='update']")
-                .selectSingleNode(form2);
+            HtmlTextInput input2 = (HtmlTextInput) getFirstChild(table
+                    .getCellAt(1, 1), HtmlTextInput.class);
+            assertEquals("ddd", input2.getValueAttribute());
+            input2.setValueAttribute("abcde");
+        }
+        HtmlSubmitInput submit2 = getUpdateButton(page2);
 
         // 3
 
@@ -69,24 +69,45 @@ public class ForEach2Test extends AbstractTestCase {
         String body3 = getBody(page3).trim();
         System.out.println(body3);
 
-        HtmlForm form3 = getForm(page3);
-        HtmlTable table3 = (HtmlTable) new HtmlUnitXPath("table")
-                .selectSingleNode(form3);
-        HtmlTextInput input3 = (HtmlTextInput) getFirstChild(table3.getCellAt(
-                1, 1), HtmlTextInput.class);
-        assertEquals("abcde", input3.getValueAttribute());
+        {
+            HtmlTable table3 = getTable(page3);
+            HtmlTextInput input3 = (HtmlTextInput) getFirstChild(table3
+                    .getCellAt(1, 1), HtmlTextInput.class);
+            assertEquals("abcde", input3.getValueAttribute());
+        }
 
-        HtmlSubmitInput submit3 = (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='add row']")
-                .selectSingleNode(form3);
+        HtmlSubmitInput submit3 = getAddRowBottun(page3);
 
         // 4
 
         HtmlPage page4 = (HtmlPage) submit3.click();
-        HtmlForm form4 = getForm(page4);
-        HtmlTable table4 = (HtmlTable) new HtmlUnitXPath("table")
-                .selectSingleNode(form4);
+        HtmlTable table4 = getTable(page4);
         assertEquals(4, table4.getRowCount());
+    }
+
+    private HtmlSubmitInput getUpdateButton(HtmlPage page)
+            throws JaxenException {
+        HtmlForm form = getForm(page);
+        return (HtmlSubmitInput) new HtmlUnitXPath(
+                ".//input[@type='submit'][@value='update']")
+                .selectSingleNode(form);
+    }
+
+    private HtmlSubmitInput getAddRowBottun(HtmlPage page)
+            throws JaxenException {
+        HtmlForm form = getForm(page);
+        return (HtmlSubmitInput) new HtmlUnitXPath(
+                ".//input[@type='submit'][@value='add row']")
+                .selectSingleNode(form);
+    }
+
+    private HtmlTable getTable(HtmlPage page) throws JaxenException {
+        HtmlForm form1 = getForm(page);
+        return (HtmlTable) new HtmlUnitXPath("table").selectSingleNode(form1);
+    }
+
+    public void test2() throws Exception {
+        test1();
     }
 
 }

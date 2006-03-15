@@ -1,7 +1,8 @@
 package org.seasar.jsf.example.it;
 
-
 import junitx.framework.StringAssert;
+
+import org.jaxen.JaxenException;
 
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -25,30 +26,27 @@ public class ForEach3Test extends AbstractTestCase {
 
         // 1
 
-        HtmlForm form1 = getForm(page1);
+        {
+            HtmlTable table = getTable(page1);
+            assertEquals(2, table.getRowCount());
 
-        HtmlTable table1 = (HtmlTable) new HtmlUnitXPath("table")
-                .selectSingleNode(form1);
-        System.out.println(table1);
-        assertEquals(2, table1.getRowCount());
+            HtmlTextInput a1 = getA(table);
+            HtmlTextInput b1 = getB(table);
+            HtmlTextInput c1 = getC(table);
+            HtmlTextInput d1 = getD(table);
+            assertEquals("11", a1.getValueAttribute());
+            assertEquals("12", b1.getValueAttribute());
+            assertEquals("21", c1.getValueAttribute());
+            assertEquals("22", d1.getValueAttribute());
 
-        HtmlTextInput a1 = getA(table1);
-        HtmlTextInput b1 = getB(table1);
-        HtmlTextInput c1 = getC(table1);
-        HtmlTextInput d1 = getD(table1);
-        assertEquals("11", a1.getValueAttribute());
-        assertEquals("12", b1.getValueAttribute());
-        assertEquals("21", c1.getValueAttribute());
-        assertEquals("22", d1.getValueAttribute());
+            a1.setValueAttribute("11a");
+            b1.setValueAttribute("12b");
+            c1.setValueAttribute("21c");
+            d1.setValueAttribute("22d");
+        }
 
-        HtmlSubmitInput submit1 = (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit']").selectSingleNode(form1);
+        HtmlSubmitInput submit1 = getSubmit(page1);
         System.out.println(submit1);
-
-        a1.setValueAttribute("11a");
-        b1.setValueAttribute("12b");
-        c1.setValueAttribute("21c");
-        d1.setValueAttribute("22d");
 
         // 2
 
@@ -56,17 +54,33 @@ public class ForEach3Test extends AbstractTestCase {
         String body2 = getBody(page2).trim();
         System.out.println(body2);
 
-        HtmlForm form2 = getForm(page2);
-        HtmlTable table2 = (HtmlTable) new HtmlUnitXPath("table")
-                .selectSingleNode(form2);
-        HtmlTextInput a2 = getA(table2);
-        HtmlTextInput b2 = getB(table2);
-        HtmlTextInput c2 = getC(table2);
-        HtmlTextInput d2 = getD(table2);
-        assertEquals("11a", a2.getValueAttribute());
-        assertEquals("12b", b2.getValueAttribute());
-        assertEquals("21c", c2.getValueAttribute());
-        assertEquals("22d", d2.getValueAttribute());
+        {
+            HtmlTable table = getTable(page2);
+            assertEquals(2, table.getRowCount());
+            HtmlTextInput a2 = getA(table);
+            HtmlTextInput b2 = getB(table);
+            HtmlTextInput c2 = getC(table);
+            HtmlTextInput d2 = getD(table);
+            assertEquals("11a", a2.getValueAttribute());
+            assertEquals("12b", b2.getValueAttribute());
+            assertEquals("21c", c2.getValueAttribute());
+            assertEquals("22d", d2.getValueAttribute());
+        }
+    }
+
+    private HtmlSubmitInput getSubmit(HtmlPage page) throws JaxenException {
+        HtmlForm form1 = getForm(page);
+        return (HtmlSubmitInput) new HtmlUnitXPath(".//input[@type='submit']")
+                .selectSingleNode(form1);
+    }
+
+    private HtmlTable getTable(HtmlPage page) throws JaxenException {
+        HtmlForm form1 = getForm(page);
+        return (HtmlTable) new HtmlUnitXPath("table").selectSingleNode(form1);
+    }
+
+    public void test2() throws Exception {
+        test1();
     }
 
     private HtmlTextInput getA(HtmlTable table1) {

@@ -76,31 +76,31 @@ public class ValidatorTest extends AbstractTestCase {
 
     private HtmlTextInput getUserName(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlTextInput) new HtmlUnitXPath("//input[@type='text'][1]")
+        return (HtmlTextInput) new HtmlUnitXPath(".//input[@type='text'][1]")
                 .selectSingleNode(form);
     }
 
     private HtmlTextInput getAge(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlTextInput) new HtmlUnitXPath("//input[@type='text'][2]")
+        return (HtmlTextInput) new HtmlUnitXPath(".//input[@type='text'][2]")
                 .selectSingleNode(form);
     }
 
     private HtmlTextInput getFrom(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlTextInput) new HtmlUnitXPath("//input[@type='text'][3]")
+        return (HtmlTextInput) new HtmlUnitXPath(".//input[@type='text'][3]")
                 .selectSingleNode(form);
     }
 
     private HtmlTextInput getTo(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlTextInput) new HtmlUnitXPath("//input[@type='text'][4]")
+        return (HtmlTextInput) new HtmlUnitXPath(".//input[@type='text'][4]")
                 .selectSingleNode(form);
     }
 
     private HtmlSubmitInput getSubmit(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlSubmitInput) new HtmlUnitXPath("//input[@type='submit']")
+        return (HtmlSubmitInput) new HtmlUnitXPath(".//input[@type='submit']")
                 .selectSingleNode(form);
     }
 

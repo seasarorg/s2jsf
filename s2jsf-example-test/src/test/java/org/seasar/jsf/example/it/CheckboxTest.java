@@ -57,12 +57,12 @@ public class CheckboxTest extends AbstractTestCase {
     private HtmlCheckBoxInput getCheckbox(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
         return (HtmlCheckBoxInput) new HtmlUnitXPath(
-                "//input[@type='checkbox'][1]").selectSingleNode(form);
+                ".//input[@type='checkbox'][1]").selectSingleNode(form);
     }
 
     private HtmlSubmitInput getSubmit(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
-        return (HtmlSubmitInput) new HtmlUnitXPath("//input[@type='submit']")
+        return (HtmlSubmitInput) new HtmlUnitXPath(".//input[@type='submit']")
                 .selectSingleNode(form);
     }
 

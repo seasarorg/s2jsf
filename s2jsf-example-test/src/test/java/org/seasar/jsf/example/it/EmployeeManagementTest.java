@@ -161,7 +161,7 @@ public class EmployeeManagementTest extends AbstractTestCase {
             throws JaxenException {
         HtmlForm form = getForm(page);
         return (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='create']")
+                ".//input[@type='submit'][@value='create']")
                 .selectSingleNode(form);
     }
 
@@ -169,14 +169,14 @@ public class EmployeeManagementTest extends AbstractTestCase {
             throws JaxenException {
         HtmlForm form = getForm(page);
         return (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='confirm']")
+                ".//input[@type='submit'][@value='confirm']")
                 .selectSingleNode(form);
     }
 
     private HtmlSubmitInput getStoreButton(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
         return (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='store']")
+                ".//input[@type='submit'][@value='store']")
                 .selectSingleNode(form);
     }
 
@@ -184,7 +184,7 @@ public class EmployeeManagementTest extends AbstractTestCase {
             throws JaxenException {
         HtmlForm form = getForm(page);
         return (HtmlSubmitInput) new HtmlUnitXPath(
-                "//input[@type='submit'][@value='search']")
+                ".//input[@type='submit'][@value='search']")
                 .selectSingleNode(form);
     }
 
