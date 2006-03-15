@@ -5,35 +5,35 @@
 	<component name="forEach2DtoList" class="java.util.ArrayList" instance="session">
 		<initMethod name="add" >
 			<arg>
-				<component name="forEach2Dto1" class="examples.jsf.dto.ForEach2Dto" instance="prototype">
+				<component class="examples.jsf.dto.ForEach2Dto" instance="prototype">
 					<property name="input">"aaa"</property>
 				</component>
 			</arg>
 		</initMethod>
 		<initMethod name="add">
 			<arg>
-				<component name="forEach2Dto2" class="examples.jsf.dto.ForEach2Dto" instance="prototype">
+				<component class="examples.jsf.dto.ForEach2Dto" instance="prototype">
 					<property name="input">"bbb"</property>
 				</component>
 			</arg>
 		</initMethod>
 		<initMethod name="add" >
 			<arg>
-				<component name="forEach2Dto3" class="examples.jsf.dto.ForEach2Dto" instance="prototype">
+				<component class="examples.jsf.dto.ForEach2Dto" instance="prototype">
 					<property name="input">"ccc"</property>
 				</component>
 			</arg>
 		</initMethod>
 		<initMethod name="add" >
 			<arg>
-				<component name="forEach2Dto4" class="examples.jsf.dto.ForEach2Dto" instance="prototype">
+				<component class="examples.jsf.dto.ForEach2Dto" instance="prototype">
 					<property name="input">"ddd"</property>
 				</component>
 			</arg>
 		</initMethod>
 		<initMethod name="add" >
 			<arg>
-				<component name="forEach2Dto5" class="examples.jsf.dto.ForEach2Dto" instance="prototype">
+				<component class="examples.jsf.dto.ForEach2Dto" instance="prototype">
 					<property name="input">"eee"</property>
 				</component>
 			</arg>
