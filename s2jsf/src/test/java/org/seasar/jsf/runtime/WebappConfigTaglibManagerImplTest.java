@@ -15,14 +15,9 @@
  */
 package org.seasar.jsf.runtime;
 
-import java.io.InputStream;
-
-import javax.servlet.ServletContext;
-
 import junit.framework.TestCase;
 
 import org.seasar.framework.mock.servlet.MockServletContextImpl;
-import org.seasar.framework.util.ResourceUtil;
 import org.seasar.jsf.TaglibConfig;
 import org.seasar.jsf.webapp.MockWebappConfigManager;
 import org.seasar.jsf.webapp.Taglib;
@@ -35,33 +30,22 @@ public class WebappConfigTaglibManagerImplTest extends TestCase {
 
     public void test1() throws Exception {
         // ## Arrange ##
-        final String[] args = { null };
-
         final WebappConfigImpl webappConfig = new WebappConfigImpl();
         Taglib taglib = new Taglib();
         taglib.setTaglibUri("http://java.sun.com/jsf/html");
-        taglib.setTaglibLocation("a_location");
+        taglib.setTaglibLocation("org/seasar/jsf/runtime/myfaces-html.tld");
         webappConfig.addTaglib(taglib);
         MockWebappConfigManager webappConfigManager = new MockWebappConfigManager();
         webappConfigManager.setWebappConfig(webappConfig);
 
-        ServletContext servletContext = new MockServletContextImpl(null) {
-            public InputStream getResourceAsStream(String arg0) {
-                args[0] = arg0;
-                return ResourceUtil
-                        .getResourceAsStream("org/seasar/jsf/runtime/myfaces-html.tld");
-            }
-        };
-
         WebappConfigTaglibManagerImpl taglibManager = new WebappConfigTaglibManagerImpl();
-        taglibManager.setServletContext(servletContext);
         taglibManager.setWebappConfigManager(webappConfigManager);
+        taglibManager.setServletContext(new MockServletContextImpl(null));
 
         // ## Act ##
         taglibManager.init();
 
         // ## Assert ##
-        assertEquals("a_location", args[0]);
         assertEquals(true, taglibManager
                 .hasTaglibConfig("http://java.sun.com/jsf/html"));
         TaglibConfig taglibConfig = taglibManager
