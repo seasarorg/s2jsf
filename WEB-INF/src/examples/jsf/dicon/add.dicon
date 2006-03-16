@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="Shift_JIS"?>
-<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
-	"http://www.seasar.org/dtd/components21.dtd">
-<components>
-	<component name="addDto" class="examples.jsf.dto.AddDto" instance="request"/>
-	<component class="examples.jsf.logic.impl.AddLogicImpl"/>
-	<component name="addAction" class="examples.jsf.action.impl.AddActionImpl" instance="request"/>
-</components>
