@@ -47,19 +47,19 @@ public class CompositeTaglibManagerTest extends TestCase {
         CompositeTaglibManager taglibManager = new CompositeTaglibManager();
         MockTaglibManager mockTaglibManager = new MockTaglibManager();
         MockTaglibConfig taglibConfig = new MockTaglibConfig();
-        taglibConfig.setUri("a");
+        taglibConfig.setUri("uri_a");
         mockTaglibManager.setTaglibConfig(taglibConfig);
 
         taglibManager.addTaglibManager(mockTaglibManager);
 
         // ## Act ##
         // ## Assert ##
-        assertEquals(true, taglibManager.hasTaglibConfig("a"));
-        assertEquals(taglibConfig, taglibManager.getTaglibConfig("a"));
+        assertEquals(true, taglibManager.hasTaglibConfig("uri_a"));
+        assertEquals(taglibConfig, taglibManager.getTaglibConfig("uri_a"));
 
-        assertEquals(false, taglibManager.hasTaglibConfig("b"));
+        assertEquals(false, taglibManager.hasTaglibConfig("uri_b"));
         try {
-            taglibManager.getTaglibConfig("b");
+            taglibManager.getTaglibConfig("uri_b");
             fail();
         } catch (UriNotFoundRuntimeException e) {
         }
@@ -71,29 +71,29 @@ public class CompositeTaglibManagerTest extends TestCase {
         {
             MockTaglibManager mockTaglibManager = new MockTaglibManager();
             MockTaglibConfig taglibConfig = new MockTaglibConfig();
-            taglibConfig.setUri("a");
+            taglibConfig.setUri("uri_a");
             mockTaglibManager.setTaglibConfig(taglibConfig);
             taglibManager.addTaglibManager(mockTaglibManager);
         }
         {
             MockTaglibManager mockTaglibManager = new MockTaglibManager();
             MockTaglibConfig taglibConfig = new MockTaglibConfig();
-            taglibConfig.setUri("b");
+            taglibConfig.setUri("uri_b");
             mockTaglibManager.setTaglibConfig(taglibConfig);
             taglibManager.addTaglibManager(mockTaglibManager);
         }
 
         // ## Act ##
         // ## Assert ##
-        assertEquals(true, taglibManager.hasTaglibConfig("a"));
-        assertEquals("a", taglibManager.getTaglibConfig("a").getUri());
+        assertEquals(true, taglibManager.hasTaglibConfig("uri_a"));
+        assertEquals("uri_a", taglibManager.getTaglibConfig("uri_a").getUri());
 
-        assertEquals(true, taglibManager.hasTaglibConfig("b"));
-        assertEquals("b", taglibManager.getTaglibConfig("b").getUri());
+        assertEquals(true, taglibManager.hasTaglibConfig("uri_b"));
+        assertEquals("uri_b", taglibManager.getTaglibConfig("uri_b").getUri());
 
-        assertEquals(false, taglibManager.hasTaglibConfig("c"));
+        assertEquals(false, taglibManager.hasTaglibConfig("uri_c"));
         try {
-            taglibManager.getTaglibConfig("c");
+            taglibManager.getTaglibConfig("uri_c");
             fail();
         } catch (UriNotFoundRuntimeException e) {
         }
