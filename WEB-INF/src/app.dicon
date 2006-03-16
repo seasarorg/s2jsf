@@ -3,20 +3,40 @@
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
 	<include path="jsf.dicon"/>
-	<include path="examples/jsf/dicon/add.dicon"/>
-	<include path="examples/jsf/dicon/checkbox.dicon"/>
 	<include path="examples/jsf/dicon/foreach.dicon"/>
-	<include path="examples/jsf/dicon/foreach2.dicon"/>
-	<include path="examples/jsf/dicon/foreach3.dicon"/>
-	<include path="examples/jsf/dicon/converter.dicon"/>
-	<include path="examples/jsf/dicon/validator.dicon"/>
 	<include path="examples/jsf/dicon/selectonemenu.dicon"/>
 	<include path="examples/jsf/dicon/selectmanycheckbox.dicon"/>
 	<include path="examples/jsf/dicon/selectmanylistbox.dicon"/>
 	<include path="examples/jsf/dicon/selectoneradio.dicon"/>
-	<include path="examples/jsf/dicon/inputtextarea.dicon"/>
-	<include path="examples/jsf/dicon/errorpage.dicon"/>
 	<include path="examples/jsf/dicon/employee.dicon"/>
 	<include path="examples/jsf/dicon/allconverter.dicon"/>
 	<include path="examples/jsf/dicon/allvalidator.dicon"/>
+	
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.logic.impl"</arg>
+			<arg>".*LogicImpl"</arg>
+		</initMethod>
+	</component>
+	
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.action.impl"</arg>
+			<arg>".*Impl"</arg>
+		</initMethod>
+	</component>
+	
+	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+		<property name="instanceDef">
+			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
+		</property>
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.dto"</arg>
+			<arg>".*Dto"</arg>
+		</initMethod>
+	</component>
+	
 </components>
