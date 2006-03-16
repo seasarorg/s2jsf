@@ -3,14 +3,15 @@
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
 	<include path="jsf.dicon"/>
+	<include path="examples/jsf/dicon/allaop.dicon"/>
+	<include path="examples/jsf/dicon/allconverter.dicon"/>
+	<include path="examples/jsf/dicon/alldao.dicon"/>
+	<include path="examples/jsf/dicon/allvalidator.dicon"/>
 	<include path="examples/jsf/dicon/foreach.dicon"/>
-	<include path="examples/jsf/dicon/selectonemenu.dicon"/>
 	<include path="examples/jsf/dicon/selectmanycheckbox.dicon"/>
 	<include path="examples/jsf/dicon/selectmanylistbox.dicon"/>
+	<include path="examples/jsf/dicon/selectonemenu.dicon"/>
 	<include path="examples/jsf/dicon/selectoneradio.dicon"/>
-	<include path="examples/jsf/dicon/employee.dicon"/>
-	<include path="examples/jsf/dicon/allconverter.dicon"/>
-	<include path="examples/jsf/dicon/allvalidator.dicon"/>
 	
 	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
 		<initMethod name="addClassPattern">
@@ -25,7 +26,7 @@
 		</property>
 		<initMethod name="addClassPattern">
 			<arg>"examples.jsf.action.impl"</arg>
-			<arg>".*Impl"</arg>
+			<arg>".*ActionImpl"</arg>
 		</initMethod>
 	</component>
 	
@@ -38,5 +39,25 @@
 			<arg>".*Dto"</arg>
 		</initMethod>
 	</component>
-	
+
+	<component
+		class="org.seasar.framework.container.autoregister.AspectAutoRegister"
+	>
+		<property name="interceptor">actionInterceptorChain</property>
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.action.impl"</arg>
+			<arg>".*ActionImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component
+		class="org.seasar.framework.container.autoregister.AspectAutoRegister"
+	>
+		<property name="interceptor">logicInterceptorChain</property>
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.logic.impl"</arg>
+			<arg>".*LogicImpl"</arg>
+		</initMethod>
+	</component>
+
 </components>
