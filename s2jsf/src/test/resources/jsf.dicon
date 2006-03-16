@@ -21,7 +21,7 @@
 		</initMethod>
 		<initMethod name="addTaglibManager">
 			<arg>
-				<component class="org.seasar.jsf.runtime.FileSystemTaglibManager">
+				<component class="org.seasar.jsf.runtime.FileSystemTaglibManagerImpl">
 					<initMethod name="init"/>
 					<destroyMethod name="destroy"/>
 				</component>

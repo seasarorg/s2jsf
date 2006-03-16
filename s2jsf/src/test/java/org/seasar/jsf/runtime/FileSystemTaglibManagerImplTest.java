@@ -22,11 +22,11 @@ import org.seasar.framework.mock.servlet.MockServletContextImpl;
 /**
  * @author manhole
  */
-public class FileSystemTaglibManagerTest extends TestCase {
+public class FileSystemTaglibManagerImplTest extends TestCase {
 
     public void test1() throws Exception {
         // ## Arrange ##
-        FileSystemTaglibManager taglibManager = new FileSystemTaglibManager();
+        FileSystemTaglibManagerImpl taglibManager = new FileSystemTaglibManagerImpl();
         MockServletContextImpl servletContext = new MockServletContextImpl(null);
         taglibManager.setServletContext(servletContext);
 
