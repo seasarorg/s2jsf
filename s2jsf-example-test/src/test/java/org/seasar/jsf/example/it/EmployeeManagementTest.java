@@ -1,9 +1,13 @@
 package org.seasar.jsf.example.it;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 import junitx.framework.StringAssert;
 
 import org.jaxen.JaxenException;
 
+import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -19,12 +23,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
 public class EmployeeManagementTest extends AbstractTestCase {
 
     public void test1() throws Exception {
-        HtmlPage page1 = getPageFromMenu("Employee Management");
-        String body1 = getBody(page1).trim();
-        System.out.println(body1);
-
-        assertEquals("Employee Management", page1.getTitleText());
-        StringAssert.assertContains("EmployeeNo", body1);
+        HtmlPage page1 = getPage();
 
         // 1
 
@@ -81,6 +80,21 @@ public class EmployeeManagementTest extends AbstractTestCase {
         HtmlPage page3 = (HtmlPage) confirm2.click();
         String body3 = getBody(page3).trim();
         System.out.println(body3);
+
+        {
+            HtmlTable table = getFirstTable(page3);
+            assertEquals(8, table.getRowCount());
+
+            assertEquals("7650", table.getCellAt(0, 1).asText());
+            assertEquals("Foo Name", table.getCellAt(1, 1).asText());
+            assertEquals("deployer", table.getCellAt(2, 1).asText());
+            assertEquals("7902", table.getCellAt(3, 1).asText());
+            assertEquals("1977/10/05", table.getCellAt(4, 1).asText());
+            assertEquals("9999", table.getCellAt(5, 1).asText());
+            assertEquals("1234", table.getCellAt(6, 1).asText());
+            assertEquals("OPERATIONS", table.getCellAt(7, 1).asText());
+        }
+
         HtmlSubmitInput store3 = getStoreButton(page3);
 
         // 4: first page
@@ -150,6 +164,34 @@ public class EmployeeManagementTest extends AbstractTestCase {
         }
     }
 
+    private HtmlPage getPage() throws MalformedURLException, IOException {
+        HtmlPage page1 = getPageFromMenu("Employee Management");
+        String body1 = getBody(page1).trim();
+        System.out.println(body1);
+
+        assertEquals("Employee Management", page1.getTitleText());
+        StringAssert.assertContains("EmployeeNo", body1);
+        return page1;
+    }
+
+    public void test2() throws Exception {
+        HtmlPage page1 = getPage();
+        HtmlSubmitInput create = getCreateButton(page1);
+
+        // 2: create page
+
+        HtmlPage page2 = (HtmlPage) create.click();
+        String body2 = getBody(page2).trim();
+        StringAssert.assertContains("Create", body2);
+        HtmlSubmitInput previous = getPreviousButton(page2);
+
+        // 3: first page
+
+        HtmlPage page3 = (HtmlPage) previous.click();
+        String body3 = getBody(page3).trim();
+        StringAssert.assertNotContains("Create", body3);
+    }
+
     private HtmlTable getFirstTable(HtmlPage page) throws JaxenException {
         HtmlForm form = getForm(page);
         HtmlTable table = (HtmlTable) new HtmlUnitXPath(".//table")
@@ -185,6 +227,14 @@ public class EmployeeManagementTest extends AbstractTestCase {
         HtmlForm form = getForm(page);
         return (HtmlSubmitInput) new HtmlUnitXPath(
                 ".//input[@type='submit'][@value='search']")
+                .selectSingleNode(form);
+    }
+
+    private HtmlSubmitInput getPreviousButton(HtmlPage page)
+            throws JaxenException {
+        HtmlForm form = getForm(page);
+        return (HtmlSubmitInput) new HtmlUnitXPath(
+                ".//input[@type='submit'][@value='previous']")
                 .selectSingleNode(form);
     }
 
