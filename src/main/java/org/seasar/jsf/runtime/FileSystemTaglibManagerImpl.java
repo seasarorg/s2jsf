@@ -31,7 +31,7 @@ import org.seasar.jsf.util.FileSystemTraversal;
 /**
  * @author manhole
  */
-public class FileSystemTaglibManager extends AbstractTaglibManager {
+public class FileSystemTaglibManagerImpl extends AbstractTaglibManager {
 
     private ServletContext servletContext;
 
