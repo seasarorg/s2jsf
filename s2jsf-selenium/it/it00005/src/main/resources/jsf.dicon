@@ -1,28 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE components PUBLIC
-    "-//SEASAR//DTD S2Container 2.3//EN"
-    "http://www.seasar.org/dtd/components23.dtd">
-<components namespace="jsf" >
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components namespace="jsf">
 
 	<include path="jsfErrorPage.dicon"/>
 
-	<component class="org.seasar.jsf.runtime.CompositeTaglibManager">
-		<initMethod name="addTaglibManager">
-			<arg>
-				<component class="org.seasar.jsf.runtime.ServletContextTaglibManagerImpl">
-					<initMethod name="init"/>
-					<destroyMethod name="destroy"/>
-				</component>
-			</arg>
-		</initMethod>
-		<initMethod name="addTaglibManager">
-			<arg>
-				<component class="org.seasar.jsf.runtime.WebappConfigTaglibManagerImpl">
-					<initMethod name="init"/>
-					<destroyMethod name="destroy"/>
-				</component>
-			</arg>
-		</initMethod>
+	<component class="org.seasar.jsf.runtime.ServletContextTaglibManagerImpl">
+		<initMethod name="init"/>
+		<destroyMethod name="destroy"/>
 	</component>
 
 	<component class="org.seasar.jsf.runtime.JsfConfigImpl">
@@ -37,10 +22,6 @@
 		<initMethod name="addTaglibUri">
 			<arg>"s"</arg>
 			<arg>"http://www.seasar.org/jsf"</arg>
-		</initMethod>
-		<initMethod name="addTaglibUri">
-			<arg>"x"</arg>
-			<arg>"http://myfaces.apache.org/extensions"</arg>
 		</initMethod>
 	</component>
 	
