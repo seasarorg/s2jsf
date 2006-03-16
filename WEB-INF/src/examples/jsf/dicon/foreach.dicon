@@ -93,8 +93,4 @@
 			</arg>
 		</initMethod>
 	</component>
-	
-<!--	
-	<component name="forEachResultInitAction" class="examples.jsf.action.impl.ForEachResultInitActionImpl" instance="request"/>
--->	
 </components>

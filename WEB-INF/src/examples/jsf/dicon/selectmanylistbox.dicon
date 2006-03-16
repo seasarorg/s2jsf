@@ -2,7 +2,6 @@
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
-	<component name="selectManyListboxDto" class="examples.jsf.dto.SelectManyListboxDto" instance="request"/>
 	<component name="selectManyListboxBbbItems" class="java.util.ArrayList">
 		<initMethod name="add" >
 			<arg>

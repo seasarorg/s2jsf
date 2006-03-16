@@ -2,7 +2,6 @@
 <!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
-	<component name="selectOneRadioDto" class="examples.jsf.dto.SelectOneRadioDto" instance="request"/>
 	
 	<component name="selectOneRadioCccItems" class="java.util.ArrayList">
 		<initMethod name="add" >
