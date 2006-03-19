@@ -3,9 +3,9 @@
 	"http://www.seasar.org/dtd/components21.dtd">
 <components>
 	<include path="jsf.dicon"/>
+	<include path="dao.dicon"/>
 	<include path="examples/jsf/dicon/allaop.dicon"/>
 	<include path="examples/jsf/dicon/allconverter.dicon"/>
-	<include path="examples/jsf/dicon/alldao.dicon"/>
 	<include path="examples/jsf/dicon/allvalidator.dicon"/>
 	<include path="examples/jsf/dicon/foreach.dicon"/>
 	<include path="examples/jsf/dicon/selectmanycheckbox.dicon"/>
@@ -13,14 +13,18 @@
 	<include path="examples/jsf/dicon/selectonemenu.dicon"/>
 	<include path="examples/jsf/dicon/selectoneradio.dicon"/>
 	
-	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+	<component
+		class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister"
+	>
 		<initMethod name="addClassPattern">
 			<arg>"examples.jsf.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
 		</initMethod>
 	</component>
 	
-	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+	<component
+		class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister"
+	>
 		<property name="instanceDef">
 			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
 		</property>
@@ -30,13 +34,24 @@
 		</initMethod>
 	</component>
 	
-	<component class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister">
+	<component
+		class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister"
+	>
 		<property name="instanceDef">
 			@org.seasar.framework.container.deployer.InstanceDefFactory@REQUEST
 		</property>
 		<initMethod name="addClassPattern">
 			<arg>"examples.jsf.dto"</arg>
 			<arg>".*Dto"</arg>
+		</initMethod>
+	</component>
+
+	<component 
+		class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister"
+	>
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.dao"</arg>
+			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
 
@@ -57,6 +72,16 @@
 		<initMethod name="addClassPattern">
 			<arg>"examples.jsf.logic.impl"</arg>
 			<arg>".*LogicImpl"</arg>
+		</initMethod>
+	</component>
+
+	<component
+		class="org.seasar.framework.container.autoregister.AspectAutoRegister"
+	>
+		<property name="interceptor">daoInterceptorChain</property>
+		<initMethod name="addClassPattern">
+			<arg>"examples.jsf.dao"</arg>
+			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
 
