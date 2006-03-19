@@ -59,7 +59,7 @@
 		</initMethod>
 	</component>
 	
-		<component name="forEach3DtoList" class="java.util.ArrayList" instance="session">
+	<component name="forEach3DtoList" class="java.util.ArrayList" instance="session">
 		<initMethod name="add" >
 			<arg>
 				<component class="java.util.ArrayList" instance="prototype">
