@@ -90,8 +90,8 @@ public class HtmlCommandLinkRenderer extends AbstractHtmlLinkRenderer {
         RenderUtil.renderAttributes(writer, link,
                 JsfConstants.ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE);
         String style = link.getStyle();
-        RenderUtil.renderAttribute(writer, JsfConstants.STYLE_ATTR,
-                style, JsfConstants.STYLE_ATTR);
+        RenderUtil.renderAttribute(writer, JsfConstants.STYLE_ATTR, style,
+                JsfConstants.STYLE_ATTR);
         String styleClass = link.getStyleClass();
         RenderUtil.renderAttribute(writer, JsfConstants.STYLE_CLASS_ATTR,
                 styleClass, JsfConstants.STYLE_CLASS_ATTR);
@@ -229,7 +229,8 @@ public class HtmlCommandLinkRenderer extends AbstractHtmlLinkRenderer {
         }
         onClick.append(jsForm);
         onClick.append(".elements['").append(name).append("']");
-        String strParamValue = value != null ? value.toString() : "null";
+        String strParamValue = value != null ? value.toString()
+                : JsfConstants.NULL_VALUE;
         onClick.append(".value='").append(strParamValue).append("';");
 
         addHiddenCommandParameter(parentForm, name);

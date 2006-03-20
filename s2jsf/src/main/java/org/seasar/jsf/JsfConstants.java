@@ -57,6 +57,8 @@ public interface JsfConstants {
 
     public String EQUAL = "=";
 
+    public String NULL_VALUE = "null";
+
     public int K = 1024;
 
     public int DEFAULT_BUFFER_SIZE = 8 * K;
