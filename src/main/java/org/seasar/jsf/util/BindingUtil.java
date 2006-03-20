@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.seasar.framework.container.S2Container;
+import org.seasar.jsf.JsfConstants;
 
 /**
  * @author higa
@@ -72,13 +73,13 @@ public class BindingUtil {
             }
         }
         Object var = request.getParameter(name);
-        if (var != null && !"null".equals(var)) {
+        if (var != null && !JsfConstants.NULL_VALUE.equals(var)) {
             return var;
         }
-		var = request.getAttribute(name);
-		if (var != null) {
-			return var;
-		}
+        var = request.getAttribute(name);
+        if (var != null) {
+            return var;
+        }
         HttpSession session = request.getSession(false);
         if (session != null) {
             var = session.getAttribute(name);
@@ -96,7 +97,8 @@ public class BindingUtil {
         return vb.getValue(context);
     }
 
-	public static Object getBindingValue(UIComponent component, String propertyName) {
+    public static Object getBindingValue(UIComponent component,
+            String propertyName) {
         ValueBinding binding = component.getValueBinding(propertyName);
         if (binding != null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
@@ -105,7 +107,8 @@ public class BindingUtil {
         return null;
     }
 
-	public static void setValueBinding(UIComponent component, String name, String value) {
+    public static void setValueBinding(UIComponent component, String name,
+            String value) {
         FacesContext ctx = FacesContext.getCurrentInstance();
         Application app = ctx.getApplication();
         ValueBinding binding = app.createValueBinding(value);

@@ -129,7 +129,7 @@ public class HtmlFormRenderer extends Renderer {
             for (Iterator it = dummyFormParams.iterator(); it.hasNext();) {
                 writer.write("\n  f.elements['");
                 writer.write((String) it.next());
-                writer.write("'].value='null';");
+                writer.write("'].value='" + JsfConstants.NULL_VALUE + "';");
             }
         }
         writer.write("\n  f.target=");
