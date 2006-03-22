@@ -5,19 +5,25 @@
 	<component name="userNameLengthValidator" class="org.seasar.jsf.validator.S2LengthValidator">
 		<property name="minimum">2</property>
 	</component>
+
 	<component name="empnoRangeValidator" class="org.seasar.jsf.validator.S2LongRangeValidator">
 		<property name="maximum">10000</property>
 	</component>
+
 	<component name="greaterEqualValidator" class="org.seasar.jsf.validator.S2GreaterEqualValidator"
-		instance="prototype" />
+		instance="prototype" 
+	/>
+
 	<component name="ageValidator" class="org.seasar.jsf.validator.ValidatorChain">
 		<initMethod name="add"><arg>ageLengthValidator</arg></initMethod>
 		<initMethod name="add"><arg>ageDoubleRangeValidator</arg></initMethod>
 	</component>
+
 	<component name="ageLengthValidator" class="org.seasar.jsf.validator.S2LengthValidator">
 		<property name="minimum">1</property>
 		<property name="maximum">3</property>
 	</component>
+
 	<component name="ageDoubleRangeValidator" class="org.seasar.jsf.validator.S2DoubleRangeValidator">
 		<property name="minimum">0</property>
 		<property name="maximum">150</property>

@@ -5,6 +5,7 @@
 	<component name="inputDateTimeConverter" class="org.seasar.jsf.convert.S2DateTimeConverter">
 		<property name="pattern">"yyyyMMdd"</property>
 	</component>
+
 	<component name="outputDateTimeConverter" class="org.seasar.jsf.convert.S2DateTimeConverter">
 		<property name="pattern">"yyyy/MM/dd"</property>
 	</component>
