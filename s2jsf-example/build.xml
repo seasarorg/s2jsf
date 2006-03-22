@@ -1,0 +1,20 @@
+<project name="s2jsf-example" default="dist" basedir=".">
+
+	<property name="ver" value="1.0.14"/>
+
+	<target name="dist">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="target"/>
+		</delete>
+		<mkdir dir="target"/>
+		<zip zipfile="target/s2-jsf-example-${ver}.zip">
+			<zipfileset prefix="s2jsf-example" dir=".">
+				<exclude name="target/**"/>
+				<exclude name="**/.settings/**"/>
+				<exclude name="build.xml"/>
+				<exclude name="**/.DS_Store"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>
