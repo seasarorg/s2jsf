@@ -9,7 +9,7 @@
   <artifactId>s2jsf-example-test</artifactId>
   <packaging>jar</packaging>
   <name>S2JSF Example Test</name>
-  <version>1.0.14-SNAPSHOT</version>
+  <version>1.0.14</version>
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <scm>
