@@ -1,8 +1,13 @@
 package org.seasar.jsf.example.it;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import junitx.framework.StringAssert;
 
 import org.jaxen.JaxenException;
 
@@ -18,13 +23,9 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
 public class SelectOneRadioTest extends AbstractTestCase {
 
     public void test1() throws Exception {
-        HtmlPage page1 = getPageFromMenu("SelectOneRadio");
-        String body1 = getBody(page1).trim();
-        System.out.println(body1);
-
-        assertEquals("SelectOneRadio", page1.getTitleText());
-
         // 1
+
+        HtmlPage page1 = getPage();
 
         {
             HtmlRadioButtonInput[] r = getRadioGroupA(page1);
@@ -179,6 +180,34 @@ public class SelectOneRadioTest extends AbstractTestCase {
             assertEquals(false, r[2].isChecked());
             assertEquals(false, r[3].isChecked());
         }
+    }
+
+    public void testValidationError() throws Exception {
+        final String errorMessage = "\"Radio2\": ";
+
+        // 1
+
+        HtmlPage page1 = getPage();
+        String body1 = getBody(page1).trim();
+        StringAssert.assertNotContains(errorMessage, body1);
+        HtmlSubmitInput submit1 = getSubmit(page1);
+
+        // 2
+
+        HtmlPage page2 = (HtmlPage) submit1.click();
+        String body2 = getBody(page2).trim();
+        System.out.println(body2);
+        StringAssert.assertContains(errorMessage, body2);
+    }
+
+    private HtmlPage getPage() throws MalformedURLException, IOException,
+            UnsupportedEncodingException {
+        HtmlPage page = getPageFromMenu("SelectOneRadio");
+        String body = getBody(page).trim();
+        System.out.println(body);
+
+        assertEquals("SelectOneRadio", page.getTitleText());
+        return page;
     }
 
     private HtmlRadioButtonInput[] getRadioGroupA(HtmlPage page)
