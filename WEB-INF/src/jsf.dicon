@@ -9,6 +9,34 @@
 		<initMethod name="init"/>
 		<destroyMethod name="destroy"/>
 	</component>
+	<!--
+	<component class="org.seasar.jsf.runtime.CompositeTaglibManager">
+		<initMethod name="addTaglibManager">
+			<arg>
+				<component class="org.seasar.jsf.runtime.WebappConfigTaglibManagerImpl">
+					<initMethod name="init"/>
+					<destroyMethod name="destroy"/>
+				</component>
+			</arg>
+		</initMethod>
+		<initMethod name="addTaglibManager">
+			<arg>
+				<component class="org.seasar.jsf.runtime.FileSystemTaglibManagerImpl">
+					<initMethod name="init"/>
+					<destroyMethod name="destroy"/>
+				</component>
+			</arg>
+		</initMethod>
+		<initMethod name="addTaglibManager">
+			<arg>
+				<component class="org.seasar.jsf.runtime.ServletContextTaglibManagerImpl">
+					<initMethod name="init"/>
+					<destroyMethod name="destroy"/>
+				</component>
+			</arg>
+		</initMethod>
+	</component>
+	-->
 
 	<component class="org.seasar.jsf.runtime.JsfConfigImpl">
 		<initMethod name="addTaglibUri">
