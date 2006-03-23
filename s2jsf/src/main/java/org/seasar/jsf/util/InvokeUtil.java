@@ -29,6 +29,7 @@ import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.deployer.InstanceDefFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
+import org.seasar.framework.container.impl.TooManyRegistrationComponentDefImpl;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.framework.util.StringUtil;
 
@@ -61,6 +62,8 @@ public class InvokeUtil {
         BeanDesc beanDesc = null;
         if (componentName != null && container.hasComponentDef(componentName)) {
             ComponentDef cd = container.getComponentDef(componentName);
+            System.out.println("InvokeUtil.invoke() componentName="
+                    + componentName + " cd=" + cd);
             component = cd.getComponent();
             beanDesc = BeanDescFactory.getBeanDesc(cd.getConcreteClass());
         }
@@ -135,8 +138,8 @@ public class InvokeUtil {
                 if (container.hasComponentDef(varName)) {
                     continue;
                 }
-                Object var = BindingUtil.getValue(container.getRequest(),
-                        varName);
+                Object var = BindingUtil.getValue(S2ContainerUtil
+                        .getHttpServletRequest(container), varName);
                 if ("".equals(var)) {
                     pd.setValue(component, null);
                 } else if (var != null) {
@@ -169,14 +172,15 @@ public class InvokeUtil {
                                 .getInstanceDef());
                     }
                     if (useSession) {
-                        container.getSession().setAttribute(
+                        S2ContainerUtil.getHttpSession(container).setAttribute(
                                 pd.getPropertyName(), var);
                     } else {
-                        container.getRequest().setAttribute(
-                                pd.getPropertyName(), var);
+                        S2ContainerUtil.getHttpServletRequest(container)
+                                .setAttribute(pd.getPropertyName(), var);
                     }
                 }
             }
         }
     }
+
 }

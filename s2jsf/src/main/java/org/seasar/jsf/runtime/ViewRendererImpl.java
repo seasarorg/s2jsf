@@ -55,6 +55,7 @@ import org.seasar.jsf.jsp.PageContextImpl;
 import org.seasar.jsf.processor.ViewProcessor;
 import org.seasar.jsf.util.ExternalContextUtil;
 import org.seasar.jsf.util.InvokeUtil;
+import org.seasar.jsf.util.S2ContainerUtil;
 
 /**
  * @author higa
@@ -184,7 +185,8 @@ public class ViewRendererImpl implements ViewRenderer {
         ExternalContext externalContext = context.getExternalContext();
         String viewId = ExternalContextUtil.getViewId(externalContext);
         S2Container container = SingletonS2ContainerFactory.getContainer();
-        ServletRequest request = container.getRequest();
+        ServletRequest request = S2ContainerUtil
+                .getHttpServletRequest(container);
         JsfConfig jsfConfig = (JsfConfig) container
                 .getComponent(JsfConfig.class);
         ViewTemplateFactory viewTemplateFactory = (ViewTemplateFactory) container
@@ -200,4 +202,5 @@ public class ViewRendererImpl implements ViewRenderer {
             request.setAttribute(key, value);
         }
     }
+
 }

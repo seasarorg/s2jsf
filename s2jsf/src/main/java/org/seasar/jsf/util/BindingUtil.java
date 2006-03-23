@@ -49,7 +49,8 @@ public class BindingUtil {
     }
 
     public static Object getValue(S2Container container, String name) {
-        HttpServletRequest request = container.getRequest();
+        HttpServletRequest request = S2ContainerUtil
+                .getHttpServletRequest(container);
         Object var = getValue(request, name);
         if (var != null) {
             return var;
@@ -114,4 +115,5 @@ public class BindingUtil {
         ValueBinding binding = app.createValueBinding(value);
         component.setValueBinding(name, binding);
     }
+
 }
