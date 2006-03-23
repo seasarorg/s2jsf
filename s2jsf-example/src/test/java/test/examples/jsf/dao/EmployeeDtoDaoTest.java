@@ -28,6 +28,11 @@ public class EmployeeDtoDaoTest extends S2DaoTestCase {
 
     private EmployeeDtoDao employeeDtoDao_;
 
+    public void setUpContainer() throws Throwable {
+        setServletContext(new MyMockServletContextImpl());
+        super.setUpContainer();
+    }
+
     public void setUp() {
         include("app.dicon");
     }

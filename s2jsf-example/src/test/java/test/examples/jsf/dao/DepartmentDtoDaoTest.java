@@ -27,11 +27,18 @@ public class DepartmentDtoDaoTest extends S2DaoTestCase {
 
     private DepartmentDtoDao departmentDtoDao_;
 
-    public void setUp() {
+    public void setUpContainer() throws Throwable {
+        setServletContext(new MyMockServletContextImpl());
+        super.setUpContainer();
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
         include("app.dicon");
     }
 
     public void testGetDname() throws Exception {
         assertNotNull("1", departmentDtoDao_.getDname(new Integer(10)));
     }
+
 }
