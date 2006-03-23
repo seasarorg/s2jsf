@@ -69,6 +69,15 @@
 			</renderer-class>
 		</renderer>
 		<renderer>
+			<component-family>javax.faces.SelectItem</component-family>
+			<renderer-type>org.seasar.jsf.Radio</renderer-type>
+			<renderer-class>
+				org.seasar.jsf.render.html.HtmlInputRadioRenderer
+			</renderer-class>
+		</renderer>
+		
+		<!--
+		<renderer>
 			<component-family>javax.faces.SelectOne</component-family>
 			<renderer-type>javax.faces.Menu</renderer-type>
 			<renderer-class>
@@ -80,13 +89,6 @@
 			<renderer-type>org.seasar.jsf.SelectOneRadio</renderer-type>
 			<renderer-class>
 				org.seasar.jsf.render.html.HtmlSelectOneRadioRenderer
-			</renderer-class>
-		</renderer>
-		<renderer>
-			<component-family>javax.faces.SelectItem</component-family>
-			<renderer-type>org.seasar.jsf.Radio</renderer-type>
-			<renderer-class>
-				org.seasar.jsf.render.html.HtmlInputRadioRenderer
 			</renderer-class>
 		</renderer>
 		<renderer>
@@ -118,6 +120,7 @@
 			<renderer-type>javax.faces.Messages</renderer-type>
 			<renderer-class>org.seasar.jsf.render.html.HtmlMessagesRenderer</renderer-class>
 		</renderer>
+		-->
 	</render-kit>
 	
 	<component>
