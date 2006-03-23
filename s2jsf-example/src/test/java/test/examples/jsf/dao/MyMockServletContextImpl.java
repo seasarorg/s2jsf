@@ -38,8 +38,7 @@ class MyMockServletContextImpl extends MockServletContextImpl {
 
     public InputStream getResourceAsStream(String path) {
         if (path.startsWith("/WEB-INF")) {
-            File root = MyMockServletContextImpl
-                    .getTopDirectoryContainsFor("pom.xml");
+            File root = getTopDirectoryContainsFor("pom.xml");
             File f = new File(root, "/src/main/webapp" + path);
             return FileInputStreamUtil.create(f);
         } else {
@@ -47,7 +46,7 @@ class MyMockServletContextImpl extends MockServletContextImpl {
         }
     }
 
-    static File getTopDirectoryContainsFor(String fileName) {
+    private File getTopDirectoryContainsFor(String fileName) {
         File found = null;
         for (File f = ResourceUtil.getResourceAsFile("."); f != null; f = f
                 .getParentFile()) {
