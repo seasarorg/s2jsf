@@ -17,36 +17,55 @@ package org.seasar.jsf.runtime;
 
 import java.io.InputStream;
 
-import org.apache.myfaces.taglib.html.HtmlColumnTag;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.PageContext;
+import javax.servlet.jsp.tagext.Tag;
+
 import org.seasar.extension.unit.S2TestCase;
 import org.seasar.framework.util.ResourceUtil;
 import org.seasar.jsf.TagConfig;
 import org.seasar.jsf.TaglibConfig;
-import org.seasar.jsf.runtime.TaglibConfigBuilder;
 
 /**
  * @author higa
- *
+ * 
  */
 public class TaglibConfigBuilderTest extends S2TestCase {
 
-	private static final String PATH = "org/seasar/jsf/runtime/myfaces-html.tld";
-	
-	public TaglibConfigBuilderTest(String arg0) {
-		super(arg0);
-	}
+    private static final String PATH = "org/seasar/jsf/runtime/TaglibConfigBuilderTest.tld";
 
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(TaglibConfigBuilderTest.class);
-	}
-	
-	public void testBuild() throws Exception {
-		TaglibConfigBuilder builder = new TaglibConfigBuilder();
-		InputStream is = ResourceUtil.getResourceAsStream(PATH);
-		TaglibConfig taglibConfig = builder.build(is);
-		assertNotNull("1", taglibConfig);
-		assertEquals("2", "http://java.sun.com/jsf/html", taglibConfig.getUri());
-		TagConfig tagConfig = taglibConfig.getTagConfig("column");
-		assertEquals("3", HtmlColumnTag.class, tagConfig.getTagClass());
-	}
+    public void testBuild() throws Exception {
+        TaglibConfigBuilder builder = new TaglibConfigBuilder();
+        InputStream is = ResourceUtil.getResourceAsStream(PATH);
+        TaglibConfig taglibConfig = builder.build(is);
+        assertNotNull("1", taglibConfig);
+        assertEquals("2", "http://example.org/example", taglibConfig.getUri());
+        TagConfig tagConfig = taglibConfig.getTagConfig("foo");
+        assertEquals("3", FooTag.class, tagConfig.getTagClass());
+    }
+
+    public static class FooTag implements Tag {
+
+        public void setPageContext(PageContext pageContext) {
+        }
+
+        public void setParent(Tag tag) {
+        }
+
+        public Tag getParent() {
+            return null;
+        }
+
+        public int doStartTag() throws JspException {
+            return SKIP_BODY;
+        }
+
+        public int doEndTag() throws JspException {
+            return SKIP_BODY;
+        }
+
+        public void release() {
+        }
+    }
+
 }

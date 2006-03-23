@@ -28,12 +28,15 @@ import org.seasar.jsf.webapp.WebappConfigImpl;
  */
 public class WebappConfigTaglibManagerImplTest extends TestCase {
 
+    private static final String PATH = "org/seasar/jsf/runtime/TaglibConfigBuilderTest.tld";
+
     public void test1() throws Exception {
         // ## Arrange ##
         final WebappConfigImpl webappConfig = new WebappConfigImpl();
+        final String taglibUri = "http://example.org/example";
         Taglib taglib = new Taglib();
-        taglib.setTaglibUri("http://java.sun.com/jsf/html");
-        taglib.setTaglibLocation("org/seasar/jsf/runtime/myfaces-html.tld");
+        taglib.setTaglibUri(taglibUri);
+        taglib.setTaglibLocation(PATH);
         webappConfig.addTaglib(taglib);
         MockWebappConfigManager webappConfigManager = new MockWebappConfigManager();
         webappConfigManager.setWebappConfig(webappConfig);
@@ -46,11 +49,9 @@ public class WebappConfigTaglibManagerImplTest extends TestCase {
         taglibManager.init();
 
         // ## Assert ##
-        assertEquals(true, taglibManager
-                .hasTaglibConfig("http://java.sun.com/jsf/html"));
-        TaglibConfig taglibConfig = taglibManager
-                .getTaglibConfig("http://java.sun.com/jsf/html");
-        assertEquals("http://java.sun.com/jsf/html", taglibConfig.getUri());
+        assertEquals(true, taglibManager.hasTaglibConfig(taglibUri));
+        TaglibConfig taglibConfig = taglibManager.getTaglibConfig(taglibUri);
+        assertEquals(taglibUri, taglibConfig.getUri());
     }
 
 }

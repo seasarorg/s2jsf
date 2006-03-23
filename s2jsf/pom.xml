@@ -119,9 +119,9 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>myfaces</groupId>
-      <artifactId>myfaces</artifactId>
-      <version>1.0.9</version>
+      <groupId>org.seasar.teeda</groupId>
+      <artifactId>teeda-core</artifactId>
+      <version>1.0-beta-2-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
     <dependency>
