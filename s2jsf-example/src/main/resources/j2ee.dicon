@@ -37,25 +37,25 @@
 		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
 		<property name="driverClassName">
 			"org.postgresql.Driver"
-        </property>
-        <property name="URL">
-          "jdbc:postgresql://localhost/TEST"
-        </property>
-        <property name="user">"xxxx"</property>
-        <property name="password">"xxxx"</property>
-    </component>
+		</property>
+		<property name="URL">
+		  "jdbc:postgresql://localhost/TEST"
+		</property>
+		<property name="user">"xxxx"</property>
+		<property name="password">"xxxx"</property>
+	</component>
 
 	<component name="xaDataSource"
 		class="org.seasar.extension.dbcp.impl.XADataSourceImpl">
 		<property name="driverClassName">
 			"net.sourceforge.jtds.jdbc.Driver"
-        </property>
-        <property name="URL">
-            "jdbc:jtds:sqlserver://localhost/TEST;instance=SQLEXPRESS"
-        </property>
-        <property name="user">"xxxx"</property>
-        <property name="password">"xxxx"</property>
-    </component>
+		</property>
+		<property name="URL">
+			"jdbc:jtds:sqlserver://localhost/TEST;instance=SQLEXPRESS"
+		</property>
+		<property name="user">"xxxx"</property>
+		<property name="password">"xxxx"</property>
+	</component>
 	-->
 	
 	<component name="xaDataSource"
@@ -64,10 +64,15 @@
 			"org.hsqldb.jdbcDriver"
 		</property>
 		<property name="URL">
+			<!--
 			"jdbc:hsqldb:hsql://localhost:9001"
+			-->
 			<!--
 			"jdbc:hsqldb:file:" + @org.seasar.framework.util.EclipseUtil@getProjectRoot("s2jsf-example").getAbsolutePath() + "/WEB-INF/data/demo"
 			-->
+			"jdbc:hsqldb:file:" 
+				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@examples.jsf.dao.DepartmentDtoDao@class).getAbsolutePath() 
+				+ "/data/demo"
 		</property>
 		<property name="user">"sa"</property>
 		<property name="password">""</property>
@@ -81,7 +86,7 @@
 		<property name="timeout">600</property>
 		<property name="maxPoolSize">10</property>
 		<!-- JTAトランザクションが開始されていない場合にコネクションを
-		     取得できないようにするには次のプロパティをfalseにしてください．-->
+			 取得できないようにするには次のプロパティをfalseにしてください．-->
 		<property name="allowLocalTx">true</property>
 		<destroyMethod name="close"/>
 	</component>
@@ -91,14 +96,14 @@
 	<!-- WebLogic
 	<component name="initialContext" class="javax.naming.InitialContext"/>
 	<component name="transactionManager"
-	    class="org.seasar.extension.j2ee.JndiTransactionManager">
-	    <arg>initialContext</arg>
-	    <arg>"javax.transaction.TransactionManager"</arg>
+		class="org.seasar.extension.j2ee.JndiTransactionManager">
+		<arg>initialContext</arg>
+		<arg>"javax.transaction.TransactionManager"</arg>
 	</component>
 	<component
-	    class="org.seasar.extension.j2ee.JndiDataSource">
-	    <arg>initialContext</arg>
-	    <arg>"jndiName"</arg>
+		class="org.seasar.extension.j2ee.JndiDataSource">
+		<arg>initialContext</arg>
+		<arg>"jndiName"</arg>
 	</component>
 	-->
 	
@@ -147,14 +152,14 @@
 	<!-- Oracle10gAS
 	<component name="initialContext" class="javax.naming.InitialContext"/>
 	<component name="transactionManager"
-    	class="org.seasar.extension.j2ee.JndiTransactionManager">
-    	<arg>initialContext</arg>
-    	<arg>"java:comp/UserTransaction"</arg>
+		class="org.seasar.extension.j2ee.JndiTransactionManager">
+		<arg>initialContext</arg>
+		<arg>"java:comp/UserTransaction"</arg>
 	</component>
 	<component
-    	class="org.seasar.extension.j2ee.JndiDataSource">
-    	<arg>initialContext</arg>
-    	<arg>"jndiName"</arg>
+		class="org.seasar.extension.j2ee.JndiDataSource">
+		<arg>initialContext</arg>
+		<arg>"jndiName"</arg>
 	</component>
 	-->
 </components>
