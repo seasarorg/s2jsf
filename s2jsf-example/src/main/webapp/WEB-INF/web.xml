@@ -79,9 +79,9 @@
     </listener>
 
 
-    <!-- Faces Servlet -->
+    <!-- facesServlet -->
     <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-name>facesServlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
@@ -96,12 +96,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
-    <!-- Faces Servlet Mapping -->
-
-    <!-- virtual path mapping -->
-    
     <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.html</url-pattern>
     </servlet-mapping>
 
@@ -115,11 +111,7 @@
     </session-config>
 -->    
 
-    <!-- Welcome files -->
-
     <welcome-file-list>
-        <welcome-file>index.jsf</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
