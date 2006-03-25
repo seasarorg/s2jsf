@@ -16,6 +16,10 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
 public class ValidatorTest extends AbstractTestCase {
 
     public void test1() throws Exception {
+        final String userNameErrorMessage = "\"User Name\": ";
+        final String ageErrorMessage = "\"Age\": ";
+        final String toNameErrorMessage = "\"To\": ";
+
         HtmlPage page1 = getPageFromMenu("Validator");
         String body1 = getBody(page1).trim();
         System.out.println(body1);
@@ -34,9 +38,9 @@ public class ValidatorTest extends AbstractTestCase {
         HtmlTextInput to1 = getTo(page1);
         to1.setValueAttribute("a");
 
-        StringAssert.assertNotContains("\"User Name\": ", body1);
-        StringAssert.assertNotContains("\"Age\": ", body1);
-        StringAssert.assertNotContains("\"To\": ", body1);
+        StringAssert.assertNotContains(userNameErrorMessage, body1);
+        StringAssert.assertNotContains(ageErrorMessage, body1);
+        StringAssert.assertNotContains(toNameErrorMessage, body1);
 
         HtmlSubmitInput submit1 = getSubmit(page1);
 
@@ -47,9 +51,9 @@ public class ValidatorTest extends AbstractTestCase {
         String body2 = getBody(page2).trim();
         System.out.println(body2);
 
-        StringAssert.assertContains("\"User Name\": ", body2);
-        StringAssert.assertContains("\"Age\": ", body2);
-        StringAssert.assertContains("\"To\": ", body2);
+        StringAssert.assertContains(userNameErrorMessage, body2);
+        StringAssert.assertContains(ageErrorMessage, body2);
+        StringAssert.assertContains(toNameErrorMessage, body2);
 
         HtmlTextInput userName2 = getUserName(page2);
         userName2.setValueAttribute("abc");
@@ -69,9 +73,9 @@ public class ValidatorTest extends AbstractTestCase {
         String body3 = getBody(page3).trim();
         System.out.println(body3);
 
-        StringAssert.assertNotContains("\"User Name\": ", body3);
-        StringAssert.assertNotContains("\"Age\": ", body3);
-        StringAssert.assertNotContains("\"To\": ", body3);
+        StringAssert.assertNotContains(userNameErrorMessage, body3);
+        StringAssert.assertNotContains(ageErrorMessage, body3);
+        StringAssert.assertNotContains(toNameErrorMessage, body3);
     }
 
     private HtmlTextInput getUserName(HtmlPage page) throws JaxenException {

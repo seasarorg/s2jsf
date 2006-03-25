@@ -183,7 +183,7 @@ public class SelectOneRadioTest extends AbstractTestCase {
     }
 
     public void testValidationError() throws Exception {
-        final String errorMessage = "\"Radio2\": ";
+        final String errorMessage = "Radio2";
 
         // 1
 
