@@ -42,14 +42,15 @@ public class ConverterTest extends AbstractTestCase {
 
         input2.setValueAttribute("aabb");
         HtmlSubmitInput submit2 = getSubmit(page2);
-        StringAssert.assertNotContains(" \"Hire Date\": ", body2);
+        final String validationFailureMessage = "aabb";
+        StringAssert.assertNotContains(validationFailureMessage, body2);
 
         // 3
 
         HtmlPage page3 = (HtmlPage) submit2.click();
         String body3 = getBody(page3).trim();
         System.out.println(body3);
-        StringAssert.assertContains(" \"Hire Date\": ", body3);
+        StringAssert.assertContains(validationFailureMessage, body3);
     }
 
     private HtmlTextInput getInput(HtmlPage page) throws JaxenException {
