@@ -224,17 +224,15 @@ public final class RenderUtil {
         }
     }
 
-    public static Renderer getRenderer(FacesContext context,
-            UIComponent component) {
-
+    static Renderer getRenderer(FacesContext context, UIComponent component) {
         String rendererType = component.getRendererType();
         if (rendererType == null) {
             return null;
         }
-        String renderKitId = context.getViewRoot().getRenderKitId();
-        RenderKitFactory rkf = (RenderKitFactory) FactoryFinder
+        RenderKitFactory renderKitFactory = (RenderKitFactory) FactoryFinder
                 .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-        RenderKit renderKit = rkf.getRenderKit(context, renderKitId);
+        String renderKitId = context.getViewRoot().getRenderKitId();
+        RenderKit renderKit = renderKitFactory.getRenderKit(context, renderKitId);
         return renderKit.getRenderer(component.getFamily(), rendererType);
     }
 
