@@ -95,7 +95,8 @@ public class ForEach extends UIComponentBase implements NamingContainer {
             requestMap.put(var, getCurrentRow());
         }
         if (varIndex != null) {
-            requestMap.put(varIndex, new Integer(rowIndex));
+//            requestMap.put(varIndex, new Integer(rowIndex));
+            requestMap.put(varIndex, String.valueOf(rowIndex));
         }
     }
 
