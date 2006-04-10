@@ -10,13 +10,15 @@
 <form>
 <table border="1">
     <tr bgcolor="#7777FF">
-        <th>delete</th>
-        <th>input</th>
+        <th>delete3</th>
+        <th>input4</th>
     </tr>
-    <span m:inject="s:forEach" m:items="#{forEach2DtoList}" m:var="e">
+    <span m:inject="s:forEach" m:items="#{forEach2DtoList}" m:var="e"
+    	m:varindex="i">
     <tr>
     	<td><input type="checkbox" m:value="#{e.delete}"/></td>
-    	<td><input id="input1" type="text" m:value="#{e.input}" m:required="true"/>
+    	<td><input id="input1" type="text" 
+    		tabindex="#{i}" m:value="#{e.input}" m:required="true"/>
     		<span m:inject="h:message" m:for="input1"/></td>
     </tr>
     </span>
