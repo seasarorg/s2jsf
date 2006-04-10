@@ -24,7 +24,7 @@ public class ForEach2Test extends AbstractTestCase {
 
         assertEquals("ForEach2", page1.getTitleText());
         StringAssert.assertContains("delete", body1);
-
+       
         // 1
 
         {
@@ -41,6 +41,16 @@ public class ForEach2Test extends AbstractTestCase {
                     HtmlCheckBoxInput.class)).setChecked(true);
             ((HtmlCheckBoxInput) getFirstChild(table.getCellAt(3, 0),
                     HtmlCheckBoxInput.class)).setChecked(true);
+
+            // Dynamic tabindex
+            final int rowCount = table.getRowCount();
+            for (int i = 1; i < rowCount; i++) {
+                input = (HtmlTextInput) getFirstChild(table
+                        .getCellAt(i, 1), HtmlTextInput.class);
+                String tabindex = input.getAttributeValue("tabindex");
+                assertEquals(tabindex, String.valueOf(i - 1));
+            }
+            
         }
 
         HtmlSubmitInput submit1 = getUpdateButton(page1);
