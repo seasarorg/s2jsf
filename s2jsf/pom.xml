@@ -9,7 +9,7 @@
   <artifactId>s2-jsf</artifactId>
   <packaging>jar</packaging>
   <name>S2JSF</name>
-  <version>1.1.0-b1-SNAPSHOT</version>
+  <version>1.1.0-beta-1</version>
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <issueManagement>
@@ -100,18 +100,6 @@
   </repositories>
   <dependencies>
     <dependency>
-      <groupId>org.seasar.container</groupId>
-      <artifactId>s2-extension</artifactId>
-      <version>2.4.0-SNAPSHOT</version>
-      <type>jar</type>
-      <exclusions>
-        <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.2</version>
@@ -121,7 +109,7 @@
     <dependency>
       <groupId>org.seasar.teeda</groupId>
       <artifactId>teeda-core</artifactId>
-      <version>1.0-beta-2-SNAPSHOT</version>
+      <version>1.0-beta-2</version>
       <type>jar</type>
     </dependency>
     <dependency>

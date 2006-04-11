@@ -1,6 +1,6 @@
 <project name="s2jsf" default="dist" basedir=".">
 
-	<property name="ver" value="1.0.14"/>
+	<property name="ver" value="1.1.0-beta-1"/>
 
 	<target name="dist">
 		<mkdir dir="target"/>
@@ -9,7 +9,7 @@
 				<exclude name="**/target/**"/>
 				<exclude name="**/.settings/**"/>
 			</zipfileset>
-			<zipfileset prefix="s2jsf/lib" dir="target">
+			<zipfileset prefix="s2jsf" dir="target">
 				<include name="s2-jsf-${ver}.jar"/>
 				<include name="s2-jsf-${ver}-sources.jar"/>
 			</zipfileset>
