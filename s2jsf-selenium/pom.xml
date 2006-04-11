@@ -8,7 +8,7 @@
   <groupId>org.seasar.jsf.selenium</groupId>
   <artifactId>s2-jsf-selenium-project</artifactId>
   <packaging>pom</packaging>
-  <version>0.1-SNAPSHOT</version>
+  <version>1.1.0-beta-1</version>
   <name>S2JSF Selenium Project</name>
   <url></url>
   <inceptionYear>2005</inceptionYear>
@@ -21,6 +21,13 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <!-- none, once, pertest -->
+            <forkMode>once</forkMode>
           </configuration>
         </plugin>
       </plugins>
