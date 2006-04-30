@@ -5,6 +5,7 @@
 	<include path="jsf.dicon"/>
 	<include path="teeda.dicon"/>
 	<include path="dao.dicon"/>
+	<include path="examples/jsf/dicon/tomahawk.dicon"/>
 	<include path="examples/jsf/dicon/allaop.dicon"/>
 	<include path="examples/jsf/dicon/allconverter.dicon"/>
 	<include path="examples/jsf/dicon/allvalidator.dicon"/>

@@ -51,6 +51,10 @@
 			<arg>"s"</arg>
 			<arg>"http://www.seasar.org/jsf"</arg>
 		</initMethod>
+		<initMethod name="addTaglibUri">
+    		<arg>"x"</arg>
+    		<arg>"http://myfaces.apache.org/tomahawk"</arg>
+		</initMethod>	
 	</component>
 	
 	<component class="org.seasar.jsf.runtime.TagPoolImpl"/>
