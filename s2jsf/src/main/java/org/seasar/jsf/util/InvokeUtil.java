@@ -62,8 +62,6 @@ public class InvokeUtil {
         BeanDesc beanDesc = null;
         if (componentName != null && container.hasComponentDef(componentName)) {
             ComponentDef cd = container.getComponentDef(componentName);
-            System.out.println("InvokeUtil.invoke() componentName="
-                    + componentName + " cd=" + cd);
             component = cd.getComponent();
             beanDesc = BeanDescFactory.getBeanDesc(cd.getConcreteClass());
         }
