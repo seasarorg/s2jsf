@@ -39,7 +39,7 @@ import org.seasar.jsf.util.BindingUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class ViewProcessor extends TagProcessorImpl {
 
@@ -130,6 +130,13 @@ public class ViewProcessor extends TagProcessorImpl {
     }
 
     public void setExtendsPath(String extendsPath) {
+        if (BindingUtil.isValueReference(extendsPath)) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Application app = context.getApplication();
+            ValueBinding vb = app.createValueBinding(extendsPath);
+            String value = (String) vb.getValue(context);
+            extendsPath = value;
+        }
         this.extendsPath = extendsPath;
     }
 
@@ -152,8 +159,9 @@ public class ViewProcessor extends TagProcessorImpl {
     public void process(JsfContext jsfContext, Tag parentTag)
             throws JspException {
 
-        //setupParamsInternal(jsfContext.getJsfConfig(), jsfContext.getPageContext()
-        //        .getRequest());
+        // setupParamsInternal(jsfContext.getJsfConfig(),
+        // jsfContext.getPageContext()
+        // .getRequest());
         ViewProcessor extendsViewProcessor = getExtendsViewProcessor();
         if (extendsViewProcessor != null) {
             setupInsertProcessorMap(jsfContext.getPageContext());

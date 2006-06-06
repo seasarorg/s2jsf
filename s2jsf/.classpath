@@ -12,8 +12,10 @@
 	<classpathentry kind="lib" path="lib/log4j-1.2.13.jar"/>
 	<classpathentry kind="lib" path="lib/s2-extension-2.4.0-beta-1.jar"/>
 	<classpathentry kind="lib" path="lib/s2-framework-2.4.0-beta-1.jar"/>
-	<classpathentry kind="lib" path="lib/teeda-core-1.0-beta-2.jar"/>
+	<classpathentry sourcepath="/teeda" kind="lib" path="lib/teeda-core-1.0-beta-2.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api-2.3.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-el-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.1.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

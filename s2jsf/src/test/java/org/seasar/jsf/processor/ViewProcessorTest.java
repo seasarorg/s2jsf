@@ -15,14 +15,15 @@
  */
 package org.seasar.jsf.processor;
 
-import org.seasar.extension.unit.S2TestCase;
-import org.seasar.jsf.processor.ViewProcessor;
+import org.seasar.teeda.core.mock.MockApplication;
+import org.seasar.teeda.core.mock.MockValueBinding;
+import org.seasar.teeda.core.unit.TeedaTestCase;
 
 /**
  * @author higa
  *
  */
-public class ViewProcessorTest extends S2TestCase {
+public class ViewProcessorTest extends TeedaTestCase {
 
 	public ViewProcessorTest(String arg0) {
 		super(arg0);
@@ -37,4 +38,14 @@ public class ViewProcessorTest extends S2TestCase {
 		processor.setContentType("text/html; charset=Windows-31j");
 		assertEquals("1", "Windows-31j", processor.getEncoding());
 	}
+    
+    public void testSetExtendsPath() throws Exception {
+        ViewProcessor processor = new ViewProcessor();
+        MockApplication application = getApplication();
+        MockValueBinding vb = new MockValueBinding();
+        vb.setValue(getFacesContext(), "hoge");
+        application.setValueBinding(vb);
+        processor.setExtendsPath("#{aaa}");
+        assertEquals("hoge", processor.getExtendsPath());
+    }
 }
