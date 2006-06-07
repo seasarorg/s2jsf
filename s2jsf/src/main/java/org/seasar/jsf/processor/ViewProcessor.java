@@ -120,31 +120,32 @@ public class ViewProcessor extends TagProcessorImpl {
         }
         ViewProcessor extendsViewProcessor = getExtendsViewProcessor();
         if (extendsViewProcessor != null) {
-            includes.add(extendsPath);
+            includes.add(getExtendsPath());
             extendsViewProcessor.addIncludes(includes);
         }
     }
 
     public String getExtendsPath() {
-        return extendsPath;
-    }
-
-    public void setExtendsPath(String extendsPath) {
         if (BindingUtil.isValueReference(extendsPath)) {
             FacesContext context = FacesContext.getCurrentInstance();
             Application app = context.getApplication();
             ValueBinding vb = app.createValueBinding(extendsPath);
-            String value = (String) vb.getValue(context);
-            extendsPath = value;
+            return (String) vb.getValue(context);
+        } else {
+            return extendsPath;
         }
+    }
+
+    public void setExtendsPath(String extendsPath) {
         this.extendsPath = extendsPath;
     }
 
     protected ViewProcessor getExtendsViewProcessor() {
-        if (extendsPath == null) {
+        final String path = getExtendsPath();
+        if (path == null) {
             return null;
         }
-        ViewTemplate vt = viewTemplateFactory.getViewTemplate(extendsPath);
+        ViewTemplate vt = viewTemplateFactory.getViewTemplate(path);
         return (ViewProcessor) vt.getRootTagProcessor();
     }
 

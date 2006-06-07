@@ -39,7 +39,7 @@ public class ViewProcessorTest extends TeedaTestCase {
 		assertEquals("1", "Windows-31j", processor.getEncoding());
 	}
     
-    public void testSetExtendsPath() throws Exception {
+    public void testGetExtendsPath() throws Exception {
         ViewProcessor processor = new ViewProcessor();
         MockApplication application = getApplication();
         MockValueBinding vb = new MockValueBinding();
