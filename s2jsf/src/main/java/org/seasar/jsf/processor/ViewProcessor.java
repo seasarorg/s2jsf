@@ -39,6 +39,7 @@ import org.seasar.jsf.util.BindingUtil;
 
 /**
  * @author higa
+ * @author shot
  * 
  */
 public class ViewProcessor extends TagProcessorImpl {
