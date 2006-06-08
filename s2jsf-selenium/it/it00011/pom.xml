@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.seasar.jsf.selenium.it</groupId>
     <artifactId>s2-jsf-selenium-it</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.1.0-beta-2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>s2-jsf-selenium-it00011</artifactId>
