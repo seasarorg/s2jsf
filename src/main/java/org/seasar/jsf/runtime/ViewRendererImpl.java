@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -26,10 +26,8 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.application.ViewHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.el.EvaluationException;
 import javax.faces.el.MethodBinding;
-import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -51,6 +49,7 @@ import org.seasar.jsf.ViewRenderer;
 import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.JspRuntimeException;
+import org.seasar.jsf.html.HtmlResponseWriter;
 import org.seasar.jsf.jsp.PageContextImpl;
 import org.seasar.jsf.processor.ViewProcessor;
 import org.seasar.jsf.util.ExternalContextUtil;
@@ -58,7 +57,7 @@ import org.seasar.jsf.util.InvokeUtil;
 
 /**
  * @author higa
- * 
+ *
  */
 public class ViewRendererImpl implements ViewRenderer {
 
@@ -129,11 +128,10 @@ public class ViewRendererImpl implements ViewRenderer {
     protected void setupResponseWriter(PageContext pageContext,
             String contentType, String encoding) {
         FacesContext context = FacesContext.getCurrentInstance();
-        RenderKitFactory renderFactory = getRenderKitFactory();
-        RenderKit renderKit = renderFactory.getRenderKit(context, context
-                .getViewRoot().getRenderKitId());
-        ResponseWriter writer = renderKit.createResponseWriter(
-                new PageContextWriter(pageContext), contentType, encoding);
+        HtmlResponseWriter writer = new HtmlResponseWriter();
+        writer.setWriter(new PageContextWriter(pageContext));
+        writer.setContentType(contentType);
+        writer.setCharacterEncoding(encoding);
         context.setResponseWriter(writer);
     }
 
