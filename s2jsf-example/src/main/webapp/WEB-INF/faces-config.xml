@@ -7,7 +7,7 @@
 <!-- =========== FULL CONFIGURATION FILE ================================== -->
 
 <faces-config>
-	
+
     <application>
     	<message-bundle>appMessages</message-bundle>
     	<locale-config>
@@ -20,7 +20,7 @@
 		<converter-for-class>java.util.Date</converter-for-class>
 		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
 	</converter>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>hello</from-outcome>
@@ -43,14 +43,14 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>forEachResult</from-outcome>
 			<to-view-id>/foreach/forEachResult.html</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>forEach2List</from-outcome>
@@ -66,7 +66,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>converter</from-outcome>
@@ -74,7 +74,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>validator</from-outcome>
@@ -82,7 +82,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>checkbox</from-outcome>
@@ -90,7 +90,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>selectOneMenu</from-outcome>
@@ -98,7 +98,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>selectManyCheckbox</from-outcome>
@@ -106,7 +106,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>selectManyListbox</from-outcome>
@@ -114,7 +114,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>selectOneRadio</from-outcome>
@@ -122,7 +122,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>inputTextarea</from-outcome>
@@ -130,7 +130,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>inputSecret</from-outcome>
@@ -138,7 +138,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>pageTran1</from-outcome>
@@ -146,7 +146,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>pageTran2</from-outcome>
@@ -154,7 +154,7 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-  
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>employeeSearch</from-outcome>
@@ -162,25 +162,33 @@
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>employeeList</from-outcome>
 			<to-view-id>/employee/employeeList.html</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>employeeEdit</from-outcome>
 			<to-view-id>/employee/employeeEdit.html</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>employeeConfirm</from-outcome>
 			<to-view-id>/employee/employeeConfirm.html</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>postback</from-outcome>
+			<to-view-id>/postback/postback.html</to-view-id>
+			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 
