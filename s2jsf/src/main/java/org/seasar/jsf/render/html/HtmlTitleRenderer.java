@@ -27,39 +27,39 @@ import org.seasar.jsf.component.html.HtmlTitle;
 
 /**
  * @author higa
- *
+ * 
  */
 public class HtmlTitleRenderer extends Renderer {
 
-	public void encodeBegin(FacesContext facesContext, UIComponent component)
-			throws IOException {
+    public void encodeBegin(FacesContext facesContext, UIComponent component)
+            throws IOException {
 
-		if (!component.isRendered()) {
-			return;
-		}
-	}
+        if (!component.isRendered()) {
+            return;
+        }
+    }
 
-	public void encodeEnd(FacesContext context, UIComponent component)
-			throws IOException {
+    public void encodeEnd(FacesContext context, UIComponent component)
+            throws IOException {
 
-		if (!component.isRendered()) {
-			return;
-		}
-		ResponseWriter writer = context.getResponseWriter();
-		writer.startElement(JsfConstants.TITLE_ELEM, component);
-		HtmlTitle title = (HtmlTitle) component;
-		Object value = title.getValue();
-		if (value != null) {
-			writer.write(value.toString());
-		}
-		writer.endElement(JsfConstants.TITLE_ELEM);
-	}
+        if (!component.isRendered()) {
+            return;
+        }
+        ResponseWriter writer = context.getResponseWriter();
+        writer.startElement(JsfConstants.TITLE_ELEM, component);
+        HtmlTitle title = (HtmlTitle) component;
+        Object value = title.getValue();
+        if (value != null) {
+            writer.writeText(value.toString(), null);
+        }
+        writer.endElement(JsfConstants.TITLE_ELEM);
+    }
 
-	public boolean getRendersChildren() {
-		return true;
-	}
+    public boolean getRendersChildren() {
+        return true;
+    }
 
-	public void encodeChildren(FacesContext context, UIComponent component)
-			throws IOException {
-	}
+    public void encodeChildren(FacesContext context, UIComponent component)
+            throws IOException {
+    }
 }
