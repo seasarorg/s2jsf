@@ -27,6 +27,7 @@ import javax.faces.context.ResponseWriter;
 /**
  * @author manhole
  * @author shot
+ * @author yone
  *
  * TODO handle "javascript: xxxx" attribute (really necessary?)
  */
@@ -39,7 +40,7 @@ public class HtmlResponseWriter extends ResponseWriter {
                     "input", "link", "meta", "param" });
 
     private final char[] reserved = { ';', '/', '?', ':', '@', '&', '=', '+',
-            '$', ',' };
+            '$', ',', '#' };
 
     private Writer writer;
 
