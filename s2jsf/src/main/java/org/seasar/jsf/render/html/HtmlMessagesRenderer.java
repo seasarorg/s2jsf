@@ -26,7 +26,6 @@ import javax.faces.component.html.HtmlMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.seasar.framework.util.EmptyIterator;
 import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.util.RenderUtil;
 
@@ -47,9 +46,15 @@ public class HtmlMessagesRenderer extends AbstractHtmlMessageRenderer {
 
     protected void renderMessages(FacesContext context, HtmlMessages messages)
             throws IOException {
-
-        MessagesIterator messagesIterator = new MessagesIterator(context,
-                messages.isGlobalOnly());
+        Iterator messagesIterator;
+        if (messages.isGlobalOnly()) {
+            messagesIterator = context.getMessages(null);
+        } else {
+            messagesIterator = context.getMessages();
+        }
+        if (!messagesIterator.hasNext()) {
+            return;
+        }
         if (messagesIterator.hasNext()) {
             String layout = messages.getLayout();
             if (layout == null || LAYOUT_LIST.equalsIgnoreCase(layout)) {
@@ -63,7 +68,7 @@ public class HtmlMessagesRenderer extends AbstractHtmlMessageRenderer {
     }
 
     protected void renderList(FacesContext context, HtmlMessages messages,
-            MessagesIterator messagesIterator) throws IOException {
+            Iterator messagesIterator) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement(JsfConstants.UL_ELEM, messages);
@@ -80,7 +85,7 @@ public class HtmlMessagesRenderer extends AbstractHtmlMessageRenderer {
     }
 
     protected void renderTable(FacesContext context, HtmlMessages messages,
-            MessagesIterator messagesIterator) throws IOException {
+            Iterator messagesIterator) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement(JsfConstants.TABLE_ELEM, messages);
@@ -148,52 +153,6 @@ public class HtmlMessagesRenderer extends AbstractHtmlMessageRenderer {
             style = messages.getStyle();
         }
         return style;
-    }
-
-    protected static class MessagesIterator implements Iterator {
-
-        private FacesContext context;
-
-        private Iterator globalMessagesIterator;
-
-        private Iterator clientIdsWithMessagesIterator;
-
-        private Iterator componentMessagesIterator;
-
-        public MessagesIterator(FacesContext context, boolean globalOnly) {
-            this.context = context;
-            this.globalMessagesIterator = context.getMessages(null);
-            if (globalOnly) {
-                this.clientIdsWithMessagesIterator = new EmptyIterator();
-            } else {
-                this.clientIdsWithMessagesIterator = context
-                        .getClientIdsWithMessages();
-            }
-            this.componentMessagesIterator = new EmptyIterator();
-        }
-
-        public boolean hasNext() {
-            return globalMessagesIterator.hasNext()
-                    || clientIdsWithMessagesIterator.hasNext()
-                    || componentMessagesIterator.hasNext();
-        }
-
-        public Object next() {
-            if (globalMessagesIterator.hasNext()) {
-                return globalMessagesIterator.next();
-            } else if (componentMessagesIterator.hasNext()) {
-                return componentMessagesIterator.next();
-            } else {
-                String clientId = (String) clientIdsWithMessagesIterator.next();
-                componentMessagesIterator = context.getMessages(clientId);
-                return componentMessagesIterator.next();
-            }
-        }
-
-        public void remove() {
-            throw new UnsupportedOperationException("remove");
-        }
-
     }
 
 }
