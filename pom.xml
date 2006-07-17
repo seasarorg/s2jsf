@@ -9,7 +9,7 @@
   <artifactId>s2-jsf</artifactId>
   <packaging>jar</packaging>
   <name>S2JSF</name>
-  <version>1.0.14</version>
+  <version>1.0.15</version>
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <issueManagement>
@@ -48,8 +48,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:https://www.seasar.org/svn/s2jsf/trunk/s2jsf/</connection>
-    <developerConnection>scm:svn:https://www.seasar.org/svn/s2jsf/trunk/s2jsf/</developerConnection>
+    <connection>scm:svn:https://www.seasar.org/svn/s2jsf/branches/s2jsf-1.0.x/</connection>
+    <developerConnection>scm:svn:https://www.seasar.org/svn/s2jsf/branches/s2jsf-1.0.x/</developerConnection>
     <url>http://www.seasar.org/websvn/listing.php?repname=s2jsf</url>
   </scm>
   <organization>
