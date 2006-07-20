@@ -509,6 +509,22 @@ public class HtmlResponseWriterTest extends TestCase {
         assertEquals("<span a=\"b.c['d'] = 'e';\"", value);
     }
 
+    public void testWriteAttribute3() throws Exception {
+        HtmlResponseWriter responseWriter = new HtmlResponseWriter();
+        SPrintWriter writer = new SPrintWriter();
+        responseWriter.setWriter(writer);
+        responseWriter.setCharacterEncoding("Windows-31j");
+        responseWriter.startElement("input", null);
+        responseWriter.writeAttribute("type", "button", null);
+        responseWriter.writeAttribute("value", "&nbsp;&nbsp;“o˜^&nbsp;&nbsp;",
+                null);
+
+        String value = writer.toString();
+        assertEquals(
+                "<input type=\"button\" value=\"&nbsp;&nbsp;“o˜^&nbsp;&nbsp;\"",
+                value);
+    }
+
     public void testWriteAttribute_NameIsNull() throws Exception {
         HtmlResponseWriter responseWriter = new HtmlResponseWriter();
         try {

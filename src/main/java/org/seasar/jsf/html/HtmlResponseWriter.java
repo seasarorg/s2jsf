@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -28,9 +28,8 @@ import javax.faces.context.ResponseWriter;
  * @author manhole
  * @author shot
  * @author yone
- *
- * TODO handle "javascript: xxxx" attribute (really necessary?)
  */
+// TODO handle "javascript: xxxx" attribute (really necessary?)
 public class HtmlResponseWriter extends ResponseWriter {
 
     private static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
@@ -39,8 +38,16 @@ public class HtmlResponseWriter extends ResponseWriter {
             .asList(new String[] { "area", "br", "base", "col", "hr", "img",
                     "input", "link", "meta", "param" });
 
-    private final char[] reserved = { ';', '/', '?', ':', '@', '&', '=', '+',
-            '$', ',', '#' };
+    private static final char[] reserved = { ';', '/', '?', ':', '@', '&', '=',
+            '+', '$', ',' };
+
+    private static final char[] unescape;
+
+    static {
+        unescape = new char[reserved.length + 1];
+        System.arraycopy(reserved, 0, unescape, 0, reserved.length);
+        unescape[unescape.length - 1] = '#';
+    }
 
     private Writer writer;
 
@@ -103,11 +110,12 @@ public class HtmlResponseWriter extends ResponseWriter {
             throw new IllegalStateException(
                     "there is no currently open element");
         }
+        String strValue = (value == null) ? "" : value.toString();
         Writer writer = getWriter();
         writer.write(" ");
         writer.write(name);
         writer.write("=\"");
-        writer.write(escapeAttribute(value.toString()));
+        writer.write(escapeAttribute(strValue));
         writer.write("\"");
     }
 
@@ -155,20 +163,24 @@ public class HtmlResponseWriter extends ResponseWriter {
         writeText(new String(text, off, len), null);
     }
 
-    protected String htmlSpecialChars(String s) {
-        return htmlSpecialChars(s, true);
+    protected String htmlSpecialChars(final String s) {
+        return htmlSpecialChars(s, true, true);
     }
 
-    private String htmlSpecialChars(String s, boolean quote) {
+    private String htmlSpecialChars(final String s, final boolean quote,
+            final boolean amp) {
         char[] chars = s.toCharArray();
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
-            if (c == '<') {
+            // &nbsp; 0xA0
+            if ((int)c == '\u00A0') {
+                sb.append("&nbsp;");
+            } else if (c == '<') {
                 sb.append("&lt;");
             } else if (c == '>') {
                 sb.append("&gt;");
-            } else if (c == '&') {
+            } else if (amp && c == '&') {
                 sb.append("&amp;");
             } else if (c == '"') {
                 sb.append("&quot;");
@@ -182,16 +194,16 @@ public class HtmlResponseWriter extends ResponseWriter {
     }
 
     protected String escapeAttribute(String s) {
-        return htmlSpecialChars(s, false);
+        return htmlSpecialChars(s, false, false);
     }
 
     public ResponseWriter cloneWithWriter(Writer writer) {
         assertNotNull("writer", writer);
-        HtmlResponseWriter newResponseWriter = new HtmlResponseWriter();
-        newResponseWriter.setWriter(writer);
-        newResponseWriter.setContentType(getContentType());
-        newResponseWriter.setCharacterEncoding(getCharacterEncoding());
-        return newResponseWriter;
+        HtmlResponseWriter clone = new HtmlResponseWriter();
+        clone.setWriter(writer);
+        clone.setContentType(getContentType());
+        clone.setCharacterEncoding(getCharacterEncoding());
+        return clone;
     }
 
     public void write(char[] cbuf, int off, int len) throws IOException {
@@ -275,7 +287,7 @@ public class HtmlResponseWriter extends ResponseWriter {
         final int length = chars.length;
         forLoop: for (int i = 0; i < length; i++) {
             final char c = chars[i];
-            if (contains(reserved, c)) {
+            if (contains(unescape, c)) {
                 sb.append(c);
                 if ('?' == c) {
                     if (i < length) {
@@ -311,7 +323,7 @@ public class HtmlResponseWriter extends ResponseWriter {
                 sb.append("%");
                 break;
             case '&': // 38
-                //sb.append("&");
+                // sb.append("&");
                 sb.append("&amp;");
                 break;
             case '\'': // 39
@@ -347,9 +359,9 @@ public class HtmlResponseWriter extends ResponseWriter {
         return writer.toString();
     }
 
-    //TODO delete after using S2.4
+    // TODO delete after using S2.4
     private static void assertNotNull(String message, Object target) {
-        if(target == null) {
+        if (target == null) {
             throw new NullPointerException(message);
         }
     }
@@ -362,7 +374,7 @@ public class HtmlResponseWriter extends ResponseWriter {
         if (array != null) {
             for (int i = 0; i < array.length; ++i) {
                 char c = array[i];
-                if(ch == c) {
+                if (ch == c) {
                     return i;
                 }
             }
