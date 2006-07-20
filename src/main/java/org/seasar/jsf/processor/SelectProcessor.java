@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -20,19 +20,19 @@ import org.seasar.jsf.TagProcessor;
 
 /**
  * @author higa
- *  
+ * @author shot
  */
 public class SelectProcessor extends TagProcessorImpl {
 
-	public SelectProcessor(String inject) {
-		super(inject);
-	}
+    public SelectProcessor(String inject) {
+        super(inject);
+    }
 
-	public void addChild(TagProcessor child) {
-		if (child instanceof TextProcessor
-				|| getProperty(JsfConstants.ITEMS_ATTR) != null) {
-			return;
-		}
-		super.addChild(child);
-	}
+    public void addChild(TagProcessor child) {
+        if (child instanceof TextProcessor
+                || ((!(child instanceof ValidatorProcessor)) && getProperty(JsfConstants.ITEMS_ATTR) != null)) {
+            return;
+        }
+        super.addChild(child);
+    }
 }
