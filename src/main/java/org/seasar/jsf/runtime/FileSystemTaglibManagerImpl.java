@@ -17,19 +17,16 @@ package org.seasar.jsf.runtime;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.servlet.ServletContext;
 
-import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.util.FileInputStreamUtil;
 import org.seasar.framework.util.InputStreamUtil;
-import org.seasar.framework.util.ResourceUtil;
 import org.seasar.jsf.util.FileSystemTraversal;
 
 /**
  * @author manhole
+ * @author yone
  */
 public class FileSystemTaglibManagerImpl extends AbstractTaglibManager {
 
@@ -44,13 +41,8 @@ public class FileSystemTaglibManagerImpl extends AbstractTaglibManager {
     }
 
     public void init(String path) {
-        try {
-            URL rootPath = servletContext.getResource(path);
-            File root = ResourceUtil.getFile(rootPath);
-            init0(root);
-        } catch (MalformedURLException e) {
-            throw new IORuntimeException(e);
-        }
+        File root = new File(servletContext.getRealPath(path));
+        init0(root);
     }
 
     private void init0(File root) {
