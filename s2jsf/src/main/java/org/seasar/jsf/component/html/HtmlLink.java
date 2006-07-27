@@ -17,6 +17,9 @@ package org.seasar.jsf.component.html;
 
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
+
+import org.seasar.jsf.JsfConstants;
 
 /**
  * @author higa
@@ -59,7 +62,11 @@ public class HtmlLink extends UIComponentBase {
 	}
 
 	public String getHref() {
-		return href;
+        if (href != null) {
+            return href;
+        }
+        ValueBinding vb = getValueBinding(JsfConstants.HREF_ATTR);
+        return vb != null ? (String)vb.getValue(getFacesContext()) : null;
 	}
 	
 	public void setHref(String href) {
