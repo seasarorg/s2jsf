@@ -15,7 +15,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class ValidatorTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testValidator() throws Exception {
         final String userNameErrorMessage = "id=User Name";
         final String ageErrorMessage = "適切な型へ変換できません";
         final String toNameErrorMessage = "\"To\": 値は\"From\"以上でなければいけません";

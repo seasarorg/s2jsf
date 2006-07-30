@@ -16,7 +16,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class ForEach3Test extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testForEach3() throws Exception {
         HtmlPage page1 = getPageFromMenu("ForEach3");
         String body1 = getBody(page1).trim();
         System.out.println(body1);
@@ -80,7 +80,7 @@ public class ForEach3Test extends AbstractTestCase {
     }
 
     public void test2() throws Exception {
-        test1();
+        testForEach3();
     }
 
     private HtmlTextInput getA(HtmlTable table1) {

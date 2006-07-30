@@ -14,7 +14,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class ForEachTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testForEach() throws Exception {
         HtmlPage page1 = getPageFromMenu("ForEach");
         String body1 = getBody(page1).trim();
         System.out.println(body1);

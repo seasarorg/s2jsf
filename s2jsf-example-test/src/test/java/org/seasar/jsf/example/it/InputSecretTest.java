@@ -13,7 +13,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class InputSecretTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testInputSecret() throws Exception {
         HtmlPage page1 = getPageFromMenu("InputSecret");
         String body1 = getBody(page1).trim();
         System.out.println(body1);

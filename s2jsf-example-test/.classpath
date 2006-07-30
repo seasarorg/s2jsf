@@ -1,9 +1,9 @@
 <classpath>
-  <classpathentry kind="src" path="src/main/java"/>
-  <classpathentry kind="src" path="src/main/resources"/>
-  <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
-  <classpathentry kind="src" path="src/test/resources" output="target/test-classes"/>
-  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry output="build/classes" kind="src" path="src/main/java"/>
+  <classpathentry output="build/classes" kind="src" path="src/main/resources"/>
+  <classpathentry output="build/test-classes" kind="src" path="src/test/java"/>
+  <classpathentry output="build/test-classes" kind="src" path="src/test/resources"/>
+  <classpathentry kind="output" path="build/classes"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="var" path="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" sourcepath="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar" sourcepath="M2_REPO/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4-sources.jar"/>

@@ -17,7 +17,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class PageTransitionWithExceptionTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testPageTransitionWithException1() throws Exception {
         HtmlPage page1 = getPage();
 
         // 1
@@ -32,15 +32,7 @@ public class PageTransitionWithExceptionTest extends AbstractTestCase {
         StringAssert.assertContains("errorPage1", body2);
     }
 
-    private HtmlPage getPage() throws MalformedURLException, IOException {
-        HtmlPage page = getPageFromMenu("The page transition with exception");
-        String body1 = getBody(page).trim();
-        System.out.println(body1);
-        assertEquals("The page transition with exception", page.getTitleText());
-        return page;
-    }
-
-    public void test2() throws Exception {
+    public void testPageTransitionWithException2() throws Exception {
         HtmlPage page1 = getPage();
 
         // 1
@@ -53,6 +45,14 @@ public class PageTransitionWithExceptionTest extends AbstractTestCase {
         String body2 = getBody(page2).trim();
         System.out.println(body2);
         StringAssert.assertContains("errorPage2", body2);
+    }
+
+    private HtmlPage getPage() throws MalformedURLException, IOException {
+        HtmlPage page = getPageFromMenu("The page transition with exception");
+        String body1 = getBody(page).trim();
+        System.out.println(body1);
+        assertEquals("The page transition with exception", page.getTitleText());
+        return page;
     }
 
     private HtmlSubmitInput getSubmitA(HtmlPage page) throws JaxenException {

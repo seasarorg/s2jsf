@@ -15,7 +15,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class InputTextareaTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testInputTextarea() throws Exception {
         HtmlPage page1 = getPageFromMenu("InputTextarea");
         String body1 = getBody(page1).trim();
         System.out.println(body1);

@@ -15,7 +15,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class ConverterTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testConverter() throws Exception {
         HtmlPage page1 = getPageFromMenu("Converter");
         String body1 = getBody(page1).trim();
         System.out.println(body1);

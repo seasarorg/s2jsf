@@ -17,14 +17,14 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class ForEach2Test extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testForEach2() throws Exception {
         HtmlPage page1 = getPageFromMenu("ForEach2");
         String body1 = getBody(page1).trim();
         System.out.println(body1);
 
         assertEquals("ForEach2", page1.getTitleText());
         StringAssert.assertContains("delete", body1);
-       
+
         // 1
 
         {
@@ -45,12 +45,12 @@ public class ForEach2Test extends AbstractTestCase {
             // Dynamic tabindex
             final int rowCount = table.getRowCount();
             for (int i = 1; i < rowCount; i++) {
-                input = (HtmlTextInput) getFirstChild(table
-                        .getCellAt(i, 1), HtmlTextInput.class);
+                input = (HtmlTextInput) getFirstChild(table.getCellAt(i, 1),
+                        HtmlTextInput.class);
                 String tabindex = input.getAttributeValue("tabindex");
                 assertEquals(tabindex, String.valueOf(i - 1));
             }
-            
+
         }
 
         HtmlSubmitInput submit1 = getUpdateButton(page1);
@@ -117,7 +117,7 @@ public class ForEach2Test extends AbstractTestCase {
     }
 
     public void test2() throws Exception {
-        test1();
+        testForEach2();
     }
 
 }

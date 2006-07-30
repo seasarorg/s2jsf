@@ -15,7 +15,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class SelectManyListboxTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testSelectManyListbox() throws Exception {
         HtmlPage page1 = getPageFromMenu("SelectManyListbox");
         String body1 = getBody(page1).trim();
         System.out.println(body1);

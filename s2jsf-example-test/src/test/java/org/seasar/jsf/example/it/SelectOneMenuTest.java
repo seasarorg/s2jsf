@@ -18,7 +18,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class SelectOneMenuTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testSelectOneMenu() throws Exception {
         HtmlPage page1 = getPageFromMenu("SelectOneMenu");
         String body1 = getBody(page1).trim();
         System.out.println(body1);

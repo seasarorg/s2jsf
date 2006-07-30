@@ -22,7 +22,7 @@ import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
  */
 public class SelectOneRadioTest extends AbstractTestCase {
 
-    public void test1() throws Exception {
+    public void testSelectOneRadio() throws Exception {
         // 1
 
         HtmlPage page1 = getPage();
