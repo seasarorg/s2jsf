@@ -33,19 +33,19 @@ public class WebappConfigBuilderTest extends TestCase {
         WebappConfig webappConfig = buildWebappConfig();
 
         // ## Assert ##
-        assertNotNull("webappConfig‚ª¶¬‚³‚ê‚é‚±‚Æ", webappConfig);
+        assertNotNull("webappConfigãŒç”Ÿæˆã•ã‚Œã‚‹ã“ã¨", webappConfig);
         ContextParam contextParam = webappConfig
                 .getContextParam("javax.faces.CONFIG_FILES");
-        assertNotNull("contextParam[javax.faces.CONFIG_FILES]‚ğæ“¾‚Å‚«‚é‚±‚Æ",
+        assertNotNull("contextParam[javax.faces.CONFIG_FILES]ã‚’å–å¾—ã§ãã‚‹ã“ã¨",
                 contextParam);
 
-        assertEquals("context-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ",
+        assertEquals("context-param/param-valueã‚’å–å¾—ã§ãã‚‹ã“ã¨",
                 "/WEB-INF/faces-config.xml", contextParam.getParamValue());
-        assertEquals("context-param/param-name‚ğæ“¾‚Å‚«‚é‚±‚Æ",
+        assertEquals("context-param/param-nameã‚’å–å¾—ã§ãã‚‹ã“ã¨",
                 "javax.faces.CONFIG_FILES", contextParam.getParamName());
 
         assertEquals(
-                "javax.faces.DEFAULT_SUFFIX‚Ìcontext-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ",
+                "javax.faces.DEFAULT_SUFFIXã®context-param/param-valueã‚’å–å¾—ã§ãã‚‹ã“ã¨",
                 ".html", webappConfig.getContextParam(
                         "javax.faces.DEFAULT_SUFFIX").getParamValue());
     }
@@ -57,21 +57,21 @@ public class WebappConfigBuilderTest extends TestCase {
         // ## Assert ##
         {
             Servlet servlet = webappConfig.getServlet("Faces Servlet");
-            assertEquals("servlet/servlet-name‚ğæ“¾‚Å‚«‚é‚±‚Æ", "Faces Servlet",
+            assertEquals("servlet/servlet-nameã‚’å–å¾—ã§ãã‚‹ã“ã¨", "Faces Servlet",
                     servlet.getServletName());
-            assertEquals("servlet/servlet-class‚ğæ“¾‚Å‚«‚é‚±‚Æ",
+            assertEquals("servlet/servlet-classã‚’å–å¾—ã§ãã‚‹ã“ã¨",
                     "javax.faces.webapp.FacesServlet", servlet
                             .getServletClass());
-            assertEquals("servlet/load-on-startup‚ğæ“¾‚Å‚«‚é‚±‚Æ", "2", servlet
+            assertEquals("servlet/load-on-startupã‚’å–å¾—ã§ãã‚‹ã“ã¨", "2", servlet
                     .getLoadOnStartup());
         }
         {
             Servlet servlet = webappConfig.getServlet("s2servlet");
             InitParam initParam = servlet.getInitParam("debug");
-            assertNotNull("servlet/init-param‚ğæ“¾‚Å‚«‚é‚±‚Æ", initParam);
-            assertEquals("servlet/init-param/param-name‚ğæ“¾‚Å‚«‚é‚±‚Æ", "debug",
+            assertNotNull("servlet/init-paramã‚’å–å¾—ã§ãã‚‹ã“ã¨", initParam);
+            assertEquals("servlet/init-param/param-nameã‚’å–å¾—ã§ãã‚‹ã“ã¨", "debug",
                     initParam.getParamName());
-            assertEquals("servlet/init-param/param-value‚ğæ“¾‚Å‚«‚é‚±‚Æ", "true",
+            assertEquals("servlet/init-param/param-valueã‚’å–å¾—ã§ãã‚‹ã“ã¨", "true",
                     initParam.getParamValue());
         }
     }

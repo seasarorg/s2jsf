@@ -45,7 +45,7 @@ public class PageContextWriterTest extends TestCase {
         pageContextWriter.write("7650");
 
         // ## Assert ##
-        assertEquals("write‚ÍPageContextImpl#getOut()‚ÖˆÏ÷‚µ‚Ä‚¢‚é‚±‚Æ", "7650", sb
+        assertEquals("writeã¯PageContextImpl#getOut()ã¸å§”è­²ã—ã¦ã„ã‚‹ã“ã¨", "7650", sb
             .toString());
     }
 
@@ -66,7 +66,7 @@ public class PageContextWriterTest extends TestCase {
         pageContextWriter.flush();
 
         // ## Assert ##
-        assertEquals("flush‚ÍPageContextImpl#getOut()‚ÖˆÏ÷‚µ‚Ä‚¢‚é‚±‚Æ", true, called[0]);
+        assertEquals("flushã¯PageContextImpl#getOut()ã¸å§”è­²ã—ã¦ã„ã‚‹ã“ã¨", true, called[0]);
     }
 
     public void testClose() throws Exception {
@@ -86,7 +86,7 @@ public class PageContextWriterTest extends TestCase {
         pageContextWriter.close();
 
         // ## Assert ##
-        assertEquals("close‚ÍPageContextImpl#getOut()‚ÖˆÏ÷‚µ‚Ä‚¢‚é‚±‚Æ", true, called[0]);
+        assertEquals("closeã¯PageContextImpl#getOut()ã¸å§”è­²ã—ã¦ã„ã‚‹ã“ã¨", true, called[0]);
     }
 
 }
