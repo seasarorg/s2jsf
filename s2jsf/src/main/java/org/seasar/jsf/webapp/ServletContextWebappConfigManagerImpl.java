@@ -19,23 +19,25 @@ import java.io.InputStream;
 
 import javax.servlet.ServletContext;
 
+import org.seasar.framework.exception.ResourceNotFoundRuntimeException;
 import org.seasar.framework.util.InputStreamUtil;
-import org.seasar.framework.util.ResourceNotFoundRuntimeException;
 import org.seasar.jsf.JsfConfig;
 
 /**
  * @author manhole
  */
 public class ServletContextWebappConfigManagerImpl implements
-    WebappConfigManager {
+        WebappConfigManager {
 
     private ServletContext servletContext_;
+
     private WebappConfig webappConfig_;
+
     private JsfConfig jsfConfig_;
 
     public void init() {
         InputStream is = servletContext_
-            .getResourceAsStream("/WEB-INF/web.xml");
+                .getResourceAsStream("/WEB-INF/web.xml");
         if (is == null) {
             throw new ResourceNotFoundRuntimeException("/WEB-INF/web.xml");
         }
@@ -45,10 +47,10 @@ public class ServletContextWebappConfigManagerImpl implements
             InputStreamUtil.close(is);
         }
         ContextParam allowJavascript = webappConfig_
-            .getContextParam("org.apache.myfaces.ALLOW_JAVASCRIPT");
+                .getContextParam("org.apache.myfaces.ALLOW_JAVASCRIPT");
         if (allowJavascript != null) {
             jsfConfig_.setAllowJavascript(Boolean.valueOf(
-                allowJavascript.getParamValue()).booleanValue());
+                    allowJavascript.getParamValue()).booleanValue());
         }
     }
 
