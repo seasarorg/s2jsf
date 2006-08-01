@@ -15,69 +15,66 @@
  */
 package org.seasar.jsf.validator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
  * @author Satoshi Kimura
+ * @author shot
+ * @author manhole
  */
 public class ValidatorChain implements Validator, StateHolder {
 
-    private boolean bTransient = false;
+    private boolean transientValue = false;
 
-    List validators = new ArrayList();
+    private List validators = new LinkedList();
+
+    public int getValidatorSize() {
+        return validators.size();
+    }
+
+    public Validator getValidator(int index) {
+        return (Validator) validators.get(index);
+    }
 
     public void add(Validator validator) {
         validators.add(validator);
     }
 
-    public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validate(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
         if (value == null) {
             return;
         }
         for (Iterator iterator = validators.iterator(); iterator.hasNext();) {
-            Validator validator = (Validator)iterator.next();
+            Validator validator = (Validator) iterator.next();
             validator.validate(context, component, value);
         }
     }
 
     public Object saveState(FacesContext context) {
-        Object values[] = new Object[validators.size() + 1];
-        for (int i = 0; i < validators.size(); i++) {
-            Object validator = validators.get(i);
-            if (validator instanceof StateHolder) {
-                values[i] = ((StateHolder)validator).saveState(context);
-            } else {
-                values[i] = null;
-            }
-        }
-        values[values.length - 1] = validators;
-        return values;
+        return UIComponentBase.saveAttachedState(context, validators);
     }
 
     public void restoreState(FacesContext context, Object state) {
-        Object values[] = (Object[])state;
-        validators = (List)values[values.length - 1];
-        for (int i = 0; i < validators.size(); i++) {
-            Object validator = validators.get(i);
-            if (validator instanceof StateHolder) {
-                ((StateHolder)validator).restoreState(context, values[i]);
-            }
-        }
+        validators = (List) UIComponentBase
+                .restoreAttachedState(context, state);
     }
 
     public boolean isTransient() {
-        return bTransient;
+        return transientValue;
     }
 
     public void setTransient(boolean transientValue) {
-        this.bTransient = transientValue;
+        this.transientValue = transientValue;
     }
+
 }
