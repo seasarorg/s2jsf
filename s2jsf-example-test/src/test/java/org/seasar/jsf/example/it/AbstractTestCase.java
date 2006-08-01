@@ -38,7 +38,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.xpath.HtmlUnitXPath;
 
 /**
  * @author manhole
@@ -101,8 +100,11 @@ public abstract class AbstractTestCase extends TestCase {
     }
 
     protected HtmlForm getForm(HtmlPage page) throws JaxenException {
-        return (HtmlForm) new HtmlUnitXPath(".//form[1]").selectNodes(page).get(
-                1);
+        //        return (HtmlForm) new HtmlUnitXPath(".//form[1]").selectNodes(page)
+        //                .get(1);
+        //        return (HtmlForm) new HtmlUnitXPath(".//form[2]")
+        //                .selectSingleNode(page);
+        return (HtmlForm) page.getForms().get(1);
     }
 
     protected HtmlElement getFirstChild(DomNode node, Class type) {
