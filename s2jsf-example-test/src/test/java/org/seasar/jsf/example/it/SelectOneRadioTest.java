@@ -26,7 +26,6 @@ public class SelectOneRadioTest extends AbstractTestCase {
         // 1
 
         HtmlPage page1 = getPage();
-
         {
             HtmlRadioButtonInput[] r = getRadioGroupA(page1);
             assertEquals(4, r.length);
@@ -212,9 +211,9 @@ public class SelectOneRadioTest extends AbstractTestCase {
 
     private HtmlRadioButtonInput[] getRadioGroupA(HtmlPage page)
             throws JaxenException {
-        HtmlForm form = getForm(page);
-        String id = form.getId();
-        List l = new HtmlUnitXPath(".//input[@type='radio'][@name='" + id
+        final HtmlForm form = getForm(page);
+        final String formName = form.getNameAttribute();
+        List l = new HtmlUnitXPath(".//input[@type='radio'][@name='" + formName
                 + ":radio1']").selectNodes(form);
         HtmlRadioButtonInput[] radios = new HtmlRadioButtonInput[l.size()];
         l.toArray(radios);
@@ -223,9 +222,9 @@ public class SelectOneRadioTest extends AbstractTestCase {
 
     private HtmlRadioButtonInput[] getRadioGroupB(HtmlPage page)
             throws JaxenException {
-        HtmlForm form = getForm(page);
-        String id = form.getId();
-        List l = new HtmlUnitXPath(".//input[@type='radio'][@name='" + id
+        final HtmlForm form = getForm(page);
+        final String formName = form.getNameAttribute();
+        List l = new HtmlUnitXPath(".//input[@type='radio'][@name='" + formName
                 + ":radio2']").selectNodes(form);
         HtmlRadioButtonInput[] radios = new HtmlRadioButtonInput[l.size()];
         l.toArray(radios);
