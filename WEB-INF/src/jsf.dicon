@@ -192,5 +192,11 @@
 		class="org.seasar.jsf.webapp.ServletContextWebappConfigManagerImpl">
 		<initMethod name="init"/>
 	</component>
+	
 
+	<component
+		name="errorMessageFinder"
+		class="org.seasar.jsf.util.ErrorMessageFinder" />
+
+			
 </components>

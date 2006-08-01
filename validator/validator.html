@@ -36,6 +36,9 @@
 	    	m:targetId="from"/>
     </input>
     <span m:inject="h:message" m:for="to"/><br />
+    
+    <span m:rendered="#{errorMessageFinder.errorMessage == false}">No Error Messages</span> <br />
+    
     <input type="submit" value="submit"/>
 </form>
 
