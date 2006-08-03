@@ -98,6 +98,10 @@
             <param-value>Windows-31j</param-value>
         </init-param>
     </filter>
+    <filter>
+        <filter-name>requestDumpFilter</filter-name>
+        <filter-class>examples.jsf.util.RequestDumpFilter</filter-class>
+    </filter>
     
     <!-- Extensions Filter -->
     <filter-mapping>
@@ -119,7 +123,12 @@
         <filter-name>encodingfilter</filter-name>
         <url-pattern>*.html</url-pattern>
     </filter-mapping>
-    
+
+    <filter-mapping>
+        <filter-name>requestDumpFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <listener>
         <listener-class>org.seasar.teeda.core.webapp.TeedaConfigureListener</listener-class>
     </listener>
