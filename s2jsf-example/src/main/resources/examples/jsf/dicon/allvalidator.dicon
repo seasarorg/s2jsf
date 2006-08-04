@@ -11,7 +11,7 @@
 	</component>
 
 	<component name="greaterEqualValidator" class="org.seasar.jsf.validator.S2GreaterEqualValidator"
-		instance="prototype" 
+		instance="prototype"
 	/>
 
 	<component name="ageValidator" class="org.seasar.jsf.validator.ValidatorChain">
@@ -28,4 +28,10 @@
 		<property name="minimum">0</property>
 		<property name="maximum">150</property>
 	</component>
+
+	<component name="tuserNameLengthValidator" class="org.seasar.teeda.extension.validator.TLengthValidator">
+		<property name="minimum">2</property>
+		<property name="for">"aaa"</property>
+	</component>
+
 </components>
