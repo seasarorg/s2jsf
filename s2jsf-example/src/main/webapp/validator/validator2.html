@@ -18,8 +18,8 @@
 	    <span m:inject="s:validator" m:binding="#{tuserNameLengthValidator}"/>
     </input>
     <span m:inject="h:message" m:for="userName"/><br />
-    <input id="aaa" type="submit" value="validation button"/>
-    <input id="bbb" type="submit" value="no validation button"/>
+    <input id="aaa" type="button" value="validation button" m:action="aaa"/>
+    <input id="bbb" type="button" value="no validation button" m:action="bbb"/>
 </form>
 
 </span>

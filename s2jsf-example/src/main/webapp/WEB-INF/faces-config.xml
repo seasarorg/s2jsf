@@ -85,6 +85,14 @@
 
 	<navigation-rule>
 		<navigation-case>
+			<from-outcome>validator2</from-outcome>
+			<to-view-id>/validator/validator2.html</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
 			<from-outcome>checkbox</from-outcome>
 			<to-view-id>/checkbox/checkbox.html</to-view-id>
 			<redirect/>
