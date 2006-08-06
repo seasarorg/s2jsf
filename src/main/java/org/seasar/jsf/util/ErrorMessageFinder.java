@@ -23,9 +23,9 @@ import javax.faces.context.FacesContext;
  * @author dewa
  */
 public class ErrorMessageFinder {
-    
-    private boolean errorMessage;
-    
+
+    //private boolean errorMessage;
+
     public ErrorMessageFinder() {
     }
 
