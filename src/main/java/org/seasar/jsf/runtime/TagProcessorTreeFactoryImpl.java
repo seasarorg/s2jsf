@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -18,7 +18,6 @@ package org.seasar.jsf.runtime;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.cyberneko.html.parsers.SAXParser;
 import org.seasar.framework.exception.IORuntimeException;
 import org.seasar.framework.exception.SAXRuntimeException;
 import org.seasar.jsf.JsfConfig;
@@ -33,74 +32,77 @@ import org.xml.sax.XMLReader;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class TagProcessorTreeFactoryImpl implements TagProcessorTreeFactory {
 
-	private TagSelectors tagSelectors = new TagSelectors();
+    private TagSelectors tagSelectors = new TagSelectors();
 
-	private String encoding = "Windows-31j";
+    private String encoding = "Windows-31j";
 
-	private JsfConfig jsfConfig;
-	
-	private ViewTemplateFactory viewTemplateFactory;
+    private JsfConfig jsfConfig;
 
-	public TagProcessorTreeFactoryImpl() {
-	}
+    private ViewTemplateFactory viewTemplateFactory;
 
-	public TagProcessor createTagProcessorTree(InputStream is) {
-		XMLReader reader = createReader();
-		TagProcessorHandler handler = new TagProcessorHandler(tagSelectors,
-				jsfConfig, viewTemplateFactory);
-		reader.setContentHandler(handler);
-		try {
-			reader.parse(new InputSource(is));
-		} catch (SAXException ex) {
-			throw new SAXRuntimeException(ex);
-		} catch (IOException ex) {
-			throw new IORuntimeException(ex);
-		}
-		return handler.getRoot();
-	}
+    public TagProcessorTreeFactoryImpl() {
+    }
 
-	public void addTagSelector(TagSelector tagSelector) {
-		tagSelectors.addTagSelector(tagSelector);
-	}
-	
-	public TagSelector getTagSelector(String namespaceURI, String localName,
-			String qName, Attributes attributes) {
-		
-		return tagSelectors.getTagSelector(namespaceURI, localName, qName, attributes);
-	}
+    public TagProcessor createTagProcessorTree(InputStream is) {
+        XMLReader reader = createReader();
+        TagProcessorHandler handler = new TagProcessorHandler(tagSelectors,
+                jsfConfig, viewTemplateFactory);
+        reader.setContentHandler(handler);
+        try {
+            reader.parse(new InputSource(is));
+        } catch (SAXException ex) {
+            throw new SAXRuntimeException(ex);
+        } catch (IOException ex) {
+            throw new IORuntimeException(ex);
+        }
+        return handler.getRoot();
+    }
 
-	public void setEncoding(String encoding) {
-		this.encoding = encoding;
-	}
+    public void addTagSelector(TagSelector tagSelector) {
+        tagSelectors.addTagSelector(tagSelector);
+    }
 
-	public void setJsfConfig(JsfConfig jsfConfig) {
-		this.jsfConfig = jsfConfig;
-	}
-	
-	public void setViewTemplateFactory(ViewTemplateFactory viewTemplateFactory) {
-		this.viewTemplateFactory = viewTemplateFactory;
-	}
+    public TagSelector getTagSelector(String namespaceURI, String localName,
+            String qName, Attributes attributes) {
 
-	protected XMLReader createReader() {
-		XMLReader reader = null;
-		try {
-			reader = new TextuallyXMLFilter(new SAXParser());
-			reader.setProperty(
-					"http://cyberneko.org/html/properties/default-encoding",
-					encoding);
-			reader.setProperty(
-					"http://cyberneko.org/html/properties/names/attrs",
-					"default");
-			reader.setProperty(
-					"http://cyberneko.org/html/properties/names/elems",
-					"match");
-		} catch (SAXException ex) {
-			throw new SAXRuntimeException(ex);
-		}
-		return reader;
-	}
+        return tagSelectors.getTagSelector(namespaceURI, localName, qName,
+                attributes);
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public void setJsfConfig(JsfConfig jsfConfig) {
+        this.jsfConfig = jsfConfig;
+    }
+
+    public void setViewTemplateFactory(ViewTemplateFactory viewTemplateFactory) {
+        this.viewTemplateFactory = viewTemplateFactory;
+    }
+
+    protected XMLReader createReader() {
+        XMLReader reader = null;
+        try {
+            S2JSFSAXParser parser = new S2JSFSAXParser(new S2JSFConfiguration());
+            reader = new TextuallyXMLFilter(parser);
+            reader.setProperty(
+                    "http://cyberneko.org/html/properties/default-encoding",
+                    encoding);
+            reader.setProperty(
+                    "http://cyberneko.org/html/properties/names/attrs",
+                    "default");
+            reader
+                    .setProperty(
+                            "http://cyberneko.org/html/properties/names/elems",
+                            "match");
+        } catch (SAXException ex) {
+            throw new SAXRuntimeException(ex);
+        }
+        return reader;
+    }
 }
