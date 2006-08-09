@@ -9,7 +9,7 @@
   <artifactId>s2-jsf</artifactId>
   <packaging>jar</packaging>
   <name>S2JSF</name>
-  <version>1.0.16</version>
+  <version>1.0.17-SNAPSHOT</version>
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <issueManagement>
