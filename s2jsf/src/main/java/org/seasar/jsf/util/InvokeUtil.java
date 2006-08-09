@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -26,16 +26,17 @@ import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
 import org.seasar.framework.container.ComponentDef;
+import org.seasar.framework.container.InstanceDef;
 import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.deployer.InstanceDefFactory;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
-import org.seasar.framework.container.impl.TooManyRegistrationComponentDefImpl;
+import org.seasar.framework.container.impl.SimpleComponentDef;
 import org.seasar.framework.util.FieldUtil;
 import org.seasar.framework.util.StringUtil;
 
 /**
  * @author higa
- * 
+ * @author shot
  */
 public class InvokeUtil {
 
@@ -166,8 +167,12 @@ public class InvokeUtil {
                     } else if (container.hasComponentDef(pd.getPropertyName())) {
                         ComponentDef cd = container.getComponentDef(pd
                                 .getPropertyName());
-                        useSession = InstanceDefFactory.SESSION.equals(cd
-                                .getInstanceDef());
+                        if (cd instanceof SimpleComponentDef) {
+                            continue;
+                        }
+                        InstanceDef instanceDef = cd.getInstanceDef();
+                        useSession = InstanceDefFactory.SESSION
+                                .equals(instanceDef);
                     }
                     if (useSession) {
                         S2ContainerUtil.getHttpSession(container).setAttribute(
