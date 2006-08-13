@@ -1,0 +1,20 @@
+<project name="s2jsf-blank" default="dist" basedir=".">
+
+	<property name="ver" value="1.0.16"/>
+
+	<target name="dist">
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="target"/>
+		</delete>
+		<mkdir dir="target"/>
+		<zip zipfile="target/s2-jsf-blank-${ver}.zip">
+			<zipfileset prefix="s2jsf-blank" dir=".">
+				<exclude name="target/**"/>
+				<exclude name="**/.settings/**"/>
+				<exclude name="build.xml"/>
+				<exclude name="**/.DS_Store"/>
+			</zipfileset>
+		</zip>
+	</target>
+
+</project>
