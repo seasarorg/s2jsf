@@ -30,6 +30,13 @@
 
 	<navigation-rule>
 		<navigation-case>
+			<from-outcome>helloWithLayout</from-outcome>
+			<to-view-id>/hello/helloWithLayout.html</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
 			<from-outcome>add</from-outcome>
 			<to-view-id>/add/add.html</to-view-id>
 			<redirect/>
@@ -196,6 +203,14 @@
 		<navigation-case>
 			<from-outcome>postback</from-outcome>
 			<to-view-id>/postback/postback.html</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>rendered</from-outcome>
+			<to-view-id>/rendered/rendered.html</to-view-id>
 			<redirect/>
 		</navigation-case>
 	</navigation-rule>
