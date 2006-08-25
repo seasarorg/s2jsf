@@ -296,6 +296,8 @@ public interface JsfConstants {
     public String SHOW_SUMMARY_ATTR = "showSummary";
 
     public String SHOW_DETAIL_ATTR = "showDetail";
+    
+    public String RENDERED_ATTR = "rendered";
 
     public String SCRIPT_ELEM = "script";
 

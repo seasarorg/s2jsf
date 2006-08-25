@@ -109,6 +109,9 @@ public final class RenderUtil {
         if (attributeName.equalsIgnoreCase(JsfConstants.STYLE_CLASS_ATTR)) {
             attributeName = JsfConstants.CLASS_ATTR;
         }
+        if (attributeName.equalsIgnoreCase(JsfConstants.RENDERED_ATTR)) {
+            return true;
+        }
         writer.writeAttribute(attributeName, value, propertyName);
         return true;
     }
