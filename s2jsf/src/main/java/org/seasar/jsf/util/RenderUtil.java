@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -102,12 +102,14 @@ public final class RenderUtil {
     public static boolean renderAttribute(ResponseWriter writer,
             String attributeName, Object value, String propertyName)
             throws IOException {
-
         if (value == null) {
             return false;
         }
         if (attributeName.equalsIgnoreCase(JsfConstants.STYLE_CLASS_ATTR)) {
             attributeName = JsfConstants.CLASS_ATTR;
+        }
+        if (attributeName.equalsIgnoreCase(JsfConstants.RENDERED_ATTR)) {
+            return true;
         }
         writer.writeAttribute(attributeName, value, propertyName);
         return true;
@@ -232,7 +234,8 @@ public final class RenderUtil {
         RenderKitFactory renderKitFactory = (RenderKitFactory) FactoryFinder
                 .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
         String renderKitId = context.getViewRoot().getRenderKitId();
-        RenderKit renderKit = renderKitFactory.getRenderKit(context, renderKitId);
+        RenderKit renderKit = renderKitFactory.getRenderKit(context,
+                renderKitId);
         return renderKit.getRenderer(component.getFamily(), rendererType);
     }
 
