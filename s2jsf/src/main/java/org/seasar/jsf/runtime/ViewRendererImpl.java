@@ -149,7 +149,10 @@ public class ViewRendererImpl implements ViewRenderer {
         MethodBinding mb = app.createMethodBinding(initAction, null);
         try {
             String outcome = InvokeUtil.invoke(mb, context);
-            if (outcome == null || context.getResponseComplete()) {
+            if (context.getResponseComplete()) {
+                return true;
+            }
+            if (outcome == null) {
                 return false;
             }
             NavigationHandler nh = app.getNavigationHandler();
