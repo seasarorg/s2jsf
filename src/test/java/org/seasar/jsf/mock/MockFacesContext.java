@@ -38,6 +38,8 @@ public class MockFacesContext extends FacesContext {
 
     private Map messages = new LinkedHashMap();
 
+    private boolean responseComplete = false;
+    
     public MockFacesContext() {
         setCurrentInstance(this);
     }
@@ -94,7 +96,7 @@ public class MockFacesContext extends FacesContext {
     }
 
     public boolean getResponseComplete() {
-        return false;
+        return responseComplete;
     }
 
     public ResponseStream getResponseStream() {
@@ -125,6 +127,7 @@ public class MockFacesContext extends FacesContext {
     }
 
     public void responseComplete() {
+        responseComplete = true;
     }
 
 }
