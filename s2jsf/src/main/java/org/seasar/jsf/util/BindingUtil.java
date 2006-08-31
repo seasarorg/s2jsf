@@ -29,7 +29,7 @@ import org.seasar.jsf.JsfConstants;
 
 /**
  * @author higa
- * 
+ * @author shot
  */
 public class BindingUtil {
 
@@ -68,9 +68,13 @@ public class BindingUtil {
             if (reqName.equals(name)) {
                 Object value = request.getAttribute(reqName);
                 if (value == null) {
-                    return "";
+                    value = request.getParameter(name);
+                    if (value != null && !JsfConstants.NULL_VALUE.equals(value)) {
+                        return value;
+                    }           
+                } else {
+                    return value;
                 }
-                return value;
             }
         }
         Object var = request.getParameter(name);
