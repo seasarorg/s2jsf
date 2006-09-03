@@ -26,8 +26,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.seasar.framework.log.Logger;
 import org.seasar.jsf.util.RequestDumpUtil;
 
 /**
@@ -36,7 +35,7 @@ import org.seasar.jsf.util.RequestDumpUtil;
  */
 public final class RequestDumpFilter implements Filter {
 
-    private static final Log log = LogFactory.getLog(RequestDumpFilter.class);
+    private static Logger log = Logger.getLogger(RequestDumpFilter.class);
 
     private FilterConfig config = null;
 
