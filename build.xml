@@ -1,6 +1,6 @@
 <project name="s2jsf-blank" default="dist" basedir=".">
 
-	<property name="ver" value="1.0.16"/>
+	<property name="ver" value="1.0.17"/>
 
 	<target name="dist">
 		<delete includeemptydirs="true" failonerror="false">
