@@ -36,10 +36,12 @@ import javax.faces.render.RenderKit;
  */
 public class MockFacesContext extends FacesContext {
 
+    private Application app;
+
     private Map messages = new LinkedHashMap();
 
     private boolean responseComplete = false;
-    
+
     public MockFacesContext() {
         setCurrentInstance(this);
     }
@@ -83,8 +85,12 @@ public class MockFacesContext extends FacesContext {
         return l;
     }
 
+    public void setApplication(Application app) {
+        this.app = app;
+    }
+
     public Application getApplication() {
-        return null;
+        return app;
     }
 
     public ExternalContext getExternalContext() {
@@ -129,5 +135,4 @@ public class MockFacesContext extends FacesContext {
     public void responseComplete() {
         responseComplete = true;
     }
-
 }
