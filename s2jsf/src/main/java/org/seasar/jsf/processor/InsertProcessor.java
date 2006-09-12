@@ -15,6 +15,8 @@
  */
 package org.seasar.jsf.processor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
@@ -29,72 +31,98 @@ import org.seasar.jsf.TagProcessor;
 import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.TagProcessorNotFoundRuntimeException;
+import org.seasar.jsf.util.BindingUtil;
 import org.xml.sax.Attributes;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class InsertProcessor extends TagProcessorImpl {
 
-	public InsertProcessor(String inject) {
-		super(inject);
-	}
+    public InsertProcessor(String inject) {
+        super(inject);
+    }
 
-	public void addChild(TagProcessor child) {
-		if (getProperty(JsfConstants.SRC_ATTR) != null) {
-			return;
-		}
-		super.addChild(child);
-	}
-	
-	public void setup(String namespaceURI, String localName, String qName,
-			Attributes attributes, JsfConfig jsfConfig) {
+    public void addChild(TagProcessor child) {
+        if (getProperty(JsfConstants.SRC_ATTR) != null) {
+            return;
+        }
+        super.addChild(child);
+    }
 
-		super.setup(namespaceURI, localName, qName, attributes, jsfConfig);
-		ViewProcessor viewProcessor = (ViewProcessor) findAncestor(ViewProcessor.class);
-		if (viewProcessor == null) {
-			throw new TagProcessorNotFoundRuntimeException(ViewProcessor.class);
-		}
-		viewProcessor.addInsertProcessor(this);
-	}
+    public void setup(String namespaceURI, String localName, String qName,
+            Attributes attributes, JsfConfig jsfConfig) {
 
-	public void process(JsfContext jsfContext, Tag parentTag)
-			throws JspException {
+        super.setup(namespaceURI, localName, qName, attributes, jsfConfig);
+        ViewProcessor viewProcessor = (ViewProcessor) findAncestor(ViewProcessor.class);
+        if (viewProcessor == null) {
+            throw new TagProcessorNotFoundRuntimeException(ViewProcessor.class);
+        }
+        viewProcessor.addInsertProcessor(this);
+    }
 
-		Map insertProcessorMap = getInsertProcessorMap(jsfContext.getPageContext());
-		String name = getName();
-		if (name != null && insertProcessorMap.containsKey(name)) {
-			InsertProcessor ip = (InsertProcessor) insertProcessorMap.get(name);
-			if (ip != this) {
-				ip.process(jsfContext, parentTag);
-				return;
-			}
-		}
-		String src = getSrc();
-		if (src != null) {
-			processInclude(jsfContext, parentTag, src);
-		} else {
-			processChildren(jsfContext, parentTag);
-		}
-	}
-	
-	public String getName() {
-		return getProperty(JsfConstants.NAME_ATTR);
-	}
-	
-	public String getSrc() {
-		return getProperty(JsfConstants.SRC_ATTR);
-	}
+    public void process(JsfContext jsfContext, Tag parentTag)
+            throws JspException {
 
-	protected void processInclude(JsfContext jsfContext, Tag parentTag, String src)
-			throws JspException {
+        Map insertProcessorMap = getInsertProcessorMap(jsfContext.getPageContext());
+        String name = getName();
+        if (name != null && insertProcessorMap.containsKey(name)) {
+            InsertProcessor ip = (InsertProcessor) insertProcessorMap.get(name);
+            if (ip != this) {
+                ip.process(jsfContext, parentTag);
+                return;
+            }
+        }
+        String[] srcs = getSrcs();
+        if (srcs != null) {
+            for (int i = 0; i < srcs.length; i++) {
+                processInclude(jsfContext, parentTag, srcs[i]);
+            }
+        } else {
+            processChildren(jsfContext, parentTag);
+        }
+    }
 
-		S2Container container = SingletonS2ContainerFactory.getContainer();
-		ViewTemplateFactory factory = (ViewTemplateFactory) container.getComponent(ViewTemplateFactory.class);
-		ViewTemplate template = factory.getViewTemplate(src);
-		ViewProcessor viewProcessor = (ViewProcessor) template.getRootTagProcessor();
-		InsertProcessor insertProcessor = viewProcessor.getInsertProcessor(null);
-		insertProcessor.process(jsfContext, parentTag);
-	}
+    public String[] getSrcs() {
+        String src = getSrc();
+
+        if (src == null) {
+            return null;
+        } else if (!BindingUtil.isValueReference(src)) {
+            return new String[] { src };
+        }
+
+        Object value = BindingUtil.resolveBinding(src);
+        if (value == null) {
+            return null;
+        } else if (value instanceof String) {
+            return new String[] { (String) value };
+        } else if (value instanceof Collection) {
+            return (String[]) new ArrayList((Collection) value).toArray(new String[0]);
+        } else if (value.getClass().isArray()) {
+            return (String[]) value;
+        } else {
+            throw new IllegalStateException(JsfConstants.SRC_ATTR);
+        }
+    }
+
+    public String getName() {
+        return getProperty(JsfConstants.NAME_ATTR);
+    }
+
+    public String getSrc() {
+        return getProperty(JsfConstants.SRC_ATTR);
+    }
+
+    protected void processInclude(JsfContext jsfContext, Tag parentTag, String src)
+            throws JspException {
+
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        ViewTemplateFactory factory = (ViewTemplateFactory) container.getComponent(ViewTemplateFactory.class);
+        ViewTemplate template = factory.getViewTemplate(src);
+        ViewProcessor viewProcessor = (ViewProcessor) template.getRootTagProcessor();
+        InsertProcessor insertProcessor = viewProcessor.getInsertProcessor(null);
+        insertProcessor.process(jsfContext, parentTag);
+    }
 }

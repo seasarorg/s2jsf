@@ -15,30 +15,33 @@
  */
 package org.seasar.jsf.processor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.seasar.teeda.core.mock.MockApplication;
 import org.seasar.teeda.core.mock.MockValueBinding;
 import org.seasar.teeda.core.unit.TeedaTestCase;
 
 /**
  * @author higa
- *
+ * 
  */
 public class ViewProcessorTest extends TeedaTestCase {
 
-	public ViewProcessorTest(String arg0) {
-		super(arg0);
-	}
+    public ViewProcessorTest(String arg0) {
+        super(arg0);
+    }
 
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(ViewProcessorTest.class);
-	}
-	
-	public void testSetContentType() throws Exception {
-		ViewProcessor processor = new ViewProcessor();
-		processor.setContentType("text/html; charset=Windows-31j");
-		assertEquals("1", "Windows-31j", processor.getEncoding());
-	}
-    
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(ViewProcessorTest.class);
+    }
+
+    public void testSetContentType() throws Exception {
+        ViewProcessor processor = new ViewProcessor();
+        processor.setContentType("text/html; charset=Windows-31j");
+        assertEquals("1", "Windows-31j", processor.getEncoding());
+    }
+
     public void testGetExtendsPath() throws Exception {
         ViewProcessor processor = new ViewProcessor();
         MockApplication application = getApplication();
@@ -47,5 +50,24 @@ public class ViewProcessorTest extends TeedaTestCase {
         application.setValueBinding(vb);
         processor.setExtendsPath("#{aaa}");
         assertEquals("hoge", processor.getExtendsPath());
+    }
+
+    public void testAddInsertProcessor() throws Exception {
+        ViewProcessor processor = new ViewProcessor();
+        InsertProcessor ip = new InsertProcessor("insert");
+
+        MockApplication application = getApplication();
+        MockValueBinding vb = new MockValueBinding();
+        vb.setValue(getFacesContext(), new String[] { "/page1.html", "/page2.html" });
+        application.setValueBinding(vb);
+
+        ip.setProperty("src", "#{xxx}");
+        processor.addInsertProcessor(ip);
+
+        Set includes = new HashSet();
+        processor.addIncludes(includes);
+
+        assertTrue(includes.contains("/page1.html"));
+        assertTrue(includes.contains("/page2.html"));
     }
 }
