@@ -18,12 +18,33 @@ package examples.jsf.dto;
 public class ValidatorDto {
 
 	private String userName;
-	
-	public String getUserName() {
+
+    private int from;
+    private int to;
+    
+	public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
+    public void setTo(int to) {
+        this.to = to;
+    }
+
+    public String getUserName() {
 		return userName;
 	}
 	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+    
+    
 }

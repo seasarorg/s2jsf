@@ -26,11 +26,11 @@
     <span m:inject="h:message" m:for="age"/><br />
     From:
     <input id="from" type="text"
-    	m:label = "From">
+    	m:label = "From" m:value="#{validatorDto.from}">
     </input> - 
     To:
     <input id="to" type="text"
-    	m:label = "To">
+    	m:label = "To" m:value="#{validatorDto.to}">
 	    <span m:inject="s:validator"
 	    	m:binding="#{greaterEqualValidator}"
 	    	m:targetId="from"/>
