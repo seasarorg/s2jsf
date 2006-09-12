@@ -40,7 +40,7 @@ import org.seasar.jsf.util.BindingUtil;
 /**
  * @author higa
  * @author shot
- *  
+ * 
  */
 public class ViewProcessor extends TagProcessorImpl {
 
@@ -114,9 +114,11 @@ public class ViewProcessor extends TagProcessorImpl {
     protected void addIncludes(Set includes) {
         for (int i = 0; i < insertProcessors.size(); ++i) {
             InsertProcessor ip = (InsertProcessor) insertProcessors.get(i);
-            String src = ip.getSrc();
-            if (src != null) {
-                includes.add(src);
+            String[] srcs = ip.getSrcs();
+            if (srcs != null) {
+                for (int j = 0; j < srcs.length; j++) {
+                    includes.add(srcs[j]);
+                }
             }
         }
         ViewProcessor extendsViewProcessor = getExtendsViewProcessor();
@@ -161,8 +163,9 @@ public class ViewProcessor extends TagProcessorImpl {
     public void process(JsfContext jsfContext, Tag parentTag)
             throws JspException {
 
-        //setupParamsInternal(jsfContext.getJsfConfig(), jsfContext.getPageContext()
-        //        .getRequest());
+        // setupParamsInternal(jsfContext.getJsfConfig(),
+        // jsfContext.getPageContext()
+        // .getRequest());
         ViewProcessor extendsViewProcessor = getExtendsViewProcessor();
         if (extendsViewProcessor != null) {
             setupInsertProcessorMap(jsfContext.getPageContext());

@@ -15,6 +15,8 @@
  */
 package org.seasar.jsf.processor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.servlet.jsp.JspException;
@@ -29,11 +31,12 @@ import org.seasar.jsf.TagProcessor;
 import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.TagProcessorNotFoundRuntimeException;
+import org.seasar.jsf.util.BindingUtil;
 import org.xml.sax.Attributes;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class InsertProcessor extends TagProcessorImpl {
 
@@ -47,7 +50,7 @@ public class InsertProcessor extends TagProcessorImpl {
 		}
 		super.addChild(child);
 	}
-	
+
 	public void setup(String namespaceURI, String localName, String qName,
 			Attributes attributes, JsfConfig jsfConfig) {
 
@@ -71,18 +74,43 @@ public class InsertProcessor extends TagProcessorImpl {
 				return;
 			}
 		}
-		String src = getSrc();
-		if (src != null) {
-			processInclude(jsfContext, parentTag, src);
+		String[] srcs = getSrcs();
+		if (srcs != null) {
+			for (int i = 0; i < srcs.length; i++) {
+				processInclude(jsfContext, parentTag, srcs[i]);
+			}
 		} else {
 			processChildren(jsfContext, parentTag);
 		}
 	}
-	
+
+	public String[] getSrcs() {
+		String src = getSrc();
+
+		if (src == null) {
+			return null;
+		} else if (!BindingUtil.isValueReference(src)) {
+			return new String[] { src };
+		}
+
+		Object value = BindingUtil.resolveBinding(src);
+		if (value == null) {
+			return null;
+		} else if (value instanceof String) {
+			return new String[] { (String) value };
+		} else if (value instanceof Collection) {
+			return (String[]) new ArrayList((Collection) value).toArray(new String[0]);
+		} else if (value.getClass().isArray()) {
+			return (String[]) value;
+		} else {
+			throw new IllegalStateException(JsfConstants.SRC_ATTR);
+		}
+	}
+
 	public String getName() {
 		return getProperty(JsfConstants.NAME_ATTR);
 	}
-	
+
 	public String getSrc() {
 		return getProperty(JsfConstants.SRC_ATTR);
 	}
