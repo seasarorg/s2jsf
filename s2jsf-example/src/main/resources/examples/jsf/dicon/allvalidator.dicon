@@ -31,7 +31,7 @@
 
 	<component name="tuserNameLengthValidator" class="org.seasar.teeda.extension.validator.TLengthValidator">
 		<property name="minimum">2</property>
-		<property name="for">"aaa"</property>
+		<property name="target">"aaa"</property>
 	</component>
 
 </components>
