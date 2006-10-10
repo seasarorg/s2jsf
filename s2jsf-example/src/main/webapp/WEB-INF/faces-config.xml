@@ -21,6 +21,22 @@
 		<converter-class>org.seasar.jsf.convert.S2DateTimeConverter</converter-class>
 	</converter>
 
+	<component>
+		<component-type>Hoge</component-type>
+		<component-class>examples.jsf.taglib.UIHoge</component-class>
+	</component>
+	
+	<render-kit>
+		<renderer>
+			<component-family>HogeFamily</component-family>
+			<renderer-type>HogeRenderer</renderer-type>
+			<renderer-class>
+				examples.jsf.taglib.HogeRenderer
+			</renderer-class>
+		</renderer>
+	</render-kit>
+
+
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>hello</from-outcome>

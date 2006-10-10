@@ -61,6 +61,10 @@
     		<arg>"hello"</arg>
     		<arg>"http://examples.jsf/taglib"</arg>
 		</initMethod>	
+		<initMethod name="addTaglibUri">
+    		<arg>"r"</arg>
+    		<arg>"http://examples.jsf.hoge/taglib"</arg>
+		</initMethod>	
 	</component>
 	
 	<component class="org.seasar.jsf.runtime.TagPoolImpl"/>
