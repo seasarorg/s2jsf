@@ -24,11 +24,11 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/xercesImpl-2.5.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.31.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-extension-2.3.7.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.3.7.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-extension-2.3.10.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.3.10.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jsp_2.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jta_1.0.1B_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/junit-3.8.1.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.17.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.18.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
