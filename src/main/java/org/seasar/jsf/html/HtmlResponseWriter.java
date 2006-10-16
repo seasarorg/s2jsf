@@ -24,6 +24,8 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
+import org.seasar.jsf.JsfConstants;
+
 /**
  * @author manhole
  * @author shot
@@ -111,6 +113,9 @@ public class HtmlResponseWriter extends ResponseWriter {
                     "there is no currently open element");
         }
         String strValue = (value == null) ? "" : value.toString();
+        if (isDisabledFalse(name, strValue)) {
+            return;
+        }
         Writer writer = getWriter();
         writer.write(" ");
         writer.write(name);
@@ -174,7 +179,7 @@ public class HtmlResponseWriter extends ResponseWriter {
         for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
             // &nbsp; 0xA0
-            if ((int)c == '\u00A0') {
+            if ((int) c == '\u00A0') {
                 sb.append("&nbsp;");
             } else if (c == '<') {
                 sb.append("&lt;");
@@ -357,6 +362,11 @@ public class HtmlResponseWriter extends ResponseWriter {
 
     public String toString() {
         return writer.toString();
+    }
+
+    protected boolean isDisabledFalse(String name, String value) {
+        return (JsfConstants.DISABLED_ATTR.equalsIgnoreCase(name) && !"true"
+                .equalsIgnoreCase(value));
     }
 
     // TODO delete after using S2.4
