@@ -30,6 +30,7 @@ import org.seasar.jsf.mock.NullWriter;
 
 /**
  * @author manhole
+ * @author yone
  */
 public class HtmlResponseWriterTest extends TestCase {
 
@@ -558,6 +559,20 @@ public class HtmlResponseWriterTest extends TestCase {
         assertEquals("<input type=\"button\" disabled=\"true\"", value);
     }
     
+    
+    public void testWriteAttributeDisabledTrue2() throws Exception {
+        HtmlResponseWriter responseWriter = new HtmlResponseWriter();
+        SPrintWriter writer = new SPrintWriter();
+        responseWriter.setWriter(writer);
+
+        responseWriter.startElement("input", null);
+        responseWriter.writeAttribute("type", "button", null);
+        responseWriter.writeAttribute("disabled", "disabled", null);
+
+        String value = writer.toString();
+        assertEquals("<input type=\"button\" disabled=\"disabled\"", value);
+    }
+
     public void testWriteAttributeDisabledFalse() throws Exception {
         HtmlResponseWriter responseWriter = new HtmlResponseWriter();
         SPrintWriter writer = new SPrintWriter();

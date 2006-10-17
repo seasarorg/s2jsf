@@ -365,9 +365,9 @@ public class HtmlResponseWriter extends ResponseWriter {
     }
 
     protected boolean isDisabledFalse(String name, String value) {
-        return (JsfConstants.DISABLED_ATTR.equalsIgnoreCase(name) && !"true"
-                .equalsIgnoreCase(value));
-    }
+        return (JsfConstants.DISABLED_ATTR.equalsIgnoreCase(name) && !("true"
+                .equalsIgnoreCase(value) || JsfConstants.DISABLED_ATTR
+                .equalsIgnoreCase(value)));    }
 
     // TODO delete after using S2.4
     private static void assertNotNull(String message, Object target) {
