@@ -15,14 +15,12 @@
  */
 package org.seasar.jsf.util;
 
-import javax.faces.context.FacesContext;
-import javax.faces.el.MethodBinding;
-import javax.faces.el.MethodNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.seasar.framework.container.ComponentDef;
 import org.seasar.framework.container.impl.ComponentDefImpl;
 import org.seasar.framework.unit.S2FrameworkTestCase;
+import org.seasar.jsf.mock.MockMethodBinding;
 
 public class InvokeUtilTest extends S2FrameworkTestCase {
 
@@ -83,26 +81,4 @@ public class InvokeUtilTest extends S2FrameworkTestCase {
         }
     }
 
-    public static class MockMethodBinding extends MethodBinding {
-
-        private String expressionString;
-
-        public String getExpressionString() {
-            return expressionString;
-        }
-
-        public void setExpressionString(String expressionString) {
-            this.expressionString = expressionString;
-        }
-
-        public Class getType(FacesContext context)
-                throws MethodNotFoundException {
-            return null;
-        }
-
-        public Object invoke(FacesContext context, Object[] params) {
-            return null;
-        }
-
-    }
 }

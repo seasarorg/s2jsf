@@ -29,6 +29,8 @@ public class HtmlInputTextTag extends HtmlInputTagBase {
     private String align;
 
     private String maxlength;
+    
+    private String autocomplete;
 
     public String getComponentType() {
         return HtmlInputText.COMPONENT_TYPE;
@@ -45,16 +47,26 @@ public class HtmlInputTextTag extends HtmlInputTagBase {
     public void setMaxlength(String maxlength) {
         this.maxlength = maxlength;
     }
+    
+    public void setAutocomplete(String autocomplete) {
+        this.autocomplete = autocomplete;
+    }
 
     public void release() {
         super.release();
         align = null;
         maxlength = null;
+        autocomplete = null;
     }
 
     protected void setProperties(UIComponent component) {
         super.setProperties(component);
         setComponentProperty(component, JsfConstants.ALIGN_ATTR, align);
         setComponentProperty(component, JsfConstants.MAXLENGTH_ATTR, maxlength);
+        setComponentProperty(component, JsfConstants.AUTOCOMPLETE_ATTR, autocomplete);
+    }
+    
+    public String getAutocomplete() {
+        return autocomplete;
     }
 }

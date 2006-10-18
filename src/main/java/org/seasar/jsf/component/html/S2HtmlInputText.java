@@ -28,11 +28,13 @@ import org.seasar.jsf.util.UIValueUtil;
 
 /**
  * @author higa
- * 
+ * @author yone
  */
 public class S2HtmlInputText extends HtmlInputText {
 
     private String label;
+    
+    private String autocomplete;
 
     public String getLabel() {
         if (label != null) {
@@ -46,6 +48,18 @@ public class S2HtmlInputText extends HtmlInputText {
         this.label = label;
     }
 
+    public String getAutocomplete() {
+        if (autocomplete != null) {
+            return autocomplete;
+        }
+        ValueBinding vb = getValueBinding(JsfConstants.AUTOCOMPLETE_ATTR);
+        return vb != null ? (String) vb.getValue(getFacesContext()) : null;
+    }
+    
+    public void setAutocomplete(String autocomplete) {
+        this.autocomplete = autocomplete;
+    }
+    
     public Object getValue() {
         if (isLocalValueSet()) {
             return getLocalValue();
@@ -95,9 +109,10 @@ public class S2HtmlInputText extends HtmlInputText {
     }
 
     public Object saveState(FacesContext context) {
-        Object[] values = new Object[2];
+        Object[] values = new Object[3];
         values[0] = super.saveState(context);
         values[1] = label;
+        values[2] = autocomplete;
         return values;
     }
 
@@ -105,6 +120,7 @@ public class S2HtmlInputText extends HtmlInputText {
         Object values[] = (Object[]) state;
         super.restoreState(context, values[0]);
         label = (String) values[1];
+        autocomplete = (String) values[2];
     }
 
 }

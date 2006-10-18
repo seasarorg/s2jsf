@@ -298,6 +298,8 @@ public interface JsfConstants {
     public String SHOW_DETAIL_ATTR = "showDetail";
     
     public String RENDERED_ATTR = "rendered";
+    
+    public String AUTOCOMPLETE_ATTR = "autocomplete";
 
     public String SCRIPT_ELEM = "script";
 

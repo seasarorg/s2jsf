@@ -22,6 +22,7 @@ import org.seasar.jsf.mock.MockValueBinding;
 
 /**
  * @author shot
+ * @author yone
  */
 public class S2HtmlInputTextTest extends TestCase {
 
@@ -34,6 +35,13 @@ public class S2HtmlInputTextTest extends TestCase {
         input.setValueBinding("value", vb);
         Object value = input.getValue();
         assertNull(value);
+    }
+    
+    public void testAutocomplete() throws Exception {
+        S2HtmlInputText input = new S2HtmlInputText();
+        input.setAutocomplete("off");
+        
+        assertEquals("off", input.getAutocomplete());
     }
 
 }
