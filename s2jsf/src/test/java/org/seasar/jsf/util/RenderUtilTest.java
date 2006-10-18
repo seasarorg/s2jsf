@@ -18,11 +18,13 @@ package org.seasar.jsf.util;
 import junit.framework.TestCase;
 
 import org.seasar.framework.util.SPrintWriter;
+import org.seasar.jsf.JsfConstants;
 import org.seasar.teeda.core.context.html.HtmlResponseWriter;
 import org.seasar.teeda.core.mock.MockUIComponent;
 
 /**
  * @author shot
+ * @author yone
  */
 public class RenderUtilTest extends TestCase {
 
@@ -37,4 +39,78 @@ public class RenderUtilTest extends TestCase {
                 propertyName));
         assertEquals("<span", writer.toString());
     }
+
+    public void testIsDefaultValue() throws Exception {
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(null));
+
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(Boolean.FALSE));
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(new Integer(
+                Integer.MIN_VALUE)));
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(new Double(
+                Double.MIN_VALUE)));
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(new Long(
+                Long.MIN_VALUE)));
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(new Byte(
+                Byte.MIN_VALUE)));
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(new Float(
+                Float.MIN_VALUE)));
+        assertEquals(true, RenderUtil.isDefaultAttributeValue(new Short(
+                Short.MIN_VALUE)));
+
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(Boolean.TRUE));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Integer(0)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Integer(-1)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Integer(1)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Integer(
+                Integer.MAX_VALUE)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Double(1.0)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Long(100L)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Byte("1")));
+        assertEquals(false, RenderUtil
+                .isDefaultAttributeValue(new Float(1.23F)));
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(new Short("12")));
+
+        assertEquals(false, RenderUtil.isDefaultAttributeValue(""));
+    }
+
+    
+    public void testRenderAttribute_DisabledTrue() throws Exception {
+        HtmlResponseWriter responseWriter = new HtmlResponseWriter();
+        SPrintWriter writer = new SPrintWriter();
+        responseWriter.setWriter(writer);
+
+        responseWriter.startElement("input", null);
+        responseWriter.writeAttribute("type", "button", null);
+        
+        RenderUtil.renderAttribute(responseWriter, JsfConstants.DISABLED_ATTR, Boolean.TRUE, null);
+        String value = writer.toString();
+        assertEquals("<input type=\"button\" disabled=\"true\"", value);
+    }
+    
+    public void testRenderAttribute_DisabledTrue2() throws Exception {
+        HtmlResponseWriter responseWriter = new HtmlResponseWriter();
+        SPrintWriter writer = new SPrintWriter();
+        responseWriter.setWriter(writer);
+
+        responseWriter.startElement("input", null);
+        responseWriter.writeAttribute("type", "button", null);
+        
+        RenderUtil.renderAttribute(responseWriter, JsfConstants.DISABLED_ATTR, JsfConstants.DISABLED_ATTR, null);
+        String value = writer.toString();
+        assertEquals("<input type=\"button\" disabled=\"disabled\"", value);
+    }
+
+    public void testRenderAttribute_DisabledFalse() throws Exception {
+        HtmlResponseWriter responseWriter = new HtmlResponseWriter();
+        SPrintWriter writer = new SPrintWriter();
+        responseWriter.setWriter(writer);
+
+        responseWriter.startElement("input", null);
+        responseWriter.writeAttribute("type", "button", null);
+        
+        RenderUtil.renderAttribute(responseWriter, JsfConstants.DISABLED_ATTR, Boolean.FALSE, null);
+        String value = writer.toString();
+        assertEquals("<input type=\"button\"", value);
+    }
+    
 }
