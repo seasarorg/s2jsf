@@ -113,9 +113,6 @@ public class HtmlResponseWriter extends ResponseWriter {
                     "there is no currently open element");
         }
         String strValue = (value == null) ? "" : value.toString();
-        if (isDisabledFalse(name, strValue)) {
-            return;
-        }
         Writer writer = getWriter();
         writer.write(" ");
         writer.write(name);
@@ -363,11 +360,6 @@ public class HtmlResponseWriter extends ResponseWriter {
     public String toString() {
         return writer.toString();
     }
-
-    protected boolean isDisabledFalse(String name, String value) {
-        return (JsfConstants.DISABLED_ATTR.equalsIgnoreCase(name) && !("true"
-                .equalsIgnoreCase(value) || JsfConstants.DISABLED_ATTR
-                .equalsIgnoreCase(value)));    }
 
     // TODO delete after using S2.4
     private static void assertNotNull(String message, Object target) {
