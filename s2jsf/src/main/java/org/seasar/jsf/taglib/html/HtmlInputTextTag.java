@@ -19,16 +19,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlInputText;
 
 import org.seasar.jsf.JsfConstants;
+import org.seasar.teeda.core.taglib.html.InputTextTag;
 
 /**
  * @author higa
- *
+ * @author yone
  */
-public class HtmlInputTextTag extends HtmlInputTagBase {
+public class HtmlInputTextTag extends InputTextTag {
 
     private String align;
-
-    private String maxlength;
 
     public String getComponentType() {
         return HtmlInputText.COMPONENT_TYPE;
@@ -42,19 +41,13 @@ public class HtmlInputTextTag extends HtmlInputTagBase {
         this.align = align;
     }
 
-    public void setMaxlength(String maxlength) {
-        this.maxlength = maxlength;
-    }
-
     public void release() {
         super.release();
         align = null;
-        maxlength = null;
     }
 
     protected void setProperties(UIComponent component) {
         super.setProperties(component);
         setComponentProperty(component, JsfConstants.ALIGN_ATTR, align);
-        setComponentProperty(component, JsfConstants.MAXLENGTH_ATTR, maxlength);
     }
 }
