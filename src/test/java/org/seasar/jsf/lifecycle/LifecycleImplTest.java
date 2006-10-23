@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -32,12 +33,20 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.faces.render.RenderKit;
 
-import junit.framework.TestCase;
+import org.seasar.extension.unit.S2TestCase;
+import org.seasar.jsf.exception.PathNotFoundRuntimeException;
+import org.seasar.jsf.mock.MockFacesContext;
 
 /**
  * @author manhole
+ * @author yone
  */
-public class LifecycleImplTest extends TestCase {
+public class LifecycleImplTest extends S2TestCase {
+
+    protected void setUp() throws Exception {
+        include("jsf.dicon");
+        include("jsfErrorPage.dicon");
+    }
 
     public void testBeforePhase() throws Exception {
         // ## Arrange ##
@@ -101,6 +110,40 @@ public class LifecycleImplTest extends TestCase {
         assertEquals("C", it.next());
         assertEquals("B", it.next());
         assertEquals("A", it.next());
+    }
+
+    public void testHandleExceptionRegistJsfErrorDicon() throws Exception {
+        // ## Arrange ##
+        LifecycleImpl lifecycle = new LifecycleImpl() {
+            protected boolean restoreView(FacesContext context)
+                    throws FacesException {
+                throw new PathNotFoundRuntimeException("hoge.html");
+            }
+        };
+        // ## Act & Assert ##
+        try {
+            lifecycle.execute(new MockFacesContext());
+        } catch (Exception e) {
+            fail();
+        }
+    }
+
+    public void testHandleExceptionNotRegistJsfErrorDicon() throws Exception {
+        // ## Arrange ##
+        LifecycleImpl lifecycle = new LifecycleImpl() {
+            protected boolean restoreView(FacesContext context)
+                    throws FacesException {
+                throw new RuntimeException("dummy");
+            }
+        };
+        // ## Act & Assert ##
+        try {
+            lifecycle.execute(new MockFacesContext());
+            fail();
+        } catch (Exception e) {
+            assertEquals("dummy", e.getMessage());
+        }
+
     }
 
     private static class SomePhaseListener implements PhaseListener {
