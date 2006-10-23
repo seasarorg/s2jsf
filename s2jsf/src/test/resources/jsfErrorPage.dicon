@@ -10,5 +10,9 @@
 			<arg>"/aaa/bbb.html"</arg>
 		</initMethod>
 		-->
+		<initMethod name="addErrorPage">
+			<arg>@org.seasar.jsf.exception.PathNotFoundRuntimeException@class</arg>
+			<arg>"org/seasar/jsf/runtime/hello.html"</arg>
+		</initMethod>
 	</component>
 </components>

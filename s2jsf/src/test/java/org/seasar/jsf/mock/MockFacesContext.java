@@ -88,7 +88,7 @@ public class MockFacesContext extends FacesContext {
     }
 
     public ExternalContext getExternalContext() {
-        return null;
+        return new MockExternalContextImpl();
     }
 
     public boolean getRenderResponse() {
