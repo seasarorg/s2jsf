@@ -34,7 +34,10 @@ import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.servlet.http.HttpServletRequest;
 
+import org.seasar.framework.container.S2Container;
+import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.framework.util.ArrayUtil;
+import org.seasar.jsf.ErrorPageManager;
 import org.seasar.jsf.component.ForEach;
 import org.seasar.jsf.component.S2UIViewRoot;
 import org.seasar.jsf.util.ExternalContextUtil;
@@ -56,6 +59,8 @@ public class LifecycleImpl extends Lifecycle {
     private static final String POSTBACK_ATTR = "postback";
 
     private PhaseListener[] phaseListeners = new PhaseListener[0];
+
+    private ErrorPageManager errorPageManager;
 
     public LifecycleImpl() {
     }
@@ -113,6 +118,8 @@ public class LifecycleImpl extends Lifecycle {
             } else {
                 throw ex;
             }
+        } catch (Exception ex) {
+            handleException(context, ex);
         }
     }
 
@@ -275,6 +282,30 @@ public class LifecycleImpl extends Lifecycle {
     protected boolean hasEvent(FacesContext context) {
         S2UIViewRoot viewRoot = (S2UIViewRoot) context.getViewRoot();
         return viewRoot.getEventSize() > 0;
+    }
+
+    protected void handleException(FacesContext context, Throwable exception) {
+        ErrorPageManager manager = getErrorPageManager();
+        try {
+            if (manager
+                    .handleException(exception, context.getExternalContext())) {
+                context.responseComplete();
+            } else {
+                throw (RuntimeException) exception;
+            }
+        } catch (IOException ioe) {
+            throw new FacesException(ioe.getMessage(), ioe);
+        }
+    }
+
+    protected ErrorPageManager getErrorPageManager() {
+        if (errorPageManager != null) {
+            return errorPageManager;
+        }
+        S2Container container = SingletonS2ContainerFactory.getContainer();
+        errorPageManager = (ErrorPageManager) container
+                .getComponent(ErrorPageManager.class);
+        return errorPageManager;
     }
 
 }
