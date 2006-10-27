@@ -4,17 +4,11 @@
 <components namespace="jsfErrorPage" >
 	
 	<component class="org.seasar.jsf.runtime.ErrorPageManagerImpl">
-		<initMethod name="addErrorPage">
-			<arg>@examples.jsf.exception.ErrorPage1RuntimeException@class</arg>
-			<arg>"/errorpage/errorPage1.html"</arg>
-		</initMethod>
-		<initMethod name="addErrorPage">
-			<arg>@examples.jsf.exception.ErrorPage2RuntimeException@class</arg>
-			<arg>"/errorpage/errorPage2.html"</arg>
-		</initMethod>
+        <!--
 		<initMethod name="addErrorPage">
 			<arg>@org.seasar.framework.exception.SQLRuntimeException@class</arg>
 			<arg>"/errorpage/errorPageHsqldb.html"</arg>
 		</initMethod>
+		-->
 	</component>
 </components>
