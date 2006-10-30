@@ -37,13 +37,13 @@ public class S2AnywhereValidatorTest extends S2TestCase {
         UIComponent root = new UIElement();
         S2HtmlInputText component1 = new S2HtmlInputText();
         component1.setId("test1");
-        component1.setValue("1");
+        component1.setSubmittedValue("1");
         S2HtmlInputSecret component2 = new S2HtmlInputSecret();
         component2.setId("test2");
-        component2.setValue("2");
+        component2.setSubmittedValue("2");
         S2HtmlInputTextarea component3 = new S2HtmlInputTextarea();
         component3.setId("test3");
-        component3.setValue("3");
+        component3.setSubmittedValue("3");
 
         List children = root.getChildren();
         children.add(component1);
