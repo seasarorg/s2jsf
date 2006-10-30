@@ -42,6 +42,8 @@ public class MockFacesContext extends FacesContext {
 
     private boolean responseComplete = false;
 
+    private UIViewRoot uiViewRoot;
+
     public MockFacesContext() {
         setCurrentInstance(this);
     }
@@ -120,10 +122,11 @@ public class MockFacesContext extends FacesContext {
     }
 
     public UIViewRoot getViewRoot() {
-        return null;
+        return uiViewRoot;
     }
 
-    public void setViewRoot(UIViewRoot arg0) {
+    public void setViewRoot(UIViewRoot uiViewRoot) {
+        this.uiViewRoot = uiViewRoot;
     }
 
     public void release() {
