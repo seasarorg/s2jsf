@@ -50,6 +50,25 @@ public class S2StateManager extends StateManager implements Serializable {
 
     static final long serialVersionUID = 0L;
 
+    /**
+     * web.xml の初期化パラメータを使ってセッションに保持するUIViewRootの数を指定することができる
+     * （指定しない場合は、UIViewRootが際限なくセッションに溜まってしまう）
+     * 
+     *  設定例：
+     *   
+     *   <context-param>
+     *      <param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
+     *      <param-value>10</param-value>
+     *    </context-param>
+     *    
+     *  ※ 初期化パラメータの値には、整数値をセットする
+     *  ※ 初期化パラメータの推奨値は 10
+     *    
+     */
+    public static final String UI_VIEW_ROOT_CACHE_SIZE = "org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE";       
+    
+    private int viewRootCacheSize = 0;
+    
     private static final String SERIALIZED_VIEW_ATTR = S2StateManager.class
             .getName()
             + ".SERIALIZED_VIEW";
@@ -65,11 +84,7 @@ public class S2StateManager extends StateManager implements Serializable {
     
     private transient RenderKitFactory renderKitFactory;
 
-    private transient ViewTemplateFactory viewTemplateFactory;
-
-    public static final int DEFAULT_VIEW_ROOT_CACHE_SIZE = 10;
-    
-    private int viewRootCacheSize = 0;
+    private transient ViewTemplateFactory viewTemplateFactory;   
     
     public S2StateManager() {
     }
@@ -252,7 +267,10 @@ public class S2StateManager extends StateManager implements Serializable {
              * viewId); }
              */
             
-            updateViewRootCache(context, viewId);                        
+            if (getViewRootCacheSize(context) > 0) {
+                updateViewRootCache(context, viewId);
+            }
+            
         }
         return viewRoot;
     }
@@ -393,7 +411,7 @@ public class S2StateManager extends StateManager implements Serializable {
             Long currentTime = new Long(System.currentTimeMillis());
             viewAccessInfoMap.put(viewId, currentTime);
                        
-            if (viewAccessInfoMap.size() > getViewRootCacheSize()) {
+            if (viewAccessInfoMap.size() > getViewRootCacheSize(context)) {
                 String oldestAccessedViewId = getOldestAccessedViewId(viewAccessInfoMap);
                 viewAccessInfoMap.remove(oldestAccessedViewId);
                 
@@ -423,15 +441,18 @@ public class S2StateManager extends StateManager implements Serializable {
         return oldestAccessedViewId;              
     }
 
-    public int getViewRootCacheSize() {
+    protected int getViewRootCacheSize(FacesContext context) {
         if (viewRootCacheSize == 0) {
-            viewRootCacheSize = DEFAULT_VIEW_ROOT_CACHE_SIZE;
+            ExternalContext extContext = context.getExternalContext();
+            String initParameter = extContext.getInitParameter(UI_VIEW_ROOT_CACHE_SIZE);
+          
+            try {
+                viewRootCacheSize = Integer.valueOf(initParameter).intValue();
+            } catch (NumberFormatException exception) {
+                viewRootCacheSize = -1;
+            }
         }
         return viewRootCacheSize;
     }
-    
-    public void setViewRootCacheSize(int viewRootCacheSize) {
-        this.viewRootCacheSize = viewRootCacheSize;
-    }
-    
+        
 }
