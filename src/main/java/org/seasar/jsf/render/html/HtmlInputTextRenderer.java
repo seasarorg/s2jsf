@@ -24,6 +24,7 @@ import javax.faces.convert.Converter;
 
 import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.component.html.S2HtmlInputText;
+import org.seasar.jsf.util.DecodeUtil;
 import org.seasar.jsf.util.RenderUtil;
 import org.seasar.jsf.util.UIValueUtil;
 
@@ -72,7 +73,11 @@ public class HtmlInputTextRenderer extends HtmlElementRenderer {
         }
         writer.endElement(JsfConstants.INPUT_ELEM);
     }
-
+    
+    public void decode(FacesContext context, UIComponent component) {
+        DecodeUtil.decode(context, component);
+    }
+    
     /**
      * @see javax.faces.render.Renderer#encodeEnd(javax.faces.context.FacesContext,
      *      javax.faces.component.UIComponent)
