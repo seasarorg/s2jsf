@@ -54,7 +54,7 @@ public class MockExternalContextImpl extends MockExternalContext {
 
     private Map applicationMap_;
 
-    private Map requestParameterMap_;
+    private Map requestParameterMap_ = new HashMap();
 
     private Map requestCookieMap_ = new HashMap();
 
@@ -201,7 +201,7 @@ public class MockExternalContextImpl extends MockExternalContext {
     }
 
     public Map getRequestParameterMap() {
-        return null;
+        return requestParameterMap_;
     }
 
     public Iterator getRequestParameterNames() {

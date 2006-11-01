@@ -31,6 +31,7 @@ import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
+
 /**
  * @author yone
  */
@@ -43,6 +44,8 @@ public class MockFacesContext extends FacesContext {
     private boolean responseComplete = false;
 
     private UIViewRoot uiViewRoot;
+    
+    private ExternalContext externalContext;
 
     public MockFacesContext() {
         setCurrentInstance(this);
@@ -96,7 +99,7 @@ public class MockFacesContext extends FacesContext {
     }
 
     public ExternalContext getExternalContext() {
-        return new MockExternalContextImpl();
+        return this.getMockExternalContext();
     }
 
     public boolean getRenderResponse() {
@@ -137,5 +140,12 @@ public class MockFacesContext extends FacesContext {
 
     public void responseComplete() {
         responseComplete = true;
+    }
+
+    private ExternalContext getMockExternalContext() {
+        if (externalContext == null) {
+            externalContext = new MockExternalContextImpl();
+        }
+        return externalContext;
     }
 }
