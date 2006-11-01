@@ -14,6 +14,14 @@
 		instance="prototype" 
 	/>
 
+	<component name="calendarValidator" class="examples.jsf.validator.CalendarValidator"
+		instance="prototype" 
+	/>
+
+	<component name="anywareCalendarValidator" class="examples.jsf.validator.AnywareCalendarValidator"
+		instance="prototype" 
+	/>
+
 	<component name="ageValidator" class="org.seasar.jsf.validator.ValidatorChain">
 		<initMethod name="add"><arg>ageLengthValidator</arg></initMethod>
 		<initMethod name="add"><arg>ageDoubleRangeValidator</arg></initMethod>
