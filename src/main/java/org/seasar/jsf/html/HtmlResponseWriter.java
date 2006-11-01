@@ -24,8 +24,6 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.seasar.jsf.JsfConstants;
-
 /**
  * @author manhole
  * @author shot
