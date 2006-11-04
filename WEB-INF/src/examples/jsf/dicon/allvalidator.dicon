@@ -13,6 +13,10 @@
 	<component name="greaterEqualValidator" class="org.seasar.jsf.validator.S2GreaterEqualValidator"
 		instance="prototype" 
 	/>
+	
+	<component name="greaterEqualValidator2" class="examples.jsf.validator.GreaterEqualValidator2"
+		instance="prototype" 
+	/>
 
 	<component name="calendarValidator" class="examples.jsf.validator.CalendarValidator"
 		instance="prototype" 
