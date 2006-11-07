@@ -18,9 +18,11 @@ package org.seasar.jsf.render.html;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 
 import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.component.html.S2HtmlInputText;
@@ -73,11 +75,19 @@ public class HtmlInputTextRenderer extends HtmlElementRenderer {
         }
         writer.endElement(JsfConstants.INPUT_ELEM);
     }
-    
+
     public void decode(FacesContext context, UIComponent component) {
         DecodeUtil.decode(context, component);
     }
-    
+
+    public Object getConvertedValue(FacesContext context,
+            UIComponent component, Object submittedValue)
+            throws ConverterException {
+
+        return RenderUtil.getConvertedUIOutputValue(context,
+                (UIOutput) component, submittedValue);
+    }
+
     /**
      * @see javax.faces.render.Renderer#encodeEnd(javax.faces.context.FacesContext,
      *      javax.faces.component.UIComponent)
