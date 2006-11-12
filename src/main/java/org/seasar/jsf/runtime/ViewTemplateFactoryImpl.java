@@ -33,72 +33,72 @@ import org.seasar.jsf.exception.PathNotFoundRuntimeException;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class ViewTemplateFactoryImpl implements ViewTemplateFactory {
 
-	private TagProcessorTreeFactory tagProcessorTreeFactory;
-	
-	private ServletContext servletContext;
+    private TagProcessorTreeFactory tagProcessorTreeFactory;
 
-	private Map viewTemplates = new HashMap();
+    private ServletContext servletContext;
 
-	public ViewTemplateFactoryImpl(
-			TagProcessorTreeFactory tagProcessorTreeFactory,
-			ServletContext servletContext) {
+    private Map viewTemplates = new HashMap();
 
-		this.tagProcessorTreeFactory = tagProcessorTreeFactory;
-		this.servletContext = servletContext;
-	}
+    public ViewTemplateFactoryImpl(
+            TagProcessorTreeFactory tagProcessorTreeFactory,
+            ServletContext servletContext) {
 
-	public synchronized ViewTemplate getViewTemplate(String path) {
-		String realPath = servletContext.getRealPath(path);
-		if (realPath != null) {
-			File file = new File(realPath);
-			if (file.exists()) {
-				return getViewTemplateFromRealPath(path, file);
-			}
-		}
-		return getViewTemplateFromResource(path);
-	}
-	
-	protected ViewTemplate getViewTemplateFromRealPath(String path, File file) {
-		ViewTemplate template = (ViewTemplate) viewTemplates.get(path);
-		if (template != null && !template.isModified()) {
-			return template;
-		}
-		TagProcessor rootTagProcessor = null;
-		InputStream is = new BufferedInputStream(FileInputStreamUtil
-				.create(file));
-		try {
-			rootTagProcessor = tagProcessorTreeFactory
-					.createTagProcessorTree(is);
-		} finally {
-			InputStreamUtil.close(is);
-		}
-		template = new ViewTemplateImpl(rootTagProcessor, file);
-		viewTemplates.put(path, template);
-		return template;
-	}
-	
-	protected ViewTemplate getViewTemplateFromResource(String path) {
-		ViewTemplate template = (ViewTemplate) viewTemplates.get(path);
-		if (template != null) {
-			return template;
-		}
-		TagProcessor rootTagProcessor = null;
-		InputStream is = servletContext.getResourceAsStream(path);
-		if (is == null) {
-			throw new PathNotFoundRuntimeException(path);
-		}
-		try {
-			rootTagProcessor = tagProcessorTreeFactory
-					.createTagProcessorTree(is);
-		} finally {
-			InputStreamUtil.close(is);
-		}
-		template = new ViewTemplateImpl(rootTagProcessor);
-		viewTemplates.put(path, template);
-		return template;
-	}
+        this.tagProcessorTreeFactory = tagProcessorTreeFactory;
+        this.servletContext = servletContext;
+    }
+
+    public synchronized ViewTemplate getViewTemplate(String path) {
+        String realPath = servletContext.getRealPath(path);
+        if (realPath != null) {
+            File file = new File(realPath);
+            if (file.exists()) {
+                return getViewTemplateFromRealPath(path, file);
+            }
+        }
+        return getViewTemplateFromResource(path);
+    }
+
+    protected ViewTemplate getViewTemplateFromRealPath(String path, File file) {
+        ViewTemplate template = (ViewTemplate) viewTemplates.get(path);
+        if (template != null && !template.isModified()) {
+            return template;
+        }
+        TagProcessor rootTagProcessor = null;
+        InputStream is = new BufferedInputStream(FileInputStreamUtil
+                .create(file));
+        try {
+            rootTagProcessor = tagProcessorTreeFactory
+                    .createTagProcessorTree(is);
+        } finally {
+            InputStreamUtil.close(is);
+        }
+        template = new ViewTemplateImpl(rootTagProcessor, file);
+        viewTemplates.put(path, template);
+        return template;
+    }
+
+    protected ViewTemplate getViewTemplateFromResource(String path) {
+        InputStream is = servletContext.getResourceAsStream(path);
+        if (is == null) {
+            throw new PathNotFoundRuntimeException(path);
+        }
+        ViewTemplate template = (ViewTemplate) viewTemplates.get(path);
+        if (template != null) {
+            return template;
+        }
+        TagProcessor rootTagProcessor = null;
+        try {
+            rootTagProcessor = tagProcessorTreeFactory
+                    .createTagProcessorTree(is);
+        } finally {
+            InputStreamUtil.close(is);
+        }
+        template = new ViewTemplateImpl(rootTagProcessor);
+        viewTemplates.put(path, template);
+        return template;
+    }
 }
