@@ -15,7 +15,15 @@
  */
 package org.seasar.jsf.runtime;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.framework.util.ResourceUtil;
 import org.seasar.jsf.TagProcessorTreeFactory;
 import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
@@ -54,7 +62,33 @@ public class ViewTemplateFactoryImplTest extends S2TestCase {
         ViewTemplate template2 = viewTemplateFactory.getViewTemplate(PATH);
         assertSame("2", template, template2);
     }
+    
+    /*
+     * htmlファイルが削除されたら、PathNotFoundRuntimeExceptionが投げられること。
+     */
+    public void testGetViewTemplate2() throws Exception {
+        // ## Arrange ##
+        final File from = ResourceUtil.getResourceAsFile(PATH);
+        final File buildDir = ResourceUtil.getBuildDir(getClass());
+        final File to = new File(buildDir, "aaa.html");
+        copy(from, to);
 
+        PageContextImpl pageContext = new PageContextImpl();
+        pageContext.initialize(getServlet(), getRequest(), getResponse(), null);
+
+        // ## Act ##
+        viewTemplateFactory.getViewTemplate("aaa.html");
+        if (!to.delete()) {
+            fail();
+        }
+        // ## Assert ##
+        try {
+            viewTemplateFactory.getViewTemplate("aaa.html");
+            fail();
+        } catch (final PathNotFoundRuntimeException e) {
+        }
+    }
+    
     public void testGetViewTemplateFromResourceExist() throws Exception {
         // # Arrange #
         PageContextImpl pageContext = new PageContextImpl();
@@ -85,4 +119,27 @@ public class ViewTemplateFactoryImplTest extends S2TestCase {
             assertTrue(true);
         }
     }
+
+    private void copy(final File from, final File to) throws IOException {
+        BufferedInputStream is = null;
+        BufferedOutputStream os = null;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        fis = new FileInputStream(from);
+        is = new BufferedInputStream(fis);
+        fos = new FileOutputStream(to);
+        os = new BufferedOutputStream(fos);
+        copy(is, os);
+        os.close();
+        is.close();
+    }
+
+    private void copy(final BufferedInputStream is,
+            final BufferedOutputStream os) throws IOException {
+        int n = 0;
+        final byte[] buf = new byte[1024];
+        while ((n = is.read(buf, 0, buf.length)) != -1) {
+            os.write(buf, 0, n);
+        }
+    }    
 }

@@ -82,15 +82,16 @@ public class ViewTemplateFactoryImpl implements ViewTemplateFactory {
 	}
 	
 	protected ViewTemplate getViewTemplateFromResource(String path) {
-		ViewTemplate template = (ViewTemplate) viewTemplates.get(path);
+        InputStream is = servletContext.getResourceAsStream(path);
+        if (is == null) {
+            throw new PathNotFoundRuntimeException(path);
+        }
+        ViewTemplate template = (ViewTemplate) viewTemplates.get(path);
 		if (template != null) {
 			return template;
 		}
 		TagProcessor rootTagProcessor = null;
-		InputStream is = servletContext.getResourceAsStream(path);
-		if (is == null) {
-			throw new PathNotFoundRuntimeException(path);
-		}
+
 		try {
 			rootTagProcessor = tagProcessorTreeFactory
 					.createTagProcessorTree(is);
