@@ -9,7 +9,7 @@
   <artifactId>s2-jsf-examples</artifactId>
   <packaging>war</packaging>
   <name>S2JSF Example</name>
-  <version>1.1.0-rc-1</version>
+  <version>1.1.0</version>
   <description></description>
   <url>http://s2jsf.seasar.org/</url>
   <build>
