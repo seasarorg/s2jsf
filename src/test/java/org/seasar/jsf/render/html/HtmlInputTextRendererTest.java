@@ -59,8 +59,8 @@ public class HtmlInputTextRendererTest extends TestCase {
         htmlInputText.setClientId("arg1");
 
         MockFacesContext context = getFacesContext();
-        context.getExternalContext().getRequestParameterMap().put("arg1",
-                "123");
+        context.getExternalContext().getRequestParameterMap()
+                .put("arg1", "123");
 
         // ## Act ##
         renderer.decode(context, htmlInputText);
