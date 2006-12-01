@@ -11,4 +11,6 @@
 	</component>
 	
 	<component name="nullConverter" class="org.seasar.jsf.convert.NullConverter"/>
+	
+	<component name="testConverter" class="org.seasar.jsf.convert.S2DateTimeConverter" instance="prototype"	/>
 </components>
