@@ -19,15 +19,17 @@ import org.seasar.jsf.TagProcessor;
 
 /**
  * @author higa
- *
+ * @author yone 
  */
 public class OutputTextProcessor extends TagProcessorImpl {
 
-	public OutputTextProcessor(String inject) {
-		super(inject);
-		//setProperty(JsfConstants.ESCAPE_ATTR, "false");
-	}
-	
-	public void addChild(TagProcessor child) {
-	}
+    public OutputTextProcessor(String inject) {
+        super(inject);
+        // setProperty(JsfConstants.ESCAPE_ATTR, "false");
+    }
+
+    public void addChild(TagProcessor child) {
+        super.addChild(child);
+    }
+
 }

@@ -51,6 +51,10 @@ public interface JsfConstants {
 
     public String ERROR_MESSAGE = "seasar.jsf.error.message";
 
+    public String VALIDATOR_STACK_ATTR = "javax.faces.webapp.VALIDATOR_STORE_ATTR";
+
+    public String CONVERTER_STACK_ATTR = "javax.faces.webapp.CONVERTER_STORE_ATTR";
+
     public String CHARSET = "charset";
 
     public String CONTENT_TYPE = "Content-Type";

@@ -15,12 +15,17 @@
  */
 package org.seasar.jsf.util;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.servlet.http.HttpServletRequest;
+
+import org.seasar.framework.beans.BeanDesc;
+import org.seasar.framework.beans.PropertyDesc;
+import org.seasar.framework.beans.factory.BeanDescFactory;
 
 /**
  * @author higa
@@ -41,4 +46,20 @@ public class UIParameterUtil {
 			}
 		}
 	}
+    
+    public static void saveParametersToInstance(UIComponent component, Object obj) {
+        for(Iterator itr = component.getChildren().iterator(); itr.hasNext();) {
+            Object o = itr.next();
+            if(o instanceof UIParameter) {
+                UIParameter param = (UIParameter) o;
+                String name = param.getName();
+                Object value = param.getValue();
+                BeanDesc beanDesc = BeanDescFactory.getBeanDesc(obj.getClass());
+                if(beanDesc.hasPropertyDesc(name)) {
+                    PropertyDesc propertyDesc = beanDesc.getPropertyDesc(name);
+                    propertyDesc.setValue(obj, value);
+                }
+            }
+        }
+    }
 }
