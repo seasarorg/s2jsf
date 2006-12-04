@@ -1,8 +1,10 @@
 package org.seasar.jsf.mock;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
@@ -20,11 +22,19 @@ import javax.faces.el.VariableResolver;
 import javax.faces.event.ActionListener;
 import javax.faces.validator.Validator;
 
+import org.seasar.framework.util.ClassUtil;
+
 public class MockApplication extends Application {
     private ValueBinding vb;
 
     private MethodBinding mb;
 
+    private Map convertersById_ = new HashMap();
+
+    private Map convertersByClass_ = new HashMap();
+
+    private Map validators_ = new HashMap();
+    
     public void setValueBinding(ValueBinding vb) {
         this.vb = vb;
     }
@@ -122,20 +132,6 @@ public class MockApplication extends Application {
         return null;
     }
 
-    public void addConverter(String arg0, String arg1) {
-    }
-
-    public void addConverter(Class arg0, String arg1) {
-    }
-
-    public Converter createConverter(String arg0) {
-        return null;
-    }
-
-    public Converter createConverter(Class arg0) {
-        return null;
-    }
-
     public Iterator getConverterIds() {
         return null;
     }
@@ -151,14 +147,53 @@ public class MockApplication extends Application {
     public void setSupportedLocales(Collection arg0) {
     }
 
-    public void addValidator(String arg0, String arg1) {
-    }
-
-    public Validator createValidator(String arg0) throws FacesException {
-        return null;
-    }
-
     public Iterator getValidatorIds() {
         return null;
     }
+    
+    public void addConverter(String converterId, String converterClass) {
+        if (converterId == null || converterClass == null) {
+            throw new IllegalArgumentException();
+        }
+        convertersById_.put(converterId, converterClass);
+    }
+
+    public void addConverter(Class targetClass, String converterClass) {
+        if (targetClass == null || converterClass == null) {
+            throw new IllegalArgumentException();
+        }
+        convertersByClass_.put(targetClass, converterClass);
+    }
+
+    public Converter createConverter(String converterId) {
+        Converter converter = null;
+        if (convertersById_.containsKey(converterId)) {
+            String className = (String) convertersById_.get(converterId);
+            converter = (Converter) ClassUtil.newInstance(className);
+        }
+        return converter;
+    }
+
+    public Converter createConverter(Class targetClass) {
+        Converter converter = null;
+        if (convertersByClass_.containsKey(targetClass)) {
+            String className = (String) convertersByClass_.get(targetClass);
+            converter = (Converter) ClassUtil.newInstance(className);
+        }
+        return converter;
+    }
+
+    public void addValidator(String validatorId, String validatorClass) {
+        validators_.put(validatorId, validatorClass);
+    }
+
+    public Validator createValidator(String validatorId) throws FacesException {
+        String validatorClass = (String) validators_.get(validatorId);
+        Validator v = null;
+        if (validatorClass != null) {
+            v = (Validator) ClassUtil.newInstance(validatorClass);
+        }
+        return v;
+    }
+    
 }
