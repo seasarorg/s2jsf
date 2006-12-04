@@ -35,8 +35,14 @@ public class ErrorPageManagerImpl implements ErrorPageManager {
 
     private Map locations = new HashMap();
 
+    private Map partLocations = new HashMap();
+
     public void addErrorPage(Class exceptionType, String location) {
         locations.put(exceptionType, location);
+    }
+
+    public void addErrorPart(Class exceptionType, String location) {
+        partLocations.put(exceptionType, location);
     }
 
     public boolean handleException(Throwable exception,
@@ -74,6 +80,21 @@ public class ErrorPageManagerImpl implements ErrorPageManager {
         while (location == null && !clazz.equals(Throwable.class)) {
             clazz = clazz.getSuperclass();
             location = (String) locations.get(clazz);
+        }
+        return location;
+    }
+
+    public String handlePartException(Throwable exception,
+            ExternalContext extContext) {
+        return getPartLocation(exception.getClass());
+    }
+
+    protected String getPartLocation(Class exceptionType) {
+        Class clazz = exceptionType;
+        String location = (String) partLocations.get(clazz);
+        while (location == null && !clazz.equals(Throwable.class)) {
+            clazz = clazz.getSuperclass();
+            location = (String) partLocations.get(clazz);
         }
         return location;
     }
