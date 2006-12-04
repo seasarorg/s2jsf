@@ -26,7 +26,7 @@
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/teeda-extension-1.0.1.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-extension-2.4.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-framework-2.4.2.jar"/>
-	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-jsf-1.1.0.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/s2-jsf-1.1.1-SNAPSHOT.jar"/>
 	<classpathentry output="work" kind="src" path="work"/>
 	<classpathentry kind="output" path="src/main/webapp/WEB-INF/classes"/>
 </classpath>

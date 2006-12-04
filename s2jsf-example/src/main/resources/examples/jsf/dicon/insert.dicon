@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE components PUBLIC "-//SEASAR2.1//DTD S2Container//EN"
+	"http://www.seasar.org/dtd/components21.dtd">
+<components>
+	<component name="insertList" class="java.util.ArrayList">
+	    <initMethod name="add">
+	        <arg>"/insert/part1.html"</arg>
+	    </initMethod>
+	    <initMethod name="add">
+	        <arg>"/insert/part2.html"</arg>
+	    </initMethod>
+	    <initMethod name="add">
+	        <arg>"/insert/part3.html"</arg>
+	    </initMethod>
+	</component>
+</components>

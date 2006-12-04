@@ -1,0 +1,28 @@
+<html xmlns:m="http://www.seasar.org/maya" m:extends="/WEB-INF/layout/layout.html" m:action="#{insertInitAction.initialize}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Windows-31j" />
+<title>Insert</title>
+</head>
+
+<body>
+<span m:inject="f:param" m:name="layoutTitle" m:value="Insert"/>
+<span m:inject="s:insert" m:name="body">
+  Insert Part (HTML) :<br/>
+  <span m:inject="s:insert" m:src="/insert/hello1.html"/><br/>
+  <br/>
+  Insert Part (initAction) :<br/>
+  <span m:inject="s:insert" m:src="#{pageUrl}"/><br/>
+  <br/>
+  Insert Part (dicon) :<br/>
+  <span m:inject="s:insert" m:src="#{insertList}"/><br/>
+  <br/>
+  Insert Add Part:<br/>
+  <span m:inject="s:insert" m:src="/insert/add.html"/><br/>
+  <br/>
+  Insert EmployeeList Part:<br/>
+  <span m:inject="s:insert" m:src="/insert/employeeSearch.html"/><br/>
+  <br/>
+</span>
+</body>
+
+</html>
