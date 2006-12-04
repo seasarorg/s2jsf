@@ -21,12 +21,17 @@ import javax.faces.context.ExternalContext;
 
 /**
  * @author higa
- *  
+ * 
  */
 public interface ErrorPageManager {
 
-	public void addErrorPage(Class exceptionType, String location);
+    public void addErrorPage(Class exceptionType, String location);
 
-	public boolean handleException(Throwable exception,
-			ExternalContext extContext) throws IOException;
+    public void addErrorPart(Class exceptionType, String location);
+
+    public boolean handleException(Throwable exception,
+            ExternalContext extContext) throws IOException;
+
+    public String handlePartException(Throwable exception,
+            ExternalContext extContext);
 }
