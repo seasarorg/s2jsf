@@ -16,5 +16,9 @@
 			<arg>@org.seasar.framework.exception.SQLRuntimeException@class</arg>
 			<arg>"/errorpage/errorPageHsqldb.html"</arg>
 		</initMethod>
+		<initMethod name="addErrorPart">
+			<arg>@org.seasar.framework.exception.SQLRuntimeException@class</arg>
+			<arg>"/insert/errorPageHsqldb.html"</arg>
+		</initMethod>
 	</component>
 </components>

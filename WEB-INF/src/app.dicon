@@ -12,6 +12,7 @@
 	<include path="examples/jsf/dicon/selectmanylistbox.dicon"/>
 	<include path="examples/jsf/dicon/selectonemenu.dicon"/>
 	<include path="examples/jsf/dicon/selectoneradio.dicon"/>
+	<include path="examples/jsf/dicon/insert.dicon"/>
 
 	<component
 		class="org.seasar.framework.container.autoregister.FileSystemComponentAutoRegister"
