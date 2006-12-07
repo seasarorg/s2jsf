@@ -38,6 +38,7 @@ import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.TagProcessorNotFoundRuntimeException;
 import org.seasar.jsf.util.BindingUtil;
+import org.seasar.jsf.util.ExternalContextUtil;
 import org.seasar.jsf.util.InvokeUtil;
 import org.xml.sax.Attributes;
 
@@ -46,6 +47,10 @@ import org.xml.sax.Attributes;
  * 
  */
 public class InsertProcessor extends TagProcessorImpl {
+
+    public static final String DYNAMIC_PAGE_ATTR = InsertProcessor.class
+            .getName()
+            + ".DYNAMIC_PAGE";
 
     public InsertProcessor(String inject) {
         super(inject);
@@ -82,6 +87,16 @@ public class InsertProcessor extends TagProcessorImpl {
                 return;
             }
         }
+
+        String src = getSrc();
+        if (BindingUtil.isValueReference(src)) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = context.getExternalContext();
+            String viewId = ExternalContextUtil.getViewId(externalContext);
+            externalContext.getSessionMap().put(
+                    DYNAMIC_PAGE_ATTR + "-" + viewId, Boolean.TRUE);
+        }
+
         String[] srcs = getSrcs();
         if (srcs != null) {
             for (int i = 0; i < srcs.length; i++) {
