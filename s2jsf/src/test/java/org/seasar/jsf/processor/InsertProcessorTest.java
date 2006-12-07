@@ -29,7 +29,9 @@ import org.seasar.jsf.JsfContext;
 import org.seasar.jsf.TagProcessor;
 import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
+import org.seasar.jsf.jsp.PageContextImpl;
 import org.seasar.jsf.runtime.ErrorPageManagerImpl;
+import org.seasar.jsf.runtime.JsfContextImpl;
 import org.seasar.teeda.core.mock.MockApplication;
 import org.seasar.teeda.core.mock.MockApplicationImpl;
 import org.seasar.teeda.core.mock.MockFacesContext;
@@ -54,6 +56,7 @@ public class InsertProcessorTest extends TeedaTestCase {
     public void testGetSrcs() throws Exception {
         InsertProcessor ip = new InsertProcessor("insert");
 
+        // Prepare for ValueBinding
         MockApplication application = getApplication();
         MockValueBinding vb = new MockValueBinding();
         application.setValueBinding(vb);
@@ -84,14 +87,60 @@ public class InsertProcessorTest extends TeedaTestCase {
         assertEquals("/page4.html", srcs[1]);
     }
 
-    public void testProcessInclude1() throws Exception {
+    public void testProcess1() throws Exception {
         InsertProcessor ip = new InsertProcessor("insert");
 
+        // Prepare for MethodBinding
         MockFacesContext context = getFacesContext();
         MockApplicationInsertProcessor application = new MockApplicationInsertProcessor();
         MockMethodBindingInsertProcessor1 mb = new MockMethodBindingInsertProcessor1();
         application.setMethodBinding(mb);
         context.setApplication(application);
+
+        // Prepare for processInclude
+        getContainer().register(MockViewTemplateFactory.class);
+
+        JsfContext jsfContext = new JsfContextImpl(new PageContextImpl(), null,
+                null);
+        ip.setProperty("src", "test");
+        ip.process(jsfContext, null);
+
+        Object result = getExternalContext().getSessionMap().get(
+                InsertProcessor.DYNAMIC_PAGE_ATTR + "-" + "/hello.jsp");
+
+        assertEquals(result, null);
+    }
+
+    public void testProcess2() throws Exception {
+        InsertProcessor ip = new InsertProcessor("insert");
+
+        // Prepare for ValueBinding
+        MockApplication application = getApplication();
+        MockValueBinding vb = new MockValueBinding();
+        application.setValueBinding(vb);
+        vb.setValue(null, null);
+
+        JsfContext jsfContext = new JsfContextImpl(new PageContextImpl(), null,
+                null);
+        ip.setProperty("src", "#{test}");
+        ip.process(jsfContext, null);
+
+        Object result = getExternalContext().getSessionMap().get(
+                InsertProcessor.DYNAMIC_PAGE_ATTR + "-" + "/hello.jsp");
+        assertEquals(result, Boolean.TRUE);
+    }
+
+    public void testProcessInclude1() throws Exception {
+        InsertProcessor ip = new InsertProcessor("insert");
+
+        // Prepare for MethodBinding
+        MockFacesContext context = getFacesContext();
+        MockApplicationInsertProcessor application = new MockApplicationInsertProcessor();
+        MockMethodBindingInsertProcessor1 mb = new MockMethodBindingInsertProcessor1();
+        application.setMethodBinding(mb);
+        context.setApplication(application);
+
+        // Prepare for processInclude
         getContainer().register(MockViewTemplateFactory.class);
 
         ip.processInclude(null, null, null);
@@ -101,11 +150,14 @@ public class InsertProcessorTest extends TeedaTestCase {
     public void testProcessInclude2() throws Exception {
         InsertProcessor ip = new InsertProcessor("insert");
 
+        // Prepare for MethodBinding
         MockFacesContext context = getFacesContext();
         MockApplicationInsertProcessor application = new MockApplicationInsertProcessor();
         MockMethodBindingInsertProcessor2 mb = new MockMethodBindingInsertProcessor2();
         application.setMethodBinding(mb);
         context.setApplication(application);
+
+        // Prepare for processInclude
         getContainer().register(MockViewTemplateFactory.class);
         getContainer().register(ErrorPageManagerImpl.class);
 
@@ -120,13 +172,15 @@ public class InsertProcessorTest extends TeedaTestCase {
     public void testProcessInclude3() throws Exception {
         InsertProcessor ip = new InsertProcessor("insert");
 
+        // Prepare for MethodBinding
         MockFacesContext context = getFacesContext();
         MockApplicationInsertProcessor application = new MockApplicationInsertProcessor();
         MockMethodBindingInsertProcessor2 mb = new MockMethodBindingInsertProcessor2();
         application.setMethodBinding(mb);
         context.setApplication(application);
-        getContainer().register(MockViewTemplateFactory.class);
 
+        // Prepare for processInclude
+        getContainer().register(MockViewTemplateFactory.class);
         ErrorPageManager errorPageManager = new ErrorPageManagerImpl();
         errorPageManager.addErrorPart(NullPointerException.class, "");
         getContainer().register(errorPageManager);
