@@ -19,7 +19,7 @@ import org.seasar.jsf.TagProcessor;
 
 /**
  * @author higa
- * @author yone 
+ * @author yone
  */
 public class OutputTextProcessor extends TagProcessorImpl {
 
@@ -29,6 +29,9 @@ public class OutputTextProcessor extends TagProcessorImpl {
     }
 
     public void addChild(TagProcessor child) {
+        if (child instanceof TextProcessor) {
+            return;
+        }
         super.addChild(child);
     }
 
