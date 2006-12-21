@@ -16,14 +16,46 @@
 package org.seasar.jsf.runtime;
 
 import org.apache.xerces.parsers.AbstractSAXParser;
+import org.apache.xerces.xni.Augmentations;
+import org.apache.xerces.xni.XMLString;
+import org.apache.xerces.xni.XNIException;
 import org.cyberneko.html.HTMLConfiguration;
 
 /**
  * @author shot
+ * @author yone
  */
 public class S2JSFSAXParser extends AbstractSAXParser {
 
     public S2JSFSAXParser(HTMLConfiguration config) {
         super(config);
     }
+
+    public void xmlDecl(String version, String encoding, String standalone,
+            Augmentations augs) throws XNIException {
+        super.xmlDecl(version, encoding, standalone, augs);
+        StringBuffer buf = new StringBuffer();
+        if (version != null) {
+            buf.append("<?xml version=\"");
+            buf.append(version);
+            buf.append("\"");
+        }
+        if (encoding != null) {
+            buf.append(" encoding=\"");
+            buf.append(encoding);
+            buf.append("\"");
+        }
+        if (standalone != null) {
+            buf.append(" standalone=\"");
+            buf.append(standalone);
+            buf.append("\"");
+        }
+
+        buf.append("?>\n");
+        String xml = buf.toString();
+
+        super.characters(new XMLString(xml.toCharArray(), 0, xml.length()),
+                augs);
+    }
+    
 }
