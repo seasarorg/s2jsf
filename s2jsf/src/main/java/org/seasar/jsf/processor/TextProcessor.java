@@ -104,4 +104,9 @@ public class TextProcessor implements TagProcessor {
 	public TagProcessor findAncestor(Class clazz) {
 		return null;
 	}
+    
+    public String getValue() {
+        return this.value;
+    }
+    
 }
