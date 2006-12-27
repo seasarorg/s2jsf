@@ -516,12 +516,12 @@ public class HtmlResponseWriterTest extends TestCase {
         responseWriter.setCharacterEncoding("Windows-31j");
         responseWriter.startElement("input", null);
         responseWriter.writeAttribute("type", "button", null);
-        responseWriter.writeAttribute("value", "&nbsp;&nbsp;“o˜^&nbsp;&nbsp;",
+        responseWriter.writeAttribute("value", "&nbsp;&nbsp;ï¿½oï¿½^&nbsp;&nbsp;",
                 null);
 
         String value = writer.toString();
         assertEquals(
-                "<input type=\"button\" value=\"&nbsp;&nbsp;“o˜^&nbsp;&nbsp;\"",
+                "<input type=\"button\" value=\"&nbsp;&nbsp;ï¿½oï¿½^&nbsp;&nbsp;\"",
                 value);
     }
 

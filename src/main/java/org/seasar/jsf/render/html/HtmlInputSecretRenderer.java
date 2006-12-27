@@ -19,12 +19,12 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
+import javax.faces.component.html.HtmlInputSecret;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.ConverterException;
 
 import org.seasar.jsf.JsfConstants;
-import org.seasar.jsf.component.html.S2HtmlInputText;
 import org.seasar.jsf.util.DecodeUtil;
 import org.seasar.jsf.util.HTMLEncodeUtil;
 import org.seasar.jsf.util.RenderUtil;
@@ -34,48 +34,46 @@ import org.seasar.jsf.util.ValueHolderUtil;
  * @author yone
  * 
  */
-public class HtmlInputTextRenderer extends HtmlElementRenderer {
+public class HtmlInputSecretRenderer extends HtmlElementRenderer {
 
-    /**
-     * @see javax.faces.render.Renderer#encodeBegin(javax.faces.context.FacesContext,
-     *      javax.faces.component.UIComponent)
-     */
+    public static final String COMPONENT_FAMILY = "javax.faces.Input";
+
+    public static final String RENDERER_TYPE = "javax.faces.Secret";
+
     public void encodeBegin(FacesContext facesContext, UIComponent component)
             throws IOException {
-        if (facesContext == null) {
+    }
+
+    public void encodeEnd(final FacesContext context,
+            final UIComponent component) throws IOException {
+        if (context == null) {
             throw new NullPointerException("context");
-        }
-        if (component == null) {
-            throw new NullPointerException("component");
         }
         if (!component.isRendered()) {
             return;
         }
-        renderS2HtmlInputText(facesContext, (S2HtmlInputText) component);
+        encodeHtmlInputSecretEnd(context, (HtmlInputSecret) component);
     }
 
-    protected void renderS2HtmlInputText(FacesContext context,
-            S2HtmlInputText component) throws IOException {
-        ResponseWriter writer = context.getResponseWriter();
-        String clientId = component.getClientId(context);
-        String value = ValueHolderUtil.getValueAsString(context, component);
-        writer.startElement(JsfConstants.INPUT_ELEM, component);
-        writer.writeAttribute(JsfConstants.TYPE_ATTR, JsfConstants.TEXT_VALUE,
-                null);
-        RenderUtil.renderIdIfNecessary(writer, component, context);
+    protected void encodeHtmlInputSecretEnd(final FacesContext context,
+            final HtmlInputSecret htmlInputSecret) throws IOException {
+        final ResponseWriter writer = context.getResponseWriter();
+        String clientId = htmlInputSecret.getClientId(context);
+        String value = ValueHolderUtil.getValueAsString(context,
+                htmlInputSecret);
+        writer.startElement(JsfConstants.INPUT_ELEM, htmlInputSecret);
+        writer.writeAttribute(JsfConstants.TYPE_ATTR,
+                JsfConstants.PASSWORD_VALUE, null);
+        RenderUtil.renderIdIfNecessary(writer, htmlInputSecret, context);
         writer.writeAttribute(JsfConstants.NAME_ATTR, clientId, null);
-        if (value != null) {
-            writer.writeAttribute(JsfConstants.VALUE_ATTR, HTMLEncodeUtil
-                    .encode(value, true, true), null);
+        if (!htmlInputSecret.isRedisplay()) {
+            value = "";
         }
-        RenderUtil.renderAttributes(writer, component,
+        writer.writeAttribute(JsfConstants.VALUE_ATTR, HTMLEncodeUtil.encode(
+                value, true, true), null);
+        RenderUtil.renderAttributes(writer, htmlInputSecret,
                 JsfConstants.INPUT_PASSTHROUGH_ATTRIBUTES_WITHOUT_DISABLED);
-        String autocomplete = component.getAutocomplete();
-        if (autocomplete != null) {
-            writer.writeAttribute(JsfConstants.AUTOCOMPLETE_ATTR, autocomplete,
-                    null);
-        }
-        if (component.isDisabled()) {
+        if (htmlInputSecret.isDisabled()) {
             writer.writeAttribute(JsfConstants.DISABLED_ATTR,
                     JsfConstants.DISABLED_VALUE, null);
         }
@@ -93,16 +91,7 @@ public class HtmlInputTextRenderer extends HtmlElementRenderer {
         return RenderUtil.getConvertedUIOutputValue(context,
                 (UIOutput) component, submittedValue);
     }
-
-    /**
-     * @see javax.faces.render.Renderer#encodeEnd(javax.faces.context.FacesContext,
-     *      javax.faces.component.UIComponent)
-     */
-    public void encodeEnd(FacesContext facesContext, UIComponent component)
-            throws IOException {
-
-    }
-
+    
     /**
      * @see javax.faces.render.Renderer#getRendersChildren()
      */
@@ -117,4 +106,5 @@ public class HtmlInputTextRenderer extends HtmlElementRenderer {
     public void encodeChildren(FacesContext context, UIComponent component)
             throws IOException {
     }
+    
 }

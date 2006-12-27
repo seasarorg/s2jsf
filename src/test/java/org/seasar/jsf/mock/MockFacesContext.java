@@ -15,10 +15,12 @@
  */
 package org.seasar.jsf.mock;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.application.Application;
@@ -30,6 +32,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
+import javax.servlet.ServletResponse;
+
+import org.seasar.framework.exception.IORuntimeException;
+import org.seasar.jsf.html.HtmlResponseWriter;
 
 
 /**
@@ -47,6 +53,8 @@ public class MockFacesContext extends FacesContext {
     
     private ExternalContext externalContext;
 
+    private ResponseWriter responseWriter;
+    
     public MockFacesContext() {
         setCurrentInstance(this);
     }
@@ -118,13 +126,29 @@ public class MockFacesContext extends FacesContext {
     }
 
     public ResponseWriter getResponseWriter() {
-        return null;
+        if (responseWriter == null) {
+            HtmlResponseWriter responseWriter = new HtmlResponseWriter();
+            ServletResponse response = (ServletResponse) getExternalContext()
+                    .getResponse();
+            try {
+                responseWriter.setWriter(response.getWriter());
+                this.responseWriter = responseWriter;
+            } catch (IOException e) {
+                throw new IORuntimeException(e);
+            }
+        }
+        return responseWriter;
     }
 
     public void setResponseWriter(ResponseWriter arg0) {
+        this.responseWriter = arg0;
     }
 
     public UIViewRoot getViewRoot() {
+        if (uiViewRoot == null) {
+            uiViewRoot = new UIViewRoot();
+            uiViewRoot.setLocale(Locale.getDefault());
+        }
         return uiViewRoot;
     }
 
