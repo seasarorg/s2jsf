@@ -24,6 +24,8 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
+import org.seasar.jsf.util.HTMLEncodeUtil;
+
 /**
  * @author manhole
  * @author shot
@@ -164,37 +166,12 @@ public class HtmlResponseWriter extends ResponseWriter {
     }
 
     protected String htmlSpecialChars(final String s) {
-        return htmlSpecialChars(s, true, true);
+        return HTMLEncodeUtil.encode(s, true, true);
     }
-
-    private String htmlSpecialChars(final String s, final boolean quote,
-            final boolean amp) {
-        char[] chars = s.toCharArray();
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < chars.length; i++) {
-            char c = chars[i];
-            // &nbsp; 0xA0
-            if ((int) c == '\u00A0') {
-                sb.append("&nbsp;");
-            } else if (c == '<') {
-                sb.append("&lt;");
-            } else if (c == '>') {
-                sb.append("&gt;");
-            } else if (amp && c == '&') {
-                sb.append("&amp;");
-            } else if (c == '"') {
-                sb.append("&quot;");
-            } else if (quote && c == '\'') {
-                sb.append("&#39;");
-            } else {
-                sb.append(c);
-            }
-        }
-        return new String(sb);
-    }
+    
 
     protected String escapeAttribute(String s) {
-        return htmlSpecialChars(s, false, false);
+        return HTMLEncodeUtil.encode(s, false, false);
     }
 
     public ResponseWriter cloneWithWriter(Writer writer) {
