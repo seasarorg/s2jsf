@@ -44,248 +44,252 @@ import org.xml.sax.Attributes;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class TagProcessorImpl implements TagProcessor {
 
-	private static final String INSERT_PROCESSOR_MAP_ATTR = TagProcessorImpl.class
-			.getName()
-			+ ".INSERT_PROCESSOR_MAP";
+    private static final String INSERT_PROCESSOR_MAP_ATTR = TagProcessorImpl.class
+            .getName()
+            + ".INSERT_PROCESSOR_MAP";
 
-	private Map properties = new HashMap();
+    public static final String DYNAMIC_PAGE_ATTR = InsertProcessor.class
+            .getName()
+            + ".DYNAMIC_PAGE";
 
-	private Class tagClass;
+    private Map properties = new HashMap();
 
-	private List children = new ArrayList();
+    private Class tagClass;
 
-	private TagProcessor parent;
+    private List children = new ArrayList();
 
-	private Set customPropertyNames = new HashSet();
+    private TagProcessor parent;
 
-	public TagProcessorImpl() {
-	}
+    private Set customPropertyNames = new HashSet();
 
-	public TagProcessorImpl(String inject) {
-		setProperty(JsfConstants.INJECT_ATTR, inject);
-	}
+    public TagProcessorImpl() {
+    }
 
-	public void setProperties(Tag tag, JsfContext jsfContext) {
-		BeanDesc beanDesc = BeanDescFactory.getBeanDesc(tag.getClass());
-		for (Iterator i = getPropertyKeys(); i.hasNext();) {
-			String propertyName = (String) i.next();
-			Object value = getProperty(propertyName);
-			String s = (String) value;
-			if (StringUtil.isEmpty(s) || isCustomProperty(propertyName)) {
-				continue;
-			}
-			if (!beanDesc.hasPropertyDesc(propertyName)) {
-				continue;
-			}
-			if (value != null) {
-				PropertyDesc pd = beanDesc.getPropertyDesc(propertyName);
-				pd.setValue(tag, value);
-			}
-		}
-	}
+    public TagProcessorImpl(String inject) {
+        setProperty(JsfConstants.INJECT_ATTR, inject);
+    }
 
-	public String getProperty(String name) {
-		return (String) properties.get(name);
-	}
+    public void setProperties(Tag tag, JsfContext jsfContext) {
+        BeanDesc beanDesc = BeanDescFactory.getBeanDesc(tag.getClass());
+        for (Iterator i = getPropertyKeys(); i.hasNext();) {
+            String propertyName = (String) i.next();
+            Object value = getProperty(propertyName);
+            String s = (String) value;
+            if (StringUtil.isEmpty(s) || isCustomProperty(propertyName)) {
+                continue;
+            }
+            if (!beanDesc.hasPropertyDesc(propertyName)) {
+                continue;
+            }
+            if (value != null) {
+                PropertyDesc pd = beanDesc.getPropertyDesc(propertyName);
+                pd.setValue(tag, value);
+            }
+        }
+    }
 
-	public void setProperty(String name, String value) {
-		properties.put(name, value);
-	}
+    public String getProperty(String name) {
+        return (String) properties.get(name);
+    }
 
-	public void removeProperty(String name) {
-		properties.remove(name);
-	}
+    public void setProperty(String name, String value) {
+        properties.put(name, value);
+    }
 
-	public Iterator getPropertyKeys() {
-		return properties.keySet().iterator();
-	}
+    public void removeProperty(String name) {
+        properties.remove(name);
+    }
 
-	protected void addCustomPropertyName(String name) {
-		customPropertyNames.add(name);
-	}
+    public Iterator getPropertyKeys() {
+        return properties.keySet().iterator();
+    }
 
-	protected boolean isCustomProperty(String name) {
-		return customPropertyNames.contains(name);
-	}
+    protected void addCustomPropertyName(String name) {
+        customPropertyNames.add(name);
+    }
 
-	public void setup(String namespaceURI, String localName, String qName,
-			Attributes attributes, JsfConfig jsfConfig) {
+    protected boolean isCustomProperty(String name) {
+        return customPropertyNames.contains(name);
+    }
 
-		setupProperties(attributes);
-		renameProperties();
-		processInject(jsfConfig);
-	}
+    public void setup(String namespaceURI, String localName, String qName,
+            Attributes attributes, JsfConfig jsfConfig) {
 
-	protected void setupProperties(Attributes attributes) {
-		if (attributes == null) {
-			return;
-		}
-		int length = attributes.getLength();
-		for (int i = 0; i < length; ++i) {
-			if (JsfConstants.MAYA_NSURI.equals(attributes.getURI(i))) {
-				properties.put(attributes.getLocalName(i), attributes
-						.getValue(i));
-			} else if (properties.get(attributes.getQName(i)) == null) {
-				properties.put(attributes.getQName(i), attributes.getValue(i));
-			}
-		}
-	}
+        setupProperties(attributes);
+        renameProperties();
+        processInject(jsfConfig);
+    }
 
-	protected void renameProperties() {
-		renameProperty(JsfConstants.CLASS_ATTR, JsfConstants.STYLE_CLASS_ATTR);
-	}
+    protected void setupProperties(Attributes attributes) {
+        if (attributes == null) {
+            return;
+        }
+        int length = attributes.getLength();
+        for (int i = 0; i < length; ++i) {
+            if (JsfConstants.MAYA_NSURI.equals(attributes.getURI(i))) {
+                properties.put(attributes.getLocalName(i), attributes
+                        .getValue(i));
+            } else if (properties.get(attributes.getQName(i)) == null) {
+                properties.put(attributes.getQName(i), attributes.getValue(i));
+            }
+        }
+    }
 
-	protected void renameProperty(String from, String to) {
-		if (properties.containsKey(from)) {
-			Object value = properties.remove(from);
-			properties.put(to, value);
-		}
-	}
+    protected void renameProperties() {
+        renameProperty(JsfConstants.CLASS_ATTR, JsfConstants.STYLE_CLASS_ATTR);
+    }
 
-	protected void processInject(JsfConfig jsfConfig) {
-		String inject = getProperty(JsfConstants.INJECT_ATTR);
-		if (inject != null) {
-			TagConfig tagConfig = jsfConfig.getTagConfig(inject);
-			setTagClass(tagConfig.getTagClass());
-		}
-	}
+    protected void renameProperty(String from, String to) {
+        if (properties.containsKey(from)) {
+            Object value = properties.remove(from);
+            properties.put(to, value);
+        }
+    }
 
-	protected Class getTagClass() {
-		return tagClass;
-	}
+    protected void processInject(JsfConfig jsfConfig) {
+        String inject = getProperty(JsfConstants.INJECT_ATTR);
+        if (inject != null) {
+            TagConfig tagConfig = jsfConfig.getTagConfig(inject);
+            setTagClass(tagConfig.getTagClass());
+        }
+    }
 
-	protected void setTagClass(Class tagClass) {
-		this.tagClass = tagClass;
-	}
+    protected Class getTagClass() {
+        return tagClass;
+    }
 
-	public int getChildCount() {
-		return children.size();
-	}
+    protected void setTagClass(Class tagClass) {
+        this.tagClass = tagClass;
+    }
 
-	public TagProcessor getChild(int index) {
-		return (TagProcessor) children.get(index);
-	}
+    public int getChildCount() {
+        return children.size();
+    }
 
-	public void addChild(TagProcessor child) {
-		children.add(child);
-		child.setParent(this);
-	}
+    public TagProcessor getChild(int index) {
+        return (TagProcessor) children.get(index);
+    }
 
-	public TagProcessor getParent() {
-		return parent;
-	}
+    public void addChild(TagProcessor child) {
+        children.add(child);
+        child.setParent(this);
+    }
 
-	public void setParent(TagProcessor parent) {
-		this.parent = parent;
-	}
+    public TagProcessor getParent() {
+        return parent;
+    }
 
-	public void process(JsfContext jsfContext, Tag parentTag)
-			throws JspException {
+    public void setParent(TagProcessor parent) {
+        this.parent = parent;
+    }
 
-		if (tagClass == null) {
-			return;
-		}
-		//TagPool tagPool = pagesContext.getTagPool();
-		//Tag tag = tagPool.request(tagClass);
-		Tag tag = (Tag) ClassUtil.newInstance(tagClass);
-		try {
-			process(jsfContext, tag, parentTag);
-		} finally {
-			tag.release();
-			//tagPool.release(tag);
-		}
+    public void process(JsfContext jsfContext, Tag parentTag)
+            throws JspException {
 
-	}
+        if (tagClass == null) {
+            return;
+        }
+        // TagPool tagPool = pagesContext.getTagPool();
+        // Tag tag = tagPool.request(tagClass);
+        Tag tag = (Tag) ClassUtil.newInstance(tagClass);
+        try {
+            process(jsfContext, tag, parentTag);
+        } finally {
+            tag.release();
+            // tagPool.release(tag);
+        }
 
-	protected void process(JsfContext jsfContext, Tag tag, Tag parentTag)
-			throws JspException {
+    }
 
-		if (parentTag != null) {
-			tag.setParent(parentTag);
-		}
-		tag.setPageContext(jsfContext.getPageContext());
-		setProperties(tag, jsfContext);
-		if (tag instanceof BodyTag) {
-			processBodyTag(jsfContext, (BodyTag) tag);
-		} else if (tag instanceof IterationTag) {
-			processIterationTag(jsfContext, (IterationTag) tag);
-		} else {
-			processTag(jsfContext, tag);
-		}
-	}
+    protected void process(JsfContext jsfContext, Tag tag, Tag parentTag)
+            throws JspException {
 
-	protected void processTag(JsfContext pagesContext, Tag tag)
-			throws JspException {
+        if (parentTag != null) {
+            tag.setParent(parentTag);
+        }
+        tag.setPageContext(jsfContext.getPageContext());
+        setProperties(tag, jsfContext);
+        if (tag instanceof BodyTag) {
+            processBodyTag(jsfContext, (BodyTag) tag);
+        } else if (tag instanceof IterationTag) {
+            processIterationTag(jsfContext, (IterationTag) tag);
+        } else {
+            processTag(jsfContext, tag);
+        }
+    }
 
-		if (Tag.SKIP_BODY != tag.doStartTag()) {
-			processChildren(pagesContext, tag);
-			tag.doEndTag();
-		}
-	}
+    protected void processTag(JsfContext pagesContext, Tag tag)
+            throws JspException {
 
-	protected void processBodyTag(JsfContext jsfContext, BodyTag tag)
-			throws JspException {
+        if (Tag.SKIP_BODY != tag.doStartTag()) {
+            processChildren(pagesContext, tag);
+            tag.doEndTag();
+        }
+    }
 
-		int evalDoStartTag = tag.doStartTag();
-		if (BodyTag.SKIP_BODY != evalDoStartTag) {
-			PageContext pageContext = null;
-			if (BodyTag.EVAL_BODY_INCLUDE != evalDoStartTag) {
-				pageContext = jsfContext.getPageContext();
-				BodyContent bodyContent = pageContext.pushBody();
-				tag.setBodyContent(bodyContent);
-				tag.doInitBody();
-			}
-			do {
-				processChildren(jsfContext, tag);
-			} while (IterationTag.EVAL_BODY_AGAIN == tag.doAfterBody());
-			if (pageContext != null) {
-				pageContext.popBody();
-			}
-		}
-		tag.doEndTag();
-	}
+    protected void processBodyTag(JsfContext jsfContext, BodyTag tag)
+            throws JspException {
 
-	protected void processIterationTag(JsfContext jsfContext, IterationTag tag)
-			throws JspException {
+        int evalDoStartTag = tag.doStartTag();
+        if (BodyTag.SKIP_BODY != evalDoStartTag) {
+            PageContext pageContext = null;
+            if (BodyTag.EVAL_BODY_INCLUDE != evalDoStartTag) {
+                pageContext = jsfContext.getPageContext();
+                BodyContent bodyContent = pageContext.pushBody();
+                tag.setBodyContent(bodyContent);
+                tag.doInitBody();
+            }
+            do {
+                processChildren(jsfContext, tag);
+            } while (IterationTag.EVAL_BODY_AGAIN == tag.doAfterBody());
+            if (pageContext != null) {
+                pageContext.popBody();
+            }
+        }
+        tag.doEndTag();
+    }
 
-		int evalDoStartTag = tag.doStartTag();
-		if (BodyTag.SKIP_BODY != evalDoStartTag) {
-			do {
-				processChildren(jsfContext, tag);
-			} while (IterationTag.EVAL_BODY_AGAIN == tag.doAfterBody());
-		}
-		tag.doEndTag();
-	}
+    protected void processIterationTag(JsfContext jsfContext, IterationTag tag)
+            throws JspException {
 
-	protected void processChildren(JsfContext jsfContext, Tag parentTag)
-			throws JspException {
+        int evalDoStartTag = tag.doStartTag();
+        if (BodyTag.SKIP_BODY != evalDoStartTag) {
+            do {
+                processChildren(jsfContext, tag);
+            } while (IterationTag.EVAL_BODY_AGAIN == tag.doAfterBody());
+        }
+        tag.doEndTag();
+    }
 
-		for (int i = 0; i < getChildCount(); i++) {
-			TagProcessor child = getChild(i);
-			child.process(jsfContext, parentTag);
-		}
-	}
+    protected void processChildren(JsfContext jsfContext, Tag parentTag)
+            throws JspException {
 
-	public TagProcessor findAncestor(Class clazz) {
-		if (parent == null) {
-			return null;
-		}
-		if (clazz.isInstance(parent)) {
-			return parent;
-		}
-		return parent.findAncestor(clazz);
-	}
+        for (int i = 0; i < getChildCount(); i++) {
+            TagProcessor child = getChild(i);
+            child.process(jsfContext, parentTag);
+        }
+    }
 
-	protected Map getInsertProcessorMap(PageContext pageContext) {
-		Map map = (Map) pageContext.getAttribute(INSERT_PROCESSOR_MAP_ATTR);
-		if (map == null) {
-			map = new HashMap();
-			pageContext.setAttribute(INSERT_PROCESSOR_MAP_ATTR, map);
-		}
-		return map;
-	}
+    public TagProcessor findAncestor(Class clazz) {
+        if (parent == null) {
+            return null;
+        }
+        if (clazz.isInstance(parent)) {
+            return parent;
+        }
+        return parent.findAncestor(clazz);
+    }
+
+    protected Map getInsertProcessorMap(PageContext pageContext) {
+        Map map = (Map) pageContext.getAttribute(INSERT_PROCESSOR_MAP_ATTR);
+        if (map == null) {
+            map = new HashMap();
+            pageContext.setAttribute(INSERT_PROCESSOR_MAP_ATTR, map);
+        }
+        return map;
+    }
 }
