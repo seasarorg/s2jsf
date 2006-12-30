@@ -40,7 +40,7 @@ import org.seasar.framework.util.ArrayUtil;
 import org.seasar.jsf.ErrorPageManager;
 import org.seasar.jsf.component.ForEach;
 import org.seasar.jsf.component.S2UIViewRoot;
-import org.seasar.jsf.processor.InsertProcessor;
+import org.seasar.jsf.processor.TagProcessorImpl;
 import org.seasar.jsf.util.ExternalContextUtil;
 
 public class LifecycleImpl extends Lifecycle {
@@ -221,7 +221,7 @@ public class LifecycleImpl extends Lifecycle {
     protected boolean isDynamicPage(FacesContext context, String viewId) {
         ExternalContext externalContext = context.getExternalContext();
         Object isDynamicPage = externalContext.getSessionMap().get(
-                InsertProcessor.DYNAMIC_PAGE_ATTR + "-" + viewId);
+                TagProcessorImpl.DYNAMIC_PAGE_ATTR + "-" + viewId);
 
         if (Boolean.TRUE.equals(isDynamicPage)) {
             return true;

@@ -48,10 +48,6 @@ import org.xml.sax.Attributes;
  */
 public class InsertProcessor extends TagProcessorImpl {
 
-    public static final String DYNAMIC_PAGE_ATTR = InsertProcessor.class
-            .getName()
-            + ".DYNAMIC_PAGE";
-
     public InsertProcessor(String inject) {
         super(inject);
     }
