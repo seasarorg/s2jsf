@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,18 +51,18 @@ public class S2StateManager extends StateManager implements Serializable {
     static final long serialVersionUID = 0L;
 
     /**
-     * web.xml ‚Ì‰Šú‰»ƒpƒ‰ƒ[ƒ^‚ğg‚Á‚ÄƒZƒbƒVƒ‡ƒ“‚É•Û‚·‚éUIViewRoot‚Ì”‚ğw’è‚·‚é‚±‚Æ‚ª‚Å‚«‚é
-     * iw’è‚µ‚È‚¢ê‡‚ÍAUIViewRoot‚ªÛŒÀ‚È‚­ƒZƒbƒVƒ‡ƒ“‚É—­‚Ü‚Á‚Ä‚µ‚Ü‚¤j
+     * web.xml ï¿½Ìï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½gï¿½BÄƒZï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½É•Ûï¿½ï¿½ï¿½ï¿½ï¿½UIViewRootï¿½Ìï¿½ï¿½ï¿½wï¿½è‚·ï¿½é‚±ï¿½Æ‚ï¿½ï¿½Å‚ï¿½ï¿½ï¿½
+     * ï¿½iï¿½wï¿½è‚µï¿½È‚ï¿½ï¿½ê‡ï¿½ÍAUIViewRootï¿½ï¿½ï¿½ÛŒÈ‚ï¿½ï¿½Zï¿½bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½É—ï¿½ï¿½Ü‚BÄ‚ï¿½ï¿½Ü‚ï¿½ï¿½j
      * 
-     *  İ’è—áF
+     *  ï¿½İ’ï¿½ï¿½F
      *   
      *   <context-param>
      *      <param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
      *      <param-value>10</param-value>
      *    </context-param>
      *    
-     *  ¦ ‰Šú‰»ƒpƒ‰ƒ[ƒ^‚Ì’l‚É‚ÍA®”’l‚ğƒZƒbƒg‚·‚é
-     *  ¦ ‰Šú‰»ƒpƒ‰ƒ[ƒ^‚Ì„§’l‚Í 10
+     *  ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Ì’lï¿½É‚ÍAï¿½ï¿½ï¿½ï¿½ï¿½lï¿½ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½
+     *  ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½Ìï¿½ï¿½ï¿½ï¿½lï¿½ï¿½ 10
      *    
      */
     public static final String UI_VIEW_ROOT_CACHE_SIZE = "org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE";       

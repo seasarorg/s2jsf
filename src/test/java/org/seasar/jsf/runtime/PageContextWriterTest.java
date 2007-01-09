@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class PageContextWriterTest extends TestCase {
         pageContextWriter.write("7650");
 
         // ## Assert ##
-        assertEquals("write‚ÍPageContextImpl#getOut()‚ÖˆÏ÷‚µ‚Ä‚¢‚é‚±‚Æ", "7650", sb
+        assertEquals("writeï¿½ï¿½PageContextImpl#getOut()ï¿½ÖˆÏï¿½Ä‚ï¿½ï¿½é‚±ï¿½ï¿½", "7650", sb
             .toString());
     }
 
@@ -66,7 +66,7 @@ public class PageContextWriterTest extends TestCase {
         pageContextWriter.flush();
 
         // ## Assert ##
-        assertEquals("flush‚ÍPageContextImpl#getOut()‚ÖˆÏ÷‚µ‚Ä‚¢‚é‚±‚Æ", true, called[0]);
+        assertEquals("flushï¿½ï¿½PageContextImpl#getOut()ï¿½ÖˆÏï¿½Ä‚ï¿½ï¿½é‚±ï¿½ï¿½", true, called[0]);
     }
 
     public void testClose() throws Exception {
@@ -86,7 +86,7 @@ public class PageContextWriterTest extends TestCase {
         pageContextWriter.close();
 
         // ## Assert ##
-        assertEquals("close‚ÍPageContextImpl#getOut()‚ÖˆÏ÷‚µ‚Ä‚¢‚é‚±‚Æ", true, called[0]);
+        assertEquals("closeï¿½ï¿½PageContextImpl#getOut()ï¿½ÖˆÏï¿½Ä‚ï¿½ï¿½é‚±ï¿½ï¿½", true, called[0]);
     }
 
 }
