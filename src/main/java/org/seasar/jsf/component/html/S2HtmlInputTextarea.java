@@ -46,12 +46,20 @@ public class S2HtmlInputTextarea extends HtmlInputTextarea {
         this.label = label;
     }
 
-    public void setValue(Object value) {
+    public Object getValue() {
+        if (isLocalValueSet()) {
+            return getLocalValue();
+        }
+        return super.getValue();
+    }
+
+  public void setValue(Object value) {
         Object newValue = value;
         if ("".equals(value)) {
             newValue = null;
         }
         super.setValue(newValue);
+        setLocalValueSet(true);
     }
 
     public void validate(FacesContext context) {
