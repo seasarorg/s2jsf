@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2005 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.renderkit.JSFAttr;
 import org.apache.myfaces.renderkit.RendererUtils;
@@ -29,9 +31,12 @@ import org.apache.myfaces.renderkit.html.HtmlRendererUtils;
 import org.apache.myfaces.renderkit.html.HtmlTextareaRendererBase;
 import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.component.html.S2HtmlInputTextarea;
+import org.seasar.jsf.util.DecodeUtil;
+import org.seasar.jsf.util.RenderUtil;
 
 /**
  * @author shot
+ * @author yone
  */
 public class HtmlInputTextareaRenderer extends HtmlTextareaRendererBase {
 
@@ -58,6 +63,18 @@ public class HtmlInputTextareaRenderer extends HtmlTextareaRendererBase {
         String value = RendererUtils.getStringValue(context, component);
         writer.writeText(value, JSFAttr.VALUE_ATTR);
         writer.endElement(HTML.TEXTAREA_ELEM);
+    }
+
+    public void decode(FacesContext context, UIComponent component) {
+        DecodeUtil.decode(context, component);
+    }
+
+    public Object getConvertedValue(FacesContext context,
+            UIComponent component, Object submittedValue)
+            throws ConverterException {
+
+        return RenderUtil.getConvertedUIOutputValue(context,
+                (UIOutput) component, submittedValue);
     }
 
 }

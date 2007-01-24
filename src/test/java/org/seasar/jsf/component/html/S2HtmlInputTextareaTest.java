@@ -36,5 +36,12 @@ public class S2HtmlInputTextareaTest extends TestCase {
         Object value = input.getValue();
         assertNull(value);
     }
+    
+    public void testWrapAttribute() throws Exception {
+        S2HtmlInputTextarea input = new S2HtmlInputTextarea();
+        input.setWrap("virtual");
+        
+        assertEquals("virtual", input.getWrap());
+    }
 
 }
