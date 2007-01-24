@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -237,6 +237,8 @@ public interface JsfConstants {
 
     public String ROWS_ATTR = "rows";
 
+    public String WRAP_ATTR = "wrap";
+
     public String REDISPLAY_ATTR = "redisplay";
 
     public String ONCLICK_ATTR = "onclick";
@@ -300,9 +302,9 @@ public interface JsfConstants {
     public String SHOW_SUMMARY_ATTR = "showSummary";
 
     public String SHOW_DETAIL_ATTR = "showDetail";
-    
+
     public String RENDERED_ATTR = "rendered";
-    
+
     public String AUTOCOMPLETE_ATTR = "autocomplete";
 
     public String SCRIPT_ELEM = "script";

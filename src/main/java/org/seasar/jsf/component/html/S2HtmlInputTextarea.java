@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -28,11 +28,25 @@ import org.seasar.jsf.util.UIValueUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class S2HtmlInputTextarea extends HtmlInputTextarea {
 
     private String label;
+
+    private String wrap;
+
+    public String getWrap() {
+        if (wrap != null) {
+            return wrap;
+        }
+        ValueBinding vb = getValueBinding(JsfConstants.WRAP_ATTR);
+        return vb != null ? (String) vb.getValue(getFacesContext()) : getId();
+    }
+
+    public void setWrap(String wrap) {
+        this.wrap = wrap;
+    }
 
     public String getLabel() {
         if (label != null) {
@@ -53,7 +67,7 @@ public class S2HtmlInputTextarea extends HtmlInputTextarea {
         return super.getValue();
     }
 
-  public void setValue(Object value) {
+    public void setValue(Object value) {
         Object newValue = value;
         if ("".equals(value)) {
             newValue = null;
@@ -93,11 +107,12 @@ public class S2HtmlInputTextarea extends HtmlInputTextarea {
             queueEvent(new ValueChangeEvent(this, previousValue, convertedValue));
         }
     }
-    
+
     public Object saveState(FacesContext context) {
-        Object[] values = new Object[2];
+        Object[] values = new Object[3];
         values[0] = super.saveState(context);
         values[1] = label;
+        values[2] = wrap;
         return values;
     }
 
@@ -105,5 +120,6 @@ public class S2HtmlInputTextarea extends HtmlInputTextarea {
         Object values[] = (Object[]) state;
         super.restoreState(context, values[0]);
         label = (String) values[1];
+        wrap = (String) values[2];
     }
 }

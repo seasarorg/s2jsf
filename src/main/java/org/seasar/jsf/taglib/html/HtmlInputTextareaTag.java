@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -22,13 +22,23 @@ import org.seasar.jsf.JsfConstants;
 
 /**
  * @author higa
- *
+ * @author shot
  */
 public class HtmlInputTextareaTag extends HtmlInputTagBase {
 
     private String cols;
 
     private String rows;
+
+    private String wrap;
+
+    public String getWrap() {
+        return wrap;
+    }
+
+    public void setWrap(String wrap) {
+        this.wrap = wrap;
+    }
 
     public String getComponentType() {
         return HtmlInputTextarea.COMPONENT_TYPE;
@@ -50,11 +60,13 @@ public class HtmlInputTextareaTag extends HtmlInputTagBase {
         super.release();
         cols = null;
         rows = null;
+        wrap = null;
     }
 
     protected void setProperties(UIComponent component) {
         super.setProperties(component);
         setComponentProperty(component, JsfConstants.COLS_ATTR, cols);
         setComponentProperty(component, JsfConstants.ROWS_ATTR, rows);
+        setComponentProperty(component, JsfConstants.WRAP_ATTR, wrap);
     }
 }
