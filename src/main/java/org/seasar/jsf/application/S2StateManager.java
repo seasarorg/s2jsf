@@ -51,20 +51,19 @@ public class S2StateManager extends StateManager implements Serializable {
     static final long serialVersionUID = 0L;
 
     /**
-     * web.xml �̏���p�����[�^��g�BăZ�b�V�����ɕێ�����UIViewRoot�̐���w�肷�邱�Ƃ��ł���
-     * �i�w�肵�Ȃ��ꍇ�́AUIViewRoot���یȂ��Z�b�V�����ɗ��܂BĂ��܂��j
-     * 
-     *  �ݒ��F
-     *   
-     *   <context-param>
-     *      <param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
-     *      <param-value>10</param-value>
-     *    </context-param>
-     *    
-     *  �� ����p�����[�^�̒l�ɂ́A�����l��Z�b�g����
-     *  �� ����p�����[�^�̐����l�� 10
-     *    
-     */
+      * web.xml の初期化パラメータを使ってセッションに保持するUIViewRootの数を指定することができる
+      * （指定しない場合は、UIViewRootが際限なくセッションに溜まってしまう）
+      *   
+      * 設定例：
+      *      
+      *   <context-param>
+      *      <param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
+      *      <param-value>10</param-value>
+      *   </context-param>
+      *      
+      * ※ 初期化パラメータの値には、整数値をセットする
+      * ※ 初期化パラメータの推奨値は 10
+      */
     public static final String UI_VIEW_ROOT_CACHE_SIZE = "org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE";       
     
     private int viewRootCacheSize = 0;
@@ -101,8 +100,14 @@ public class S2StateManager extends StateManager implements Serializable {
         if (isSavingStateInClient(context)) {
             return serializedView;
         }
+
         saveSerializedViewToSession(externalContext, viewRoot.getViewId(),
             serializedView);
+        
+        if (getViewRootCacheSize(context) > 0) {
+            updateViewRootCache(context, viewRoot.getViewId());
+        }
+        
         return null;
     }
 
@@ -267,9 +272,9 @@ public class S2StateManager extends StateManager implements Serializable {
              * viewId); }
              */
             
-            if (getViewRootCacheSize(context) > 0) {
-                updateViewRootCache(context, viewId);
-            }
+//            if (getViewRootCacheSize(context) > 0) {
+//                updateViewRootCache(context, viewId);
+//            }
             
         }
         return viewRoot;
@@ -402,7 +407,7 @@ public class S2StateManager extends StateManager implements Serializable {
         Map sessionMap = context.getExternalContext().getSessionMap();
         Map viewAccessInfoMap = null;
         if (!sessionMap.containsKey(VIEW_ACCESS_INFO)) {
-            viewAccessInfoMap = new HashMap();            
+            viewAccessInfoMap = new HashMap();
         } else {        
             viewAccessInfoMap = (Map)sessionMap.get(VIEW_ACCESS_INFO);
         }
@@ -416,8 +421,12 @@ public class S2StateManager extends StateManager implements Serializable {
                 viewAccessInfoMap.remove(oldestAccessedViewId);
                 
                 ExternalContext extContext = context.getExternalContext();
+                
                 removeSerializedViewFromSession(extContext, oldestAccessedViewId);
-                removeLastModifiedFromSession(extContext, oldestAccessedViewId);                
+                removeLastModifiedFromSession(extContext, oldestAccessedViewId);
+                
+                // recursive 
+                updateViewRootCache(context, viewId);
             }
         }
         
