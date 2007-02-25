@@ -40,7 +40,6 @@ import org.seasar.framework.util.ArrayUtil;
 import org.seasar.jsf.ErrorPageManager;
 import org.seasar.jsf.component.ForEach;
 import org.seasar.jsf.component.S2UIViewRoot;
-import org.seasar.jsf.processor.TagProcessorImpl;
 import org.seasar.jsf.util.ExternalContextUtil;
 
 public class LifecycleImpl extends Lifecycle {
@@ -195,14 +194,7 @@ public class LifecycleImpl extends Lifecycle {
         Application application = context.getApplication();
         ViewHandler viewHandler = application.getViewHandler();
         try {
-            UIViewRoot viewRoot = context.getViewRoot();
-            String viewId = viewRoot.getViewId();
-            if (isDynamicPage(context, viewId)) {
-                viewRoot = viewHandler.createView(context, viewId);
-                context.setViewRoot(viewRoot);
-            }
-
-            viewHandler.renderView(context, viewRoot);
+            viewHandler.renderView(context, context.getViewRoot());
         } catch (IOException e) {
             throw new FacesException(e.getMessage(), e);
         } catch (EvaluationException ex) {
@@ -216,18 +208,6 @@ public class LifecycleImpl extends Lifecycle {
             }
         }
         afterPhase(context, PhaseId.RENDER_RESPONSE);
-    }
-
-    protected boolean isDynamicPage(FacesContext context, String viewId) {
-        ExternalContext externalContext = context.getExternalContext();
-        Object isDynamicPage = externalContext.getSessionMap().get(
-                TagProcessorImpl.DYNAMIC_PAGE_ATTR + "-" + viewId);
-
-        if (Boolean.TRUE.equals(isDynamicPage)) {
-            return true;
-        }
-
-        return false;
     }
 
     protected String getViewIdFromSession(ExternalContext externalContext) {

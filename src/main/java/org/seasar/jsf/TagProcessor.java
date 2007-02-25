@@ -24,33 +24,37 @@ import org.xml.sax.Attributes;
 
 /**
  * @author higa
- *  
+ * 
  */
 public interface TagProcessor {
 
-	public void process(JsfContext pagesContext, Tag parentTag)
-			throws JspException;
+    public static final String LAST_PROCESSED_COMPONENT_ATTR = TagProcessor.class
+            .getName()
+            + ".LAST_PROCESSED_COMPONENT";
 
-	public int getChildCount();
+    public void process(JsfContext pagesContext, Tag parentTag)
+            throws JspException;
 
-	public TagProcessor getChild(int index);
+    public int getChildCount();
 
-	public void addChild(TagProcessor processor);
+    public TagProcessor getChild(int index);
 
-	public TagProcessor getParent();
+    public void addChild(TagProcessor processor);
 
-	public void setParent(TagProcessor parent);
+    public TagProcessor getParent();
 
-	public String getProperty(String name);
+    public void setParent(TagProcessor parent);
 
-	public void setProperty(String name, String value);
-	
-	public Iterator getPropertyKeys();
+    public String getProperty(String name);
 
-	public void setup(String namespaceURI, String localName,
-			String qName, Attributes attributes, JsfConfig jsfConfig);
-	
-	public void setProperties(Tag tag, JsfContext jsfContext);
+    public void setProperty(String name, String value);
 
-	public TagProcessor findAncestor(Class clazz);
+    public Iterator getPropertyKeys();
+
+    public void setup(String namespaceURI, String localName, String qName,
+            Attributes attributes, JsfConfig jsfConfig);
+
+    public void setProperties(Tag tag, JsfContext jsfContext);
+
+    public TagProcessor findAncestor(Class clazz);
 }

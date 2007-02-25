@@ -17,6 +17,7 @@ package org.seasar.jsf.processor;
 
 import java.util.Iterator;
 
+import javax.faces.component.UIComponent;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
 
@@ -29,84 +30,90 @@ import org.xml.sax.Attributes;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class TextProcessor implements TagProcessor {
 
-	private String value;
+    private String value;
 
-	public TextProcessor() {
-	}
-
-	public TextProcessor(String value) {
-		this.value = value;
-	}
-    
-    public void addValue(String v) {
-        this.value = this.value + v; 
+    public TextProcessor() {
     }
-	
-	public void setProperties(Tag tag, JsfContext jsfContext) {
-		TextTag textTag = (TextTag) tag;
-		textTag.setValue(value);
-	}
-	
-	public Iterator getPropertyKeys() {
-		return null;
-	}
 
-	public String getProperty(String name) {
-		return null;
-	}
+    public TextProcessor(String value) {
+        this.value = value;
+    }
 
-	public void setProperty(String name, String value) {
-	}
-	
-	public void setup(String namespaceURI, String localName,
-			String qName, Attributes attributes, JsfConfig jsfConfig) {
-	}
+    public void addValue(String v) {
+        this.value = this.value + v;
+    }
 
-	public int getChildCount() {
-		return 0;
-	}
+    public void setProperties(Tag tag, JsfContext jsfContext) {
+        TextTag textTag = (TextTag) tag;
+        textTag.setValue(value);
+    }
 
-	public TagProcessor getChild(int index) {
-		return null;
-	}
+    public Iterator getPropertyKeys() {
+        return null;
+    }
 
-	public void addChild(TagProcessor child) {
-	}
+    public String getProperty(String name) {
+        return null;
+    }
 
-	public TagProcessor getParent() {
-		return null;
-	}
+    public void setProperty(String name, String value) {
+    }
 
-	public void setParent(TagProcessor parent) {
-	}
+    public void setup(String namespaceURI, String localName, String qName,
+            Attributes attributes, JsfConfig jsfConfig) {
+    }
 
-	public void process(JsfContext jsfContext, Tag parentTag)
-			throws JspException {
+    public int getChildCount() {
+        return 0;
+    }
 
-		TagPool tagPool = jsfContext.getTagPool();
-		Tag tag = tagPool.request(TextTag.class);
-		try {
-			tag.setPageContext(jsfContext.getPageContext());
-			setProperties(tag, jsfContext);
-			tag.doStartTag();
-			tag.doEndTag();
-		} finally {
-			tag.release();
-			tagPool.release(tag);
-		}
+    public TagProcessor getChild(int index) {
+        return null;
+    }
 
-	}
+    public void addChild(TagProcessor child) {
+    }
 
-	public TagProcessor findAncestor(Class clazz) {
-		return null;
-	}
-    
+    public TagProcessor getParent() {
+        return null;
+    }
+
+    public void setParent(TagProcessor parent) {
+    }
+
+    public void process(JsfContext jsfContext, Tag parentTag)
+            throws JspException {
+
+        TagPool tagPool = jsfContext.getTagPool();
+        Tag tag = tagPool.request(TextTag.class);
+        try {
+            tag.setPageContext(jsfContext.getPageContext());
+            setProperties(tag, jsfContext);
+            tag.doStartTag();
+            saveLastProcessedComponent(jsfContext, tag);
+            tag.doEndTag();
+        } finally {
+            tag.release();
+            tagPool.release(tag);
+        }
+
+    }
+
+    public TagProcessor findAncestor(Class clazz) {
+        return null;
+    }
+
     public String getValue() {
         return this.value;
     }
-    
+
+    private void saveLastProcessedComponent(JsfContext jsfContext, Tag tag) {
+        UIComponent componentInstance = ((TextTag) tag).getComponentInstance();
+        jsfContext.getPageContext().getRequest().setAttribute(
+                LAST_PROCESSED_COMPONENT_ATTR, componentInstance);
+    }
 }

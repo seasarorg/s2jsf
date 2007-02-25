@@ -16,6 +16,7 @@
 package org.seasar.jsf.processor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,6 +24,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.BodyContent;
@@ -40,6 +45,8 @@ import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.JsfContext;
 import org.seasar.jsf.TagConfig;
 import org.seasar.jsf.TagProcessor;
+import org.seasar.jsf.util.BindingUtil;
+import org.seasar.jsf.util.ExternalContextUtil;
 import org.xml.sax.Attributes;
 
 /**
@@ -52,9 +59,9 @@ public class TagProcessorImpl implements TagProcessor {
             .getName()
             + ".INSERT_PROCESSOR_MAP";
 
-    public static final String DYNAMIC_PAGE_ATTR = InsertProcessor.class
+    public static final String REFERENCE_VALUE_MAP_ATTR = TagProcessorImpl.class
             .getName()
-            + ".DYNAMIC_PAGE";
+            + ".REFERENCE_VALUE_MAP";
 
     private Map properties = new HashMap();
 
@@ -226,6 +233,7 @@ public class TagProcessorImpl implements TagProcessor {
             throws JspException {
 
         if (Tag.SKIP_BODY != tag.doStartTag()) {
+            saveLastProcessedComponent(pagesContext, tag);
             processChildren(pagesContext, tag);
             tag.doEndTag();
         }
@@ -236,6 +244,7 @@ public class TagProcessorImpl implements TagProcessor {
 
         int evalDoStartTag = tag.doStartTag();
         if (BodyTag.SKIP_BODY != evalDoStartTag) {
+            saveLastProcessedComponent(jsfContext, tag);
             PageContext pageContext = null;
             if (BodyTag.EVAL_BODY_INCLUDE != evalDoStartTag) {
                 pageContext = jsfContext.getPageContext();
@@ -258,6 +267,7 @@ public class TagProcessorImpl implements TagProcessor {
 
         int evalDoStartTag = tag.doStartTag();
         if (BodyTag.SKIP_BODY != evalDoStartTag) {
+            saveLastProcessedComponent(jsfContext, tag);
             do {
                 processChildren(jsfContext, tag);
             } while (IterationTag.EVAL_BODY_AGAIN == tag.doAfterBody());
@@ -291,5 +301,86 @@ public class TagProcessorImpl implements TagProcessor {
             pageContext.setAttribute(INSERT_PROCESSOR_MAP_ATTR, map);
         }
         return map;
+    }
+
+    protected boolean isPageModified(String src, String newSrc) {
+        return isPageModified(src, new String[] { newSrc });
+    }
+
+    protected boolean isPageModified(String src, String[] newSrcs) {
+        if (!BindingUtil.isValueReference(src)) {
+            return false;
+        }
+
+        Map map = getReferenceValueMap();
+        if (!map.containsKey(src)) {
+            map.put(src, newSrcs);
+            return false;
+        }
+
+        String[] oldSrcs = (String[]) map.get(src);
+
+        if (!Arrays.equals(oldSrcs, newSrcs)) {
+            map.put(src, newSrcs);
+            return true;
+        }
+
+        return false;
+    }
+
+    private Map getReferenceValueMap() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Map sessionMap = externalContext.getSessionMap();
+
+        String viewId = ExternalContextUtil.getViewId(externalContext);
+        Map map = (Map) sessionMap.get(REFERENCE_VALUE_MAP_ATTR + "-" + viewId);
+
+        if (map == null) {
+            map = new HashMap();
+            sessionMap.put(REFERENCE_VALUE_MAP_ATTR + "-" + viewId, map);
+        }
+        return map;
+    }
+
+    private void saveLastProcessedComponent(JsfContext jsfContext, Tag tag) {
+        if (tag instanceof UIComponentTag == false) {
+            return;
+        }
+
+        UIComponent componentInstance = ((UIComponentTag) tag)
+                .getComponentInstance();
+        jsfContext.getPageContext().getRequest().setAttribute(
+                LAST_PROCESSED_COMPONENT_ATTR, componentInstance);
+    }
+
+    protected void restructComponentTree() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        UIComponent component = (UIComponent) context.getExternalContext()
+                .getRequestMap().get(LAST_PROCESSED_COMPONENT_ATTR);
+
+        removeNextSiblings(component);
+    }
+
+    private void removeNextSiblings(UIComponent component) {
+        if (component == null || component.getParent() == null) {
+            return;
+        }
+
+        UIComponent parent = component.getParent();
+        boolean needsDelete = false;
+
+        List children = parent.getChildren();
+        for (int index = 0; index < children.size(); index++) {
+            UIComponent child = (UIComponent) children.get(index);
+            if (needsDelete) {
+                children.remove(index);
+                index--;
+            } else if (child == component) {
+                needsDelete = true;
+            }
+        }
+
+        removeNextSiblings(parent);
     }
 }

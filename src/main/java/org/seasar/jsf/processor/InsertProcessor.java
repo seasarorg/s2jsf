@@ -38,7 +38,6 @@ import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.TagProcessorNotFoundRuntimeException;
 import org.seasar.jsf.util.BindingUtil;
-import org.seasar.jsf.util.ExternalContextUtil;
 import org.seasar.jsf.util.InvokeUtil;
 import org.xml.sax.Attributes;
 
@@ -85,15 +84,13 @@ public class InsertProcessor extends TagProcessorImpl {
         }
 
         String src = getSrc();
+        String[] srcs = getSrcs();
         if (BindingUtil.isValueReference(src)) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            String viewId = ExternalContextUtil.getViewId(externalContext);
-            externalContext.getSessionMap().put(
-                    DYNAMIC_PAGE_ATTR + "-" + viewId, Boolean.TRUE);
+            if (isPageModified(src, srcs)) {
+                restructComponentTree();
+            }
         }
 
-        String[] srcs = getSrcs();
         if (srcs != null) {
             for (int i = 0; i < srcs.length; i++) {
                 processInclude(jsfContext, parentTag, srcs[i]);
@@ -151,6 +148,11 @@ public class InsertProcessor extends TagProcessorImpl {
         FacesContext context = FacesContext.getCurrentInstance();
         if (initAction != null) {
             String newSrc = executeInitAction(context, initAction);
+
+            if (isPageModified(initAction, newSrc)) {
+                restructComponentTree();
+            }
+
             if (newSrc != null) {
                 processInclude(jsfContext, parentTag, newSrc);
                 return;
