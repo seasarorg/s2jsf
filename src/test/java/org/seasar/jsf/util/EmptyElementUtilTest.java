@@ -13,28 +13,16 @@
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
-package org.seasar.jsf.processor;
+package org.seasar.jsf.util;
 
-import org.seasar.jsf.TagProcessor;
+import junit.framework.TestCase;
 
-/**
- * @author higa
- * @author yone
- */
-public class OutputTextProcessor extends TagProcessorImpl {
+public class EmptyElementUtilTest extends TestCase {
 
-    public OutputTextProcessor(String inject) {
-        super(inject);
-        // setProperty(JsfConstants.ESCAPE_ATTR, "false");
+    public void testIsEmptyElement() throws Exception {
+        assertTrue(EmptyElementUtil.isEmptyElement("input"));
+        assertTrue(EmptyElementUtil.isEmptyElement("INPUT"));
+        assertFalse(EmptyElementUtil.isEmptyElement("textarea"));
     }
 
-    public void addChild(TagProcessor child) {
-        if (child instanceof TextProcessor) {
-            return;
-        }
-        super.addChild(child);
-    }
-
-    public void addText(String text) {
-    }
 }

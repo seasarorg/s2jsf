@@ -116,4 +116,20 @@ public class TextProcessor implements TagProcessor {
         jsfContext.getPageContext().getRequest().setAttribute(
                 LAST_PROCESSED_COMPONENT_ATTR, componentInstance);
     }
+
+    public void addText(String text) {
+    }
+
+    public void decrementChildTextSize() {
+    }
+
+    public void endElement() {
+    }
+
+    public int getChildTextSize() {
+        return 0;
+    }
+
+    public void incrementChildTextSize() {
+    }
 }

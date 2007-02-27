@@ -32,29 +32,38 @@ public interface TagProcessor {
             .getName()
             + ".LAST_PROCESSED_COMPONENT";
 
-    public void process(JsfContext pagesContext, Tag parentTag)
-            throws JspException;
+    void process(JsfContext pagesContext, Tag parentTag) throws JspException;
 
-    public int getChildCount();
+    int getChildCount();
 
-    public TagProcessor getChild(int index);
+    TagProcessor getChild(int index);
 
-    public void addChild(TagProcessor processor);
+    void addChild(TagProcessor processor);
 
-    public TagProcessor getParent();
+    TagProcessor getParent();
 
-    public void setParent(TagProcessor parent);
+    void setParent(TagProcessor parent);
 
-    public String getProperty(String name);
+    String getProperty(String name);
 
-    public void setProperty(String name, String value);
+    void setProperty(String name, String value);
 
-    public Iterator getPropertyKeys();
+    Iterator getPropertyKeys();
 
-    public void setup(String namespaceURI, String localName, String qName,
+    void setup(String namespaceURI, String localName, String qName,
             Attributes attributes, JsfConfig jsfConfig);
 
-    public void setProperties(Tag tag, JsfContext jsfContext);
+    void setProperties(Tag tag, JsfContext jsfContext);
 
-    public TagProcessor findAncestor(Class clazz);
+    TagProcessor findAncestor(Class clazz);
+
+    void endElement();
+
+    void addText(String text);
+
+    int getChildTextSize();
+
+    void incrementChildTextSize();
+
+    void decrementChildTextSize();
 }
