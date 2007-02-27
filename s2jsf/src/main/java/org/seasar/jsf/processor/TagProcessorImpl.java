@@ -66,11 +66,21 @@ public class TagProcessorImpl implements TagProcessor {
 
     private Set customPropertyNames = new HashSet();
 
+    private StringBuffer buffer;
+
+    private int childTextSize;
+
     public TagProcessorImpl() {
+        initializeBuffer();
     }
 
     public TagProcessorImpl(String inject) {
         setProperty(JsfConstants.INJECT_ATTR, inject);
+        initializeBuffer();
+    }
+
+    protected void initializeBuffer() {
+        buffer = new StringBuffer(100);
     }
 
     public void setProperties(Tag tag, JsfContext jsfContext) {
@@ -175,6 +185,7 @@ public class TagProcessorImpl implements TagProcessor {
     }
 
     public void addChild(TagProcessor child) {
+        processText();
         children.add(child);
         child.setParent(this);
     }
@@ -291,5 +302,34 @@ public class TagProcessorImpl implements TagProcessor {
             pageContext.setAttribute(INSERT_PROCESSOR_MAP_ATTR, map);
         }
         return map;
+    }
+
+    public int getChildTextSize() {
+        return childTextSize;
+    }
+
+    public void incrementChildTextSize() {
+        ++childTextSize;
+    }
+
+    public void decrementChildTextSize() {
+        --childTextSize;
+    }
+
+    protected void processText() {
+        if (buffer.length() > 0) {
+            TagProcessor child = new TextProcessor(buffer.toString());
+            children.add(child);
+            child.setParent(this);
+            initializeBuffer();
+        }
+    }
+
+    public void addText(String text) {
+        buffer.append(text);
+    }
+
+    public void endElement() {
+        processText();
     }
 }

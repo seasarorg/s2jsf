@@ -24,33 +24,43 @@ import org.xml.sax.Attributes;
 
 /**
  * @author higa
- *  
+ * 
  */
 public interface TagProcessor {
 
-	public void process(JsfContext pagesContext, Tag parentTag)
-			throws JspException;
+    public void process(JsfContext pagesContext, Tag parentTag)
+            throws JspException;
 
-	public int getChildCount();
+    public int getChildCount();
 
-	public TagProcessor getChild(int index);
+    public TagProcessor getChild(int index);
 
-	public void addChild(TagProcessor processor);
+    public void addChild(TagProcessor processor);
 
-	public TagProcessor getParent();
+    public TagProcessor getParent();
 
-	public void setParent(TagProcessor parent);
+    public void setParent(TagProcessor parent);
 
-	public String getProperty(String name);
+    public String getProperty(String name);
 
-	public void setProperty(String name, String value);
-	
-	public Iterator getPropertyKeys();
+    public void setProperty(String name, String value);
 
-	public void setup(String namespaceURI, String localName,
-			String qName, Attributes attributes, JsfConfig jsfConfig);
-	
-	public void setProperties(Tag tag, JsfContext jsfContext);
+    public Iterator getPropertyKeys();
 
-	public TagProcessor findAncestor(Class clazz);
+    public void setup(String namespaceURI, String localName, String qName,
+            Attributes attributes, JsfConfig jsfConfig);
+
+    public void setProperties(Tag tag, JsfContext jsfContext);
+
+    public TagProcessor findAncestor(Class clazz);
+
+    void endElement();
+
+    void addText(String text);
+
+    int getChildTextSize();
+
+    void incrementChildTextSize();
+
+    void decrementChildTextSize();
 }

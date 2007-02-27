@@ -109,4 +109,20 @@ public class TextProcessor implements TagProcessor {
         return this.value;
     }
     
+
+    public void addText(String text) {
+    }
+
+    public void decrementChildTextSize() {
+    }
+
+    public void endElement() {
+    }
+
+    public int getChildTextSize() {
+        return 0;
+    }
+
+    public void incrementChildTextSize() {
+    }
 }

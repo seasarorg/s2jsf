@@ -111,6 +111,22 @@ public interface JsfConstants {
 
     public String LI_ELEM = "li";
 
+    public String FRAME_ELEM = "frame";
+
+    public String HR_ELEM = "hr";
+
+    public String PARAM_ELEM = "param";
+
+    public String BASEFONT_ELEM = "basefont";
+
+    public String IMG_ELEM = "img";
+
+    public String AREA_ELEM = "area";
+
+    public String ISINDEX_ELEM = "isindex";
+
+    public String COL_ELEM = "col";
+
     public String ID_ATTR = "id";
 
     public String CLASS_ATTR = "class";
