@@ -27,6 +27,9 @@ import org.xml.sax.Attributes;
  * 
  */
 public interface TagProcessor {
+    public static final String LAST_PROCESSED_COMPONENT_ATTR = TagProcessor.class
+            .getName()
+            + ".LAST_PROCESSED_COMPONENT";
 
     public void process(JsfContext pagesContext, Tag parentTag)
             throws JspException;

@@ -16,7 +16,9 @@
 package org.seasar.jsf.processor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.EvaluationException;
@@ -105,29 +107,38 @@ public class InsertProcessorTest extends TeedaTestCase {
         ip.setProperty("src", "test");
         ip.process(jsfContext, null);
 
-        Object result = getExternalContext().getSessionMap().get(
-                InsertProcessor.DYNAMIC_PAGE_ATTR + "-" + "/hello.jsp");
-
-        assertEquals(result, null);
+        Map map = (Map) getExternalContext().getSessionMap().get(
+                TagProcessorImpl.REFERENCE_VALUE_MAP_ATTR + "-"
+                        + "/mock-path.jsp");
+        assertNull(map);
     }
 
     public void testProcess2() throws Exception {
         InsertProcessor ip = new InsertProcessor("insert");
+        // Prepare for MethodBinding
+        MockFacesContext context = getFacesContext();
+        MockApplicationInsertProcessor application = new MockApplicationInsertProcessor();
+        MockMethodBindingInsertProcessor1 mb = new MockMethodBindingInsertProcessor1();
+        application.setMethodBinding(mb);
+        context.setApplication(application);
 
         // Prepare for ValueBinding
-        MockApplication application = getApplication();
         MockValueBinding vb = new MockValueBinding();
         application.setValueBinding(vb);
-        vb.setValue(null, null);
+        vb.setValue(null, "xxx");
+
+        // Prepare for processInclude
+        getContainer().register(MockViewTemplateFactory.class);
 
         JsfContext jsfContext = new JsfContextImpl(new PageContextImpl(), null,
                 null);
         ip.setProperty("src", "#{test}");
         ip.process(jsfContext, null);
 
-        Object result = getExternalContext().getSessionMap().get(
-                InsertProcessor.DYNAMIC_PAGE_ATTR + "-" + "/hello.jsp");
-        assertEquals(result, Boolean.TRUE);
+        Map map = (Map) getExternalContext().getSessionMap().get(
+                TagProcessorImpl.REFERENCE_VALUE_MAP_ATTR + "-" + "/hello.jsp");
+        Object[] result = (Object[]) map.get("#{test}");
+        assertTrue(Arrays.equals(new String[] { "xxx" }, result));
     }
 
     public void testProcessInclude1() throws Exception {

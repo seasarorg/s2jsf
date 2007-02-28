@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.faces.application.Application;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.servlet.jsp.JspException;
@@ -37,7 +36,6 @@ import org.seasar.jsf.ViewTemplate;
 import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.jsf.exception.InsertProcessorNotFoundRuntimeException;
 import org.seasar.jsf.util.BindingUtil;
-import org.seasar.jsf.util.ExternalContextUtil;
 
 /**
  * @author higa
@@ -133,14 +131,15 @@ public class ViewProcessor extends TagProcessorImpl {
     public String getExtendsPath() {
         if (BindingUtil.isValueReference(extendsPath)) {
             FacesContext context = FacesContext.getCurrentInstance();
-            ExternalContext externalContext = context.getExternalContext();
-            String viewId = ExternalContextUtil.getViewId(externalContext);
-            externalContext.getSessionMap().put(
-                    DYNAMIC_PAGE_ATTR + "-" + viewId, Boolean.TRUE);
-
             Application app = context.getApplication();
             ValueBinding vb = app.createValueBinding(extendsPath);
-            return (String) vb.getValue(context);
+            String path = (String) vb.getValue(context);
+
+            if (isPageModified(extendsPath, path)) {
+                restructComponentTree();
+            }
+
+            return path;
         } else {
             return extendsPath;
         }

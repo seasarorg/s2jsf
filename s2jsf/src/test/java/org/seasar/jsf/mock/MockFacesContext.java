@@ -39,7 +39,9 @@ public class MockFacesContext extends FacesContext {
     private Map messages = new LinkedHashMap();
 
     private boolean responseComplete = false;
-    
+
+    private ExternalContext externalContext = null;
+
     public MockFacesContext() {
         setCurrentInstance(this);
     }
@@ -88,7 +90,10 @@ public class MockFacesContext extends FacesContext {
     }
 
     public ExternalContext getExternalContext() {
-        return new MockExternalContextImpl();
+        if (externalContext == null) {
+            externalContext = new MockExternalContextImpl();
+        }
+        return externalContext;
     }
 
     public boolean getRenderResponse() {

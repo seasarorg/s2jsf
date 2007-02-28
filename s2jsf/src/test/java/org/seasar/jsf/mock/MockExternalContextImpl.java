@@ -58,11 +58,11 @@ public class MockExternalContextImpl extends MockExternalContext {
 
     private Map requestCookieMap_ = new HashMap();
 
-    //private Map sessionMap_;
+    private Map sessionMap_;
 
     private Map requestMap_;
 
-    //private Map requestParameterValuesMap_;
+    // private Map requestParameterValuesMap_;
 
     private String pathInfo;
 
@@ -261,7 +261,10 @@ public class MockExternalContextImpl extends MockExternalContext {
     }
 
     public Map getSessionMap() {
-        return null;
+        if (sessionMap_ == null) {
+            sessionMap_ = new HashMap();
+        }
+        return sessionMap_;
     }
 
     public java.security.Principal getUserPrincipal() {
