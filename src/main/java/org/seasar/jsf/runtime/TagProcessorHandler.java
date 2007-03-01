@@ -66,7 +66,7 @@ public class TagProcessorHandler extends DefaultHandler {
             TagProcessor parentProcessor = peekProcessor();
             if (parentProcessor != null) {
                 Map props = HtmlNodeUtil.convertMap(attributes);
-                if (processor instanceof ElementProcessor
+                if (processor.getClass() == ElementProcessor.class
                         && !isElementNode(props)) {
                     parentProcessor.addText(HtmlNodeUtil.getStartTagString(
                             qName, props));
