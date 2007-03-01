@@ -38,6 +38,6 @@ public class JspWriterImplTest extends S2TestCase {
 		char[] cb = s.toCharArray();
 		writer.write(cb);
 		writer.flush();
-		assertEquals("1", s, getResponse().getWriter().toString());
+		assertEquals("1", s,  new String(getResponse().getResponseBytes()));
 	}
 }
