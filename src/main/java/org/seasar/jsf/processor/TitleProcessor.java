@@ -19,14 +19,17 @@ import org.seasar.jsf.TagProcessor;
 
 /**
  * @author higa
- *
+ * 
  */
 public class TitleProcessor extends TagProcessorImpl {
 
-	public TitleProcessor(String inject) {
-		super(inject);
-	}
-	
-	public void addChild(TagProcessor child) {
-	}
+    public TitleProcessor(String inject) {
+        super(inject);
+    }
+
+    public void addChild(TagProcessor child) {
+    }
+
+    public void addText(String text) {
+    }
 }
