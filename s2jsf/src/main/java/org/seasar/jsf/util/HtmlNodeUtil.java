@@ -35,11 +35,10 @@ public class HtmlNodeUtil {
         Map map = new HashMap();
         for (int i = 0; i < attributes.getLength(); ++i) {
             String qname = attributes.getQName(i);
-            String localName = attributes.getLocalName(i);
             String uri = attributes.getURI(i);
             String value = attributes.getValue(i);
             if (JsfConstants.MAYA_NSURI.equals(uri)) {
-                map.put(localName, value);
+                return null;
             } else if (!map.containsKey(qname)) {
                 map.put(qname, value);
             }

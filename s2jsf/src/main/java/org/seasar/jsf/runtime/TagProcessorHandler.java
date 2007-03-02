@@ -15,11 +15,11 @@
  */
 package org.seasar.jsf.runtime;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
 import org.seasar.jsf.JsfConfig;
+import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.TagProcessor;
 import org.seasar.jsf.TagSelector;
 import org.seasar.jsf.ViewTemplateFactory;
@@ -67,7 +67,7 @@ public class TagProcessorHandler extends DefaultHandler {
             if (parentProcessor != null) {
                 Map props = HtmlNodeUtil.convertMap(attributes);
                 if (processor.getClass() == ElementProcessor.class
-                        && !isElementNode(props)) {
+                        && !isElementNode(qName, props)) {
                     parentProcessor.addText(HtmlNodeUtil.getStartTagString(
                             qName, props));
                     parentProcessor.incrementChildTextSize();
@@ -91,14 +91,8 @@ public class TagProcessorHandler extends DefaultHandler {
         return (TagProcessor) processorStack.pop();
     }
 
-    protected boolean isElementNode(Map props) {
-        for (Iterator i = props.values().iterator(); i.hasNext();) {
-            String value = (String) i.next();
-            if (value.indexOf("#{") >= 0) {
-                return true;
-            }
-        }
-        return false;
+    protected boolean isElementNode(String qName, Map props) {
+        return JsfConstants.BODY_ELEM.equalsIgnoreCase(qName) || props == null;
     }
 
     public void characters(char[] buffer, int start, int length) {

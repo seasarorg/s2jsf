@@ -19,18 +19,21 @@ import org.seasar.jsf.TagProcessor;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class InputTextareaProcessor extends TagProcessorImpl {
 
-	public InputTextareaProcessor(String inject) {
-		super(inject);
-	}
+    public InputTextareaProcessor(String inject) {
+        super(inject);
+    }
 
-	public void addChild(TagProcessor child) {
-		if (child instanceof TextProcessor) {
-			return;
-		}
-		super.addChild(child);
-	}
+    public void addChild(TagProcessor child) {
+        if (child instanceof TextProcessor) {
+            return;
+        }
+        super.addChild(child);
+    }
+
+    public void addText(String text) {
+    }
 }

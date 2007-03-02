@@ -35,4 +35,7 @@ public class SelectProcessor extends TagProcessorImpl {
 		}
 		super.addChild(child);
 	}
+
+    public void addText(String text) {
+    }
 }
