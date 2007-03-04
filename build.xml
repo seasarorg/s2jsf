@@ -1,6 +1,6 @@
 <project name="s2jsf" default="dist" basedir=".">
 
-	<property name="ver" value="1.0.23"/>
+	<property name="ver" value="1.0.24"/>
 
 	<target name="dist">
 		<mkdir dir="target"/>
