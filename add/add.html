@@ -8,9 +8,9 @@
 <span m:inject="s:insert" m:name="body">
 <form>
 <span m:inject="h:messages" m:globalOnly="false" m:showDetail="true"/>
-<input type="text" m:value="#{addDto.arg1}"/> + 
-<input type="text" m:value="#{addDto.arg2}"/> = 
-<span m:value="#{addDto.result}"/>
+<input type="text" value="#{addDto.arg1}"/> + 
+<input type="text" value="#{addDto.arg2}"/> = 
+<span value="#{addDto.result}"/>
 <input type="submit" value="calculate" m:action="#{addAction.calculate}"/>
 </form>
 </span>
