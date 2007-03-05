@@ -44,6 +44,13 @@ public class ViewProcessorTest extends S2TestCase {
         assertEquals("1", "Windows-31j", processor.getEncoding());
     }
 
+    public void testSetContentTypeEL() throws Exception {
+        ViewProcessor processor = new ViewProcessor();
+        processor.setContentType("#{'text/html; charset=Windows-31j'}");
+        assertEquals("EL式のContentTypeでも可能に", "Windows-31j", processor
+                .getEncoding());
+    }
+
     public void testGetExtendsPath() throws Exception {
         MockFacesContext context = new MockFacesContext();
         MockApplication application = new MockApplication();
