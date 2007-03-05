@@ -15,6 +15,7 @@
  */
 package org.seasar.jsf.runtime;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Stack;
 
@@ -40,6 +41,9 @@ public class TagProcessorHandler extends DefaultHandler {
     private Stack processorStack = new Stack();
 
     private TagProcessor root;
+
+    protected TagProcessorHandler() {
+    }
 
     public TagProcessorHandler(TagSelectors tagSelectors, JsfConfig jsfConfig,
             ViewTemplateFactory viewTemplateFactory) {
@@ -92,7 +96,16 @@ public class TagProcessorHandler extends DefaultHandler {
     }
 
     protected boolean isElementNode(String qName, Map props) {
-        return JsfConstants.BODY_ELEM.equalsIgnoreCase(qName) || props == null;
+        if (JsfConstants.BODY_ELEM.equalsIgnoreCase(qName) || props == null) {
+            return true;
+        }
+        for (Iterator i = props.values().iterator(); i.hasNext();) {
+            String value = (String) i.next();
+            if (value.indexOf("#{") >= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void characters(char[] buffer, int start, int length) {
