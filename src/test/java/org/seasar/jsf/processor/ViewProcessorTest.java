@@ -45,8 +45,15 @@ public class ViewProcessorTest extends S2TestCase {
     }
 
     public void testSetContentTypeEL() throws Exception {
+        MockFacesContext context = new MockFacesContext();
+        MockApplication application = new MockApplication();
+        context.setApplication(application);
+        MockValueBinding vb = new MockValueBinding();
+        application.setValueBinding(vb);
+        context.setApplication(application);
         ViewProcessor processor = new ViewProcessor();
-        processor.setContentType("#{'text/html; charset=Windows-31j'}");
+        vb.setValue(context, "text/html; charset=Windows-31j");
+        processor.setContentType("#{hoge.contentType}");
         assertEquals("EL式のContentTypeでも可能に", "Windows-31j", processor
                 .getEncoding());
     }
