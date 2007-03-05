@@ -71,22 +71,40 @@ public class ViewProcessor extends TagProcessorImpl {
     }
 
     public String getContentType() {
-        return contentType;
+        if (!BindingUtil.isValueReference(contentType)) {
+            return contentType;
+        }
+        return (String) BindingUtil.resolveBinding(contentType);
     }
 
     public void setContentType(String contentType) {
         this.contentType = contentType;
-        int index = contentType.indexOf(JsfConstants.CHARSET);
+        if (!BindingUtil.isValueReference(contentType)) {
+            encoding = calcEncoding(contentType);
+        }
+    }
+
+    protected String calcEncoding(String ct) {
+        if (ct == null) {
+            return null;
+        }
+        int index = ct.indexOf(JsfConstants.CHARSET);
         if (index < 0) {
             throw new IllegalArgumentException(JsfConstants.CHARSET
                     + " not found in " + contentType);
         }
-        int index2 = contentType.indexOf(JsfConstants.EQUAL, index + 1);
-        encoding = contentType.substring(index2 + 1);
-        encoding = encoding.trim();
+        int index2 = ct.indexOf(JsfConstants.EQUAL, index + 1);
+        String s = ct.substring(index2 + 1);
+        return s.trim();
     }
 
     public String getEncoding() {
+        if (encoding != null) {
+            return encoding;
+        }
+        if (BindingUtil.isValueReference(contentType)) {
+            return calcEncoding(getContentType());
+        }
         return encoding;
     }
 

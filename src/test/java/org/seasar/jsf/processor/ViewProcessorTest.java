@@ -22,7 +22,6 @@ import org.seasar.extension.unit.S2TestCase;
 import org.seasar.jsf.mock.MockApplication;
 import org.seasar.jsf.mock.MockFacesContext;
 import org.seasar.jsf.mock.MockValueBinding;
-import org.seasar.jsf.processor.ViewProcessor;
 
 /**
  * @author higa
@@ -42,6 +41,22 @@ public class ViewProcessorTest extends S2TestCase {
         ViewProcessor processor = new ViewProcessor();
         processor.setContentType("text/html; charset=Windows-31j");
         assertEquals("1", "Windows-31j", processor.getEncoding());
+    }
+
+    public void testSetContentType2() throws Exception {
+        MockFacesContext context = new MockFacesContext();
+        MockApplication application = new MockApplication();
+        context.setApplication(application);
+        MockValueBinding vb = new MockValueBinding();
+        application.setValueBinding(vb);
+        context.setApplication(application);
+
+        ViewProcessor processor = new ViewProcessor();
+        vb.setValue(context, "text/html; charset=Windows-31j");
+        processor.setContentType("#{aaa}");
+        assertEquals("text/html; charset=Windows-31j", processor
+                .getContentType());
+        assertEquals("Windows-31j", processor.getEncoding());
     }
 
     public void testSetContentTypeEL() throws Exception {
