@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.seasar.teeda.core.mock.MockApplication;
+import org.seasar.teeda.core.mock.MockApplicationImpl;
+import org.seasar.teeda.core.mock.MockFacesContextImpl;
 import org.seasar.teeda.core.mock.MockValueBinding;
 import org.seasar.teeda.core.unit.TeedaTestCase;
 
@@ -42,6 +44,36 @@ public class ViewProcessorTest extends TeedaTestCase {
         assertEquals("1", "Windows-31j", processor.getEncoding());
     }
 
+    public void testSetContentType2() throws Exception {
+        MockFacesContextImpl context = new MockFacesContextImpl();
+        MockApplicationImpl application = new MockApplicationImpl();
+        context.setApplication(application);
+        MockValueBinding vb = new MockValueBinding();
+        application.setValueBinding(vb);
+        context.setApplication(application);
+
+        ViewProcessor processor = new ViewProcessor();
+        vb.setValue(context, "text/html; charset=Windows-31j");
+        processor.setContentType("#{aaa}");
+        assertEquals("text/html; charset=Windows-31j", processor
+                .getContentType());
+        assertEquals("Windows-31j", processor.getEncoding());
+    }
+
+    public void testSetContentTypeEL() throws Exception {
+        MockFacesContextImpl context = new MockFacesContextImpl();
+        MockApplicationImpl application = new MockApplicationImpl();
+        context.setApplication(application);
+        MockValueBinding vb = new MockValueBinding();
+        application.setValueBinding(vb);
+        context.setApplication(application);
+        ViewProcessor processor = new ViewProcessor();
+        vb.setValue(context, "text/html; charset=Windows-31j");
+        processor.setContentType("#{hoge.contentType}");
+        assertEquals("EL式のContentTypeでも可能に", "Windows-31j", processor
+                .getEncoding());
+    }
+
     public void testGetExtendsPath() throws Exception {
         ViewProcessor processor = new ViewProcessor();
         MockApplication application = getApplication();
@@ -58,7 +90,8 @@ public class ViewProcessorTest extends TeedaTestCase {
 
         MockApplication application = getApplication();
         MockValueBinding vb = new MockValueBinding();
-        vb.setValue(getFacesContext(), new String[] { "/page1.html", "/page2.html" });
+        vb.setValue(getFacesContext(), new String[] { "/page1.html",
+                "/page2.html" });
         application.setValueBinding(vb);
 
         ip.setProperty("src", "#{xxx}");
