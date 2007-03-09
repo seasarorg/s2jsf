@@ -25,36 +25,43 @@ import org.seasar.jsf.exception.NoEditableValueHolderRuntimeException;
 
 /**
  * @author higa
- *  
+ * 
  */
 public final class DecodeUtil {
 
-	private DecodeUtil() {
-	}
+    private DecodeUtil() {
+    }
 
-	public static void decode(FacesContext context, UIComponent component) {
-		if (!(component instanceof EditableValueHolder)) {
-			throw new NoEditableValueHolderRuntimeException(component
-					.getClass());
-		}
-		Map paramMap = context.getExternalContext().getRequestParameterMap();
-		String clientId = component.getClientId(context);
-		if (paramMap.containsKey(clientId)) {
-			Object submittedValue = paramMap.get(clientId);
-			((EditableValueHolder) component).setSubmittedValue(submittedValue);
-		}
-	}
-    
+    public static void decode(FacesContext context, UIComponent component) {
+        if (!(component instanceof EditableValueHolder)) {
+            throw new NoEditableValueHolderRuntimeException(component
+                    .getClass());
+        }
+        Map paramMap = context.getExternalContext().getRequestParameterMap();
+        String clientId = component.getClientId(context);
+        if (paramMap.containsKey(clientId)) {
+            Object submittedValue = paramMap.get(clientId);
+            ((EditableValueHolder) component).setSubmittedValue(submittedValue);
+        }
+    }
+
     public static void decodeMany(FacesContext context, UIComponent component) {
         if (!(component instanceof EditableValueHolder)) {
             throw new NoEditableValueHolderRuntimeException(component
                     .getClass());
         }
-        Map paramMap = context.getExternalContext().getRequestParameterValuesMap();
+        Map paramMap = context.getExternalContext()
+                .getRequestParameterValuesMap();
         String clientId = component.getClientId(context);
+        EditableValueHolder evh = (EditableValueHolder) component;
+        String[] value = null;
         if (paramMap.containsKey(clientId)) {
-            Object submittedValue = paramMap.get(clientId);
-            ((EditableValueHolder) component).setSubmittedValue(submittedValue);
+            value = (String[]) paramMap.get(clientId);
+        }
+        if (value != null) {
+            evh.setSubmittedValue(value);
+        } else {
+            evh.setSubmittedValue(new String[0]);
         }
     }
 }
