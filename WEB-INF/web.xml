@@ -35,6 +35,11 @@
         </description>
     </context-param>
     -->
+    
+	<context-param>
+		<param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
+		<param-value>10</param-value>
+	</context-param>
 
     <context-param>
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
