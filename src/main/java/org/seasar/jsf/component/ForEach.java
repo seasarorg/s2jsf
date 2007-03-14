@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
@@ -95,7 +95,7 @@ public class ForEach extends UIComponentBase implements NamingContainer {
             requestMap.put(var, getCurrentRow());
         }
         if (varIndex != null) {
-            requestMap.put(varIndex, new Integer(rowIndex));
+            requestMap.put(varIndex, String.valueOf(rowIndex));
         }
     }
 
@@ -271,15 +271,14 @@ public class ForEach extends UIComponentBase implements NamingContainer {
                     state.restore(evh);
                 }
                 /*
-				String clientId = child.getClientId(context);
-				String namingContainerId = 
-					clientId.substring(0,
-							clientId.lastIndexOf( NamingContainer.SEPARATOR_CHAR));			
-				if (namingContainerId.equals(getClientId(context)) ){				
-					EditableValueHolder evh = (EditableValueHolder) child;
-					EditableValueHolderState state = (EditableValueHolderState) descendantComponentStates.get(child.getClientId(context));
-					state.restore(evh);
-				}
+                 * String clientId = child.getClientId(context); String
+                 * namingContainerId = clientId.substring(0,
+                 * clientId.lastIndexOf( NamingContainer.SEPARATOR_CHAR)); if
+                 * (namingContainerId.equals(getClientId(context)) ){
+                 * EditableValueHolder evh = (EditableValueHolder) child;
+                 * EditableValueHolderState state = (EditableValueHolderState)
+                 * descendantComponentStates.get(child.getClientId(context));
+                 * state.restore(evh); }
                  */
             }
             restoreDescendantComponentStates(context, child);
