@@ -122,11 +122,26 @@ public class ForEach extends UIComponentBase implements NamingContainer {
             rows = new Object[rowCount];
         } else if (items instanceof Collection) {
             rows = new ArrayList((Collection) items).toArray();
+        } else if (items instanceof Map) {
+            rows = toMapArray((Map) items);
         } else if (items.getClass().isArray()) {
             rows = (Object[]) items;
         } else {
             throw new IllegalStateException(JsfConstants.ITEMS_ATTR);
         }
+    }
+
+    protected Map[] toMapArray(Map map) {
+        List list = new ArrayList(map.size());
+        for (Iterator i = ((Map) map).entrySet().iterator(); i.hasNext();) {
+            Map.Entry entry = (Map.Entry) i.next();
+            Map item = new HashMap(2);
+            item.put("key", entry.getKey());
+            item.put("value", entry.getValue());
+            list.add(item);
+        }
+
+        return (Map[]) list.toArray(new Map[map.size()]);
     }
 
     /**
