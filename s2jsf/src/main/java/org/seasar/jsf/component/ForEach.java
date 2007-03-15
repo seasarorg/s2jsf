@@ -95,7 +95,7 @@ public class ForEach extends UIComponentBase implements NamingContainer {
             requestMap.put(var, getCurrentRow());
         }
         if (varIndex != null) {
-//            requestMap.put(varIndex, new Integer(rowIndex));
+            // requestMap.put(varIndex, new Integer(rowIndex));
             requestMap.put(varIndex, String.valueOf(rowIndex));
         }
     }
@@ -123,11 +123,26 @@ public class ForEach extends UIComponentBase implements NamingContainer {
             rows = new Object[rowCount];
         } else if (items instanceof Collection) {
             rows = new ArrayList((Collection) items).toArray();
+        } else if (items instanceof Map) {
+            rows = toMapArray((Map) items);
         } else if (items.getClass().isArray()) {
             rows = (Object[]) items;
         } else {
             throw new IllegalStateException(JsfConstants.ITEMS_ATTR);
         }
+    }
+
+    protected Map[] toMapArray(Map map) {
+        List list = new ArrayList(map.size());
+        for (Iterator i = ((Map) map).entrySet().iterator(); i.hasNext();) {
+            Map.Entry entry = (Map.Entry) i.next();
+            Map item = new HashMap(2);
+            item.put("key", entry.getKey());
+            item.put("value", entry.getValue());
+            list.add(item);
+        }
+
+        return (Map[]) list.toArray(new Map[map.size()]);
     }
 
     /**
@@ -272,15 +287,14 @@ public class ForEach extends UIComponentBase implements NamingContainer {
                     state.restore(evh);
                 }
                 /*
-				String clientId = child.getClientId(context);
-				String namingContainerId = 
-					clientId.substring(0,
-							clientId.lastIndexOf( NamingContainer.SEPARATOR_CHAR));			
-				if (namingContainerId.equals(getClientId(context)) ){				
-					EditableValueHolder evh = (EditableValueHolder) child;
-					EditableValueHolderState state = (EditableValueHolderState) descendantComponentStates.get(child.getClientId(context));
-					state.restore(evh);
-				}
+                 * String clientId = child.getClientId(context); String
+                 * namingContainerId = clientId.substring(0,
+                 * clientId.lastIndexOf( NamingContainer.SEPARATOR_CHAR)); if
+                 * (namingContainerId.equals(getClientId(context)) ){
+                 * EditableValueHolder evh = (EditableValueHolder) child;
+                 * EditableValueHolderState state = (EditableValueHolderState)
+                 * descendantComponentStates.get(child.getClientId(context));
+                 * state.restore(evh); }
                  */
             }
             restoreDescendantComponentStates(context, child);
