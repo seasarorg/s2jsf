@@ -25,10 +25,12 @@
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
+          <!-- none, once, pertest -->
+          <!--
           <configuration>
-            <!-- none, once, pertest -->
             <forkMode>once</forkMode>
           </configuration>
+          -->
         </plugin>
       </plugins>
     </pluginManagement>
