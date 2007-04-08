@@ -16,11 +16,12 @@
 package org.seasar.jsf.jsp;
 
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.framework.mock.servlet.MockHttpServletResponse;
 import org.seasar.jsf.jsp.JspWriterImpl;
 
 /**
  * @author higa
- *
+ * @author yone
  */
 public class JspWriterImplTest extends S2TestCase {
 
@@ -33,11 +34,12 @@ public class JspWriterImplTest extends S2TestCase {
 	}
 	
 	public void testWrite() throws Exception {
-		JspWriterImpl writer = new JspWriterImpl(getResponse(), 2, true);
+        final MockHttpServletResponse res = getResponse();
+		JspWriterImpl writer = new JspWriterImpl(res, 2, true);
 		String s = "abcde";
 		char[] cb = s.toCharArray();
 		writer.write(cb);
 		writer.flush();
-		assertEquals("1", s, getResponse().getWriter().toString());
+		assertEquals("1", s, new String(res.getResponseBytes()));
 	}
 }

@@ -6,6 +6,11 @@
 	<include path="jsfErrorPage.dicon"/>
 
 	<component class="org.seasar.jsf.runtime.ServletContextTaglibManagerImpl">
+		<initMethod name="setServletContext">
+			<arg>
+				<component class="org.seasar.jsf.mock.MockServletContextImplExt" />
+			</arg>
+		</initMethod>
 		<initMethod name="init"/>
 		<destroyMethod name="destroy"/>
 	</component>
