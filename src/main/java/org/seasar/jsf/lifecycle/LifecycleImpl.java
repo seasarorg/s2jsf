@@ -67,10 +67,10 @@ public class LifecycleImpl extends Lifecycle {
 
     public void execute(FacesContext context) throws FacesException {
         try {
-            boolean postback = restoreView(context);
+            final boolean postback = restoreView(context);
             context.getExternalContext().getRequestMap().put(POSTBACK_ATTR,
                     Boolean.valueOf(postback));
-            if (isFinished(context)) {
+            if (!postback || isFinished(context)) {
                 return;
             }
             ExternalContext extContext = context.getExternalContext();
