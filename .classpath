@@ -29,6 +29,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jsp_2.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jta_1.0.1B_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/junit-3.8.1.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.25.jar" sourcepath="WEB-INF/lib/sources/s2-jsf-1.0.25-sources.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.26-SNAPSHOT.jar" sourcepath="WEB-INF/lib/sources/s2-jsf-1.0.26-sources.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
