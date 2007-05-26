@@ -166,13 +166,11 @@
 				<component class="org.seasar.jsf.selector.SelectOneMenuSelector"/>
 			</arg>
 		</initMethod>
-		<!--
 		<initMethod name="addTagSelector">
 			<arg>
 				<component class="org.seasar.jsf.selector.InputRadioSelector"/>
 			</arg>
 		</initMethod>
-		-->
 		<initMethod name="addTagSelector">
 			<arg>
 				<component class="org.seasar.jsf.selector.SelectManyListboxSelector"/>
