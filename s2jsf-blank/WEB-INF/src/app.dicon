@@ -4,4 +4,5 @@
 <components>
 	<include path="jsf.dicon"/>
 	<include path="teeda.dicon"/>
+	<include path="dao.dicon"/>
 </components>
