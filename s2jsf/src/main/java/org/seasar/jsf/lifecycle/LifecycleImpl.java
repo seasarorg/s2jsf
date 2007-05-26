@@ -134,7 +134,7 @@ public class LifecycleImpl extends Lifecycle {
             viewRoot = viewHandler.createView(context, viewId);
             // context.renderResponse();
         }
-        String previousViewId = getViewIdFromSession(externalContext);
+        // String previousViewId = getViewIdFromSession(externalContext);
         context.setViewRoot(viewRoot);
         saveViewIdToSession(externalContext, viewId);
         initializeChildren(context, viewRoot);
@@ -142,7 +142,10 @@ public class LifecycleImpl extends Lifecycle {
             context.renderResponse();
         }
         afterPhase(context, PhaseId.RESTORE_VIEW);
-        return viewId.equals(previousViewId);
+        HttpServletRequest request = (HttpServletRequest) externalContext
+                .getRequest();
+        return request.getMethod().equals("POST");
+        // return viewId.equals(previousViewId);
     }
 
     protected void applyRequestValues(FacesContext context)
