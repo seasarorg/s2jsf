@@ -53,16 +53,20 @@ public class LifecycleImplTest extends S2TestCase {
         final List callSeq = new ArrayList();
         LifecycleImpl lifecycle = new LifecycleImpl();
         lifecycle.addPhaseListener(new SomePhaseListener() {
+            private static final long serialVersionUID = 1L;
+
             public void beforePhase(PhaseEvent event) {
                 callSeq.add("A");
             }
         });
         lifecycle.addPhaseListener(new SomePhaseListener() {
+            private static final long serialVersionUID = 1L;
             public void beforePhase(PhaseEvent event) {
                 callSeq.add("B");
             }
         });
         lifecycle.addPhaseListener(new SomePhaseListener() {
+            private static final long serialVersionUID = 1L;
             public void beforePhase(PhaseEvent event) {
                 callSeq.add("C");
             }
@@ -85,16 +89,19 @@ public class LifecycleImplTest extends S2TestCase {
         final List callSeq = new ArrayList();
         LifecycleImpl lifecycle = new LifecycleImpl();
         lifecycle.addPhaseListener(new SomePhaseListener() {
+            private static final long serialVersionUID = 1L;
             public void afterPhase(PhaseEvent event) {
                 callSeq.add("A");
             }
         });
         lifecycle.addPhaseListener(new SomePhaseListener() {
+            private static final long serialVersionUID = 1L;
             public void afterPhase(PhaseEvent event) {
                 callSeq.add("B");
             }
         });
         lifecycle.addPhaseListener(new SomePhaseListener() {
+            private static final long serialVersionUID = 1L;
             public void afterPhase(PhaseEvent event) {
                 callSeq.add("C");
             }

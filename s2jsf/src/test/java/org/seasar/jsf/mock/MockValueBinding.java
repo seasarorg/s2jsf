@@ -89,5 +89,13 @@ public class MockValueBinding extends ValueBinding implements StateHolder {
     public void setExpressionString(String exprStr) {
         exprStr_ = exprStr;
     }
+
+    public String getRef_() {
+        return ref_;
+    }
+
+    public void setRef_(String ref_) {
+        this.ref_ = ref_;
+    }
     
 }
