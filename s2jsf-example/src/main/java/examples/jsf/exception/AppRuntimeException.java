@@ -1,5 +1,5 @@
 /*
- * Copyright 2004-2006 the Seasar Foundation and the Others.
+ * Copyright 2004-2007 the Seasar Foundation and the Others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 
 public class AppRuntimeException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
 
 	private static final Object[] EMPTY_ARGS = new Object[0];
 	private static final String BUNDLE_NAME = "appMessages";
