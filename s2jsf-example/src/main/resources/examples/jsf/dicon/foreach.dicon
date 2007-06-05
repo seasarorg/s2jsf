@@ -21,7 +21,7 @@
 		</initMethod>
 	</component>
 
-	<component name="forEach2DtoList" class="java.util.ArrayList" instance="session">
+	<component name="forEach2DtoList" class="java.util.ArrayList" instance="request">
 		<initMethod name="add" >
 			<arg>
 				<component class="examples.jsf.dto.ForEach2Dto" instance="prototype">

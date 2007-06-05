@@ -88,5 +88,16 @@
 			<arg>".*Dao"</arg>
 		</initMethod>
 	</component>
+	
+	<component
+		class="org.seasar.teeda.core.render.autoregister.TeedaRendererComponentAutoRegister">
+		<initMethod name="addReferenceClass">
+			<arg>@org.seasar.teeda.extension.render.html.HtmlTextRenderer@class</arg>
+		</initMethod>
+		<initMethod name="addClassPattern">
+			<arg>"org.seasar.teeda.extension.render.html"</arg>
+			<arg>"THtmlItemsSaveHiddenRenderer"</arg>
+		</initMethod>
+	</component>
 
 </components>

@@ -43,4 +43,11 @@ public class ForEach2ListActionImpl implements ForEach2ListAction {
         forEach2DtoList.add(new ForEach2Dto());
         return null;
     }
+
+    /**
+     * @return the forEach2DtoList
+     */
+    public List getForEach2DtoList() {
+        return forEach2DtoList;
+    }
 }

@@ -64,6 +64,10 @@
 		<initMethod name="addTaglibUri">
     		<arg>"r"</arg>
     		<arg>"http://examples.jsf.hoge/taglib"</arg>
+		</initMethod>
+		<initMethod name="addTaglibUri">
+    		<arg>"te"</arg>
+    		<arg>"http://www.seasar.org/teeda/extension"</arg>
 		</initMethod>	
 	</component>
 	
