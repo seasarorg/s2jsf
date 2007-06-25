@@ -27,12 +27,12 @@
 			"org.hsqldb.jdbcDriver"
 		</property>
 		<property name="URL">
-			"jdbc:hsqldb:hsql://localhost:9001"
 			<!--
-			"jdbc:hsqldb:file:"
-				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@org.seasar.extension.dbcp.impl.ConnectionPoolImplTest@class).getCanonicalPath()
-				+ "/data/demo"
+			"jdbc:hsqldb:hsql://localhost:9001"
 			-->
+			"jdbc:hsqldb:file:"
+				+ @org.seasar.framework.util.ResourceUtil@getBuildDir(@examples.jsf.action.impl.AddActionImpl@class).getCanonicalPath()
+				+ "/data/demo"
 		</property>
 		<property name="user">"sa"</property>
 		<property name="password">""</property>
