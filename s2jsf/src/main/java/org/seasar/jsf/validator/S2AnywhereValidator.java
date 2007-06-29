@@ -73,13 +73,17 @@ public abstract class S2AnywhereValidator implements Validator, StateHolder {
         Object[] targetValues = new Object[targetComponents.length];
 
         for (int i = 0; i < targetComponents.length; i++) {
-            targetValues[i] = ValueHolderUtil.getValue(targetComponents[i]);
-            if (targetValues[i] == null
-                    && targetComponents[i] instanceof UIInput) {
+            if (targetComponents[i] instanceof UIInput) {
                 UIInput input = (UIInput) targetComponents[i];
-                Object submittedValue = input.getSubmittedValue();
-                targetValues[i] = RenderUtil.getConvertedValue(context, input,
-                        submittedValue);
+
+                if (input.isLocalValueSet()) {
+                    targetValues[i] = input.getLocalValue();
+                } else {
+                    targetValues[i] = RenderUtil.getConvertedValue(context,
+                            input, input.getSubmittedValue());
+                }
+            } else {
+                targetValues[i] = ValueHolderUtil.getValue(targetComponents[i]);
             }
         }
         doValidate(context, component, value, targetComponents, targetValues);
