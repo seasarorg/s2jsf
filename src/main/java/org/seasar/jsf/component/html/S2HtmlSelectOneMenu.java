@@ -28,10 +28,10 @@ import org.seasar.jsf.util.UIValueUtil;
 
 /**
  * @author higa
- *
+ * 
  */
 public class S2HtmlSelectOneMenu extends HtmlSelectOneMenu {
-	
+
     private String label;
 
     public String getLabel() {
@@ -45,7 +45,14 @@ public class S2HtmlSelectOneMenu extends HtmlSelectOneMenu {
     public void setLabel(String label) {
         this.label = label;
     }
-    
+
+    public Object getValue() {
+        if (isLocalValueSet()) {
+            return getLocalValue();
+        }
+        return super.getValue();
+    }
+
     public void setValue(Object value) {
         Object newValue = value;
         if ("".equals(value)) {
@@ -53,7 +60,7 @@ public class S2HtmlSelectOneMenu extends HtmlSelectOneMenu {
         }
         super.setValue(newValue);
     }
-    
+
     public void validate(FacesContext context) {
         Object submittedValue = getSubmittedValue();
         Object convertedValue = RenderUtil.getConvertedValue(context, this,
@@ -85,7 +92,7 @@ public class S2HtmlSelectOneMenu extends HtmlSelectOneMenu {
             queueEvent(new ValueChangeEvent(this, previousValue, convertedValue));
         }
     }
-    
+
     public Object saveState(FacesContext context) {
         Object[] values = new Object[2];
         values[0] = super.saveState(context);

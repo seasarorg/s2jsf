@@ -28,7 +28,7 @@ import org.seasar.jsf.util.UIValueUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class S2HtmlInputSecret extends HtmlInputSecret {
 
@@ -44,6 +44,13 @@ public class S2HtmlInputSecret extends HtmlInputSecret {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Object getValue() {
+        if (isLocalValueSet()) {
+            return getLocalValue();
+        }
+        return super.getValue();
     }
 
     public void setValue(Object value) {
@@ -85,7 +92,7 @@ public class S2HtmlInputSecret extends HtmlInputSecret {
             queueEvent(new ValueChangeEvent(this, previousValue, convertedValue));
         }
     }
-    
+
     public Object saveState(FacesContext context) {
         Object[] values = new Object[2];
         values[0] = super.saveState(context);
