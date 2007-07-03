@@ -23,7 +23,7 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/ognl-2.6.5.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/xercesImpl-2.5.0.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.40.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-dao-1.0.43.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-extension-2.3.17.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/s2-framework-2.3.17.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jsp_2.0_spec-1.0.jar"/>
