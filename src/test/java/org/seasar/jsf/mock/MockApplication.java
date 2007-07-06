@@ -23,6 +23,7 @@ import javax.faces.event.ActionListener;
 import javax.faces.validator.Validator;
 
 import org.seasar.framework.util.ClassUtil;
+import org.seasar.jsf.application.S2StateManager;
 
 public class MockApplication extends Application {
     private ValueBinding vb;
@@ -34,7 +35,9 @@ public class MockApplication extends Application {
     private Map convertersByClass_ = new HashMap();
 
     private Map validators_ = new HashMap();
-    
+
+    private ViewHandler viewHandler_;
+
     public void setValueBinding(ValueBinding vb) {
         this.vb = vb;
     }
@@ -103,14 +106,15 @@ public class MockApplication extends Application {
     }
 
     public ViewHandler getViewHandler() {
-        return null;
+        return viewHandler_;
     }
 
-    public void setViewHandler(ViewHandler arg0) {
+    public void setViewHandler(ViewHandler viewHandler) {
+        viewHandler_ = viewHandler;
     }
 
     public StateManager getStateManager() {
-        return null;
+        return new S2StateManager();
     }
 
     public void setStateManager(StateManager arg0) {
@@ -150,7 +154,7 @@ public class MockApplication extends Application {
     public Iterator getValidatorIds() {
         return null;
     }
-    
+
     public void addConverter(String converterId, String converterClass) {
         if (converterId == null || converterClass == null) {
             throw new IllegalArgumentException();
@@ -195,5 +199,5 @@ public class MockApplication extends Application {
         }
         return v;
     }
-    
+
 }

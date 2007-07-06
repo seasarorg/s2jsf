@@ -80,15 +80,21 @@ public class HtmlCommandLinkRenderer extends AbstractHtmlLinkRenderer {
         String clientId = link.getClientId(facesContext);
 
         ResponseWriter writer = facesContext.getResponseWriter();
+
         if (isJavascriptAllowed(facesContext)) {
             renderJavaScriptAnchorStart(facesContext, writer, link, clientId);
+            RenderUtil
+                    .renderAttributes(
+                            writer,
+                            link,
+                            JsfConstants.ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE_AND_ONCLICK);
         } else {
             renderNonJavaScriptAnchorStart(facesContext, writer, link, clientId);
+            RenderUtil.renderAttributes(writer, link,
+                    JsfConstants.ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE);
         }
 
         writer.writeAttribute(JsfConstants.ID_ATTR, clientId, null);
-        RenderUtil.renderAttributes(writer, link,
-                JsfConstants.ANCHOR_PASSTHROUGH_ATTRIBUTES_WITHOUT_STYLE);
         String style = link.getStyle();
         RenderUtil.renderAttribute(writer, JsfConstants.STYLE_ATTR, style,
                 JsfConstants.STYLE_ATTR);
