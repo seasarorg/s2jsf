@@ -29,33 +29,40 @@ import org.seasar.framework.beans.factory.BeanDescFactory;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class UIParameterUtil {
 
-	private UIParameterUtil() {
-	}
-	
-	public static void saveParamsToRequest(UICommand command, HttpServletRequest request) {
-		List children = command.getChildren();
-		for (int i = 0; i < children.size(); ++i) {
-			UIComponent child = (UIComponent) children.get(i);
-			if (child instanceof UIParameter) {
-				UIParameter param = (UIParameter) child;
-				request.setAttribute(param.getName(), param.getValue());
-			}
-		}
-	}
-    
-    public static void saveParametersToInstance(UIComponent component, Object obj) {
-        for(Iterator itr = component.getChildren().iterator(); itr.hasNext();) {
+    private UIParameterUtil() {
+    }
+
+    public static void saveParamsToRequest(UICommand command,
+            HttpServletRequest request) {
+        List children = command.getChildren();
+        for (int i = 0; i < children.size(); ++i) {
+            UIComponent child = (UIComponent) children.get(i);
+            if (child instanceof UIParameter) {
+                UIParameter param = (UIParameter) child;
+                Object value = request.getParameter(param.getName());
+                if (value != null || "".equals(value)) {
+                    request.setAttribute(param.getName(), value);
+                } else {
+                    request.setAttribute(param.getName(), param.getValue());
+                }
+            }
+        }
+    }
+
+    public static void saveParametersToInstance(UIComponent component,
+            Object obj) {
+        for (Iterator itr = component.getChildren().iterator(); itr.hasNext();) {
             Object o = itr.next();
-            if(o instanceof UIParameter) {
+            if (o instanceof UIParameter) {
                 UIParameter param = (UIParameter) o;
                 String name = param.getName();
                 Object value = param.getValue();
                 BeanDesc beanDesc = BeanDescFactory.getBeanDesc(obj.getClass());
-                if(beanDesc.hasPropertyDesc(name)) {
+                if (beanDesc.hasPropertyDesc(name)) {
                     PropertyDesc propertyDesc = beanDesc.getPropertyDesc(name);
                     propertyDesc.setValue(obj, value);
                 }

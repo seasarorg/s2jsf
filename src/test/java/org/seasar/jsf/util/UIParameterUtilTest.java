@@ -24,7 +24,7 @@ import org.seasar.extension.unit.S2TestCase;
 
 /**
  * @author yone
- * 
+ * @author cero-t
  */
 public class UIParameterUtilTest extends S2TestCase {
 
@@ -48,6 +48,33 @@ public class UIParameterUtilTest extends S2TestCase {
         // # Assert #
         assertEquals("AAA", hoge.getAaa());
         assertTrue(hoge.getBbb() == 2);
+    }
+
+    public void testSaveParamsToRequest() throws Exception {
+        // # Arrange #
+        getRequest().addParameter("aaa", "1");
+        getRequest().addParameter("bbb", "2");
+
+        UICommand command = new UICommand();
+        List childrenList = command.getChildren();
+        UIParameter parameter1 = new UIParameter();
+        parameter1.setName("aaa");
+        parameter1.setValue("#{e.aaa}");
+        childrenList.add(parameter1);
+        UIParameter parameter2 = new UIParameter();
+        parameter2.setName("bbb");
+        parameter2.setValue("#{e.bbb + 1}");
+        childrenList.add(parameter2);
+
+        assertEquals(null, getRequest().getAttribute("aaa"));
+        assertEquals(null, getRequest().getAttribute("bbb"));
+
+        // # Act #
+        UIParameterUtil.saveParamsToRequest(command, getRequest());
+
+        // # Assert #
+        assertEquals("1", getRequest().getAttribute("aaa"));
+        assertEquals("2", getRequest().getAttribute("bbb"));
     }
 
     public static class Hoge {
