@@ -24,21 +24,27 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class UIParameterUtil {
 
-	private UIParameterUtil() {
-	}
-	
-	public static void saveParamsToRequest(UICommand command, HttpServletRequest request) {
-		List children = command.getChildren();
-		for (int i = 0; i < children.size(); ++i) {
-			UIComponent child = (UIComponent) children.get(i);
-			if (child instanceof UIParameter) {
-				UIParameter param = (UIParameter) child;
-				request.setAttribute(param.getName(), param.getValue());
-			}
-		}
-	}
+    private UIParameterUtil() {
+    }
+
+    public static void saveParamsToRequest(UICommand command,
+            HttpServletRequest request) {
+        List children = command.getChildren();
+        for (int i = 0; i < children.size(); ++i) {
+            UIComponent child = (UIComponent) children.get(i);
+            if (child instanceof UIParameter) {
+                UIParameter param = (UIParameter) child;
+                Object value = request.getParameter(param.getName());
+                if (value != null || "".equals(value)) {
+                    request.setAttribute(param.getName(), value);
+                } else {
+                    request.setAttribute(param.getName(), param.getValue());
+                }
+            }
+        }
+    }
 }
