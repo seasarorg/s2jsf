@@ -123,10 +123,13 @@ public class ForEach extends UIComponentBase implements NamingContainer {
             rows = new Object[rowCount];
         } else if (items instanceof Collection) {
             rows = new ArrayList((Collection) items).toArray();
+            rowCount = rows.length;
         } else if (items instanceof Map) {
             rows = toMapArray((Map) items);
+            rowCount = rows.length;
         } else if (items.getClass().isArray()) {
             rows = (Object[]) items;
+            rowCount = rows.length;
         } else {
             throw new IllegalStateException(JsfConstants.ITEMS_ATTR);
         }
