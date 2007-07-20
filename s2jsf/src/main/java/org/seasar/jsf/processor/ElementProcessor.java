@@ -40,7 +40,8 @@ public class ElementProcessor extends TagProcessorImpl {
 
 	public ElementProcessor() {
 		setTagClass(ElementTag.class);
-		addCustomPropertyName(JsfConstants.PASSTHROUGH_ATTR);
+        // JIRA-65対応　passthroughを属性として保持する
+		//addCustomPropertyName(JsfConstants.PASSTHROUGH_ATTR);
 	}
 
 	public void setup(String namespaceURI, String localName, String qName,
