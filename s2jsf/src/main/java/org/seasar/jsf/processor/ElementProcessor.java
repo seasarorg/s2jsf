@@ -22,7 +22,6 @@ import javax.servlet.jsp.tagext.Tag;
 
 import org.seasar.framework.util.StringUtil;
 import org.seasar.jsf.JsfConfig;
-import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.JsfContext;
 import org.seasar.jsf.TagPool;
 import org.seasar.jsf.taglib.ElementTag;
