@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
+import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.component.UIElement;
 import org.seasar.jsf.util.BindingUtil;
 import org.seasar.jsf.util.RenderUtil;
@@ -48,7 +49,13 @@ public class HtmlElementRenderer extends Renderer {
         String tagName = elem.getTagName();
         writer.startElement(tagName, component);
         if (elem.isIdSet()) {
-            RenderUtil.renderIdIfNecessary(writer, component, facesContext);
+            // passthroughじゃなければgetClientIdを採用
+            String id = component.getClientId(facesContext);
+            if (elem.getAttributes().containsKey(JsfConstants.PASSTHROUGH_ATTR)) {
+                id = component.getId();
+            }
+            RenderUtil.renderAttribute(writer, JsfConstants.ID_ATTR, id,
+                    JsfConstants.ID_ATTR);
         }
         renderAttributes(writer, elem);
     }
@@ -93,6 +100,10 @@ public class HtmlElementRenderer extends Renderer {
         for (Iterator i = attrs.keySet().iterator(); i.hasNext();) {
             String attrName = (String) i.next();
             if (attrName.indexOf('.') > 0) {
+                continue;
+            }
+            // passthroughは処理しない
+            if (JsfConstants.PASSTHROUGH_ATTR.equalsIgnoreCase(attrName)) {
                 continue;
             }
             Object value = component.getAttributes().get(attrName);
