@@ -1,0 +1,19 @@
+<html xmlns:m="http://www.seasar.org/maya">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Windows-31j" />
+<title>Test</title>
+</head>
+<body>
+<form id="form1">
+<input type="hidden" id="popwidth" value="700" m:passthrough="true" />
+<input type="hidden" id="popheight" m:value="595" m:passthrough="true" />
+<table border="1">
+ <span m:inject="s:forEach" m:items="#{forEachDtoList}" m:id="test" m:var="e" m:varIndex="i">
+  <tr m:id="tr">
+   <td m:id="td"><input type="text" m:value="#{e.key}" /></td>
+  </tr>
+ </span>
+</table>
+</form>
+</body>
+</html>
