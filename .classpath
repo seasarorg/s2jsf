@@ -7,7 +7,7 @@
 	<classpathentry kind="var" path="TOMCAT_HOME/common/lib/jsp-api.jar"/>
 	<classpathentry kind="src" output="work" path="work"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/hsqldb-1.8.0.1.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/myfaces-1.0.9.jar" sourcepath="D:/appl/download/myfaces-1.0.9-src/myfaces-1.0.9-src/src"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/myfaces-1.0.9.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-beanutils-1.6.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-codec-1.2.jar"/>
@@ -29,6 +29,6 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jsp_2.0_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/geronimo-jta_1.0.1B_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/junit-3.8.1.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.26-SNAPSHOT.jar" sourcepath="WEB-INF/lib/sources/s2-jsf-1.0.26-sources.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/s2-jsf-1.0.26-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
