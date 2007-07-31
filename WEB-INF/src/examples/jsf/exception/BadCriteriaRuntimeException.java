@@ -16,8 +16,9 @@
 package examples.jsf.exception;
 
 public class BadCriteriaRuntimeException extends AppRuntimeException {
+    private static final long serialVersionUID = 1L;
 
-	public BadCriteriaRuntimeException() {
-		super("examples.jsf.BadCriteria");
-	}
+    public BadCriteriaRuntimeException() {
+        super("examples.jsf.BadCriteria");
+    }
 }

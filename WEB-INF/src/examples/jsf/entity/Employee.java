@@ -20,132 +20,134 @@ import java.math.BigDecimal;
 
 public class Employee implements Serializable {
 
-	public static final String TABLE = "EMP";
+    private static final long serialVersionUID = 1L;
 
-	private Integer empno;
+    public static final String TABLE = "EMP";
 
-	private String ename;
+    private Integer empno;
 
-	private String job;
+    private String ename;
 
-	private Integer mgr;
+    private String job;
 
-	private java.util.Date hiredate;
+    private Integer mgr;
 
-	private BigDecimal sal;
+    private java.util.Date hiredate;
 
-	private BigDecimal comm;
+    private BigDecimal sal;
 
-	private Integer deptno;
+    private BigDecimal comm;
 
-	private int versionNo;
+    private Integer deptno;
 
-	public Employee() {
-	}
+    private int versionNo;
 
-	public Integer getEmpno() {
-		return this.empno;
-	}
+    public Employee() {
+    }
 
-	public void setEmpno(Integer empno) {
-		this.empno = empno;
-	}
+    public Integer getEmpno() {
+        return this.empno;
+    }
 
-	public java.lang.String getEname() {
-		return this.ename;
-	}
+    public void setEmpno(Integer empno) {
+        this.empno = empno;
+    }
 
-	public void setEname(java.lang.String ename) {
-		this.ename = ename;
-	}
+    public java.lang.String getEname() {
+        return this.ename;
+    }
 
-	public java.lang.String getJob() {
-		return this.job;
-	}
+    public void setEname(java.lang.String ename) {
+        this.ename = ename;
+    }
 
-	public void setJob(java.lang.String job) {
-		this.job = job;
-	}
+    public java.lang.String getJob() {
+        return this.job;
+    }
 
-	public Integer getMgr() {
-		return this.mgr;
-	}
+    public void setJob(java.lang.String job) {
+        this.job = job;
+    }
 
-	public void setMgr(Integer mgr) {
-		this.mgr = mgr;
-	}
+    public Integer getMgr() {
+        return this.mgr;
+    }
 
-	public java.util.Date getHiredate() {
-		return this.hiredate;
-	}
+    public void setMgr(Integer mgr) {
+        this.mgr = mgr;
+    }
 
-	public void setHiredate(java.util.Date hiredate) {
-		this.hiredate = hiredate;
-	}
+    public java.util.Date getHiredate() {
+        return this.hiredate;
+    }
 
-	public BigDecimal getSal() {
-		return this.sal;
-	}
+    public void setHiredate(java.util.Date hiredate) {
+        this.hiredate = hiredate;
+    }
 
-	public void setSal(BigDecimal sal) {
-		this.sal = sal;
-	}
+    public BigDecimal getSal() {
+        return this.sal;
+    }
 
-	public BigDecimal getComm() {
-		return this.comm;
-	}
+    public void setSal(BigDecimal sal) {
+        this.sal = sal;
+    }
 
-	public void setComm(BigDecimal comm) {
-		this.comm = comm;
-	}
+    public BigDecimal getComm() {
+        return this.comm;
+    }
 
-	public Integer getDeptno() {
-		return this.deptno;
-	}
+    public void setComm(BigDecimal comm) {
+        this.comm = comm;
+    }
 
-	public void setDeptno(Integer deptno) {
-		this.deptno = deptno;
-	}
+    public Integer getDeptno() {
+        return this.deptno;
+    }
 
-	public int getVersionNo() {
-		return versionNo;
-	}
-	
-	public void setVersionNo(int versionNo) {
-		this.versionNo = versionNo;
-	}
+    public void setDeptno(Integer deptno) {
+        this.deptno = deptno;
+    }
 
-	public boolean equals(Object other) {
-		if (!(other instanceof Employee)) {
-			return false;
-		}
-		Employee castOther = (Employee) other;
-		return getEmpno() == castOther.getEmpno();
-	}
+    public int getVersionNo() {
+        return versionNo;
+    }
 
-	public String toString() {
-		StringBuffer buf = new StringBuffer("[");
-		setupToString(buf);
-		buf.append("]");
-		return buf.toString();
-	}
-	
-	protected void setupToString(StringBuffer buf) {
-		buf.append(empno).append(", ");
-		buf.append(ename).append(", ");
-		buf.append(job).append(", ");
-		buf.append(mgr).append(", ");
-		buf.append(hiredate).append(", ");
-		buf.append(sal).append(", ");
-		buf.append(comm).append(", ");
-		buf.append(deptno).append(", ");
-		buf.append(versionNo);
-	}
+    public void setVersionNo(int versionNo) {
+        this.versionNo = versionNo;
+    }
 
-	public int hashCode() {
-		if (empno != null) {
-			return empno.intValue();
-		}
-		return 0;
-	}
+    public boolean equals(Object other) {
+        if (!(other instanceof Employee)) {
+            return false;
+        }
+        Employee castOther = (Employee) other;
+        return getEmpno() == castOther.getEmpno();
+    }
+
+    public String toString() {
+        StringBuffer buf = new StringBuffer("[");
+        setupToString(buf);
+        buf.append("]");
+        return buf.toString();
+    }
+
+    protected void setupToString(StringBuffer buf) {
+        buf.append(empno).append(", ");
+        buf.append(ename).append(", ");
+        buf.append(job).append(", ");
+        buf.append(mgr).append(", ");
+        buf.append(hiredate).append(", ");
+        buf.append(sal).append(", ");
+        buf.append(comm).append(", ");
+        buf.append(deptno).append(", ");
+        buf.append(versionNo);
+    }
+
+    public int hashCode() {
+        if (empno != null) {
+            return empno.intValue();
+        }
+        return 0;
+    }
 }

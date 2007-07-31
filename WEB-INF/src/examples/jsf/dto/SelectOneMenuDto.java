@@ -19,7 +19,9 @@ import java.io.Serializable;
 
 public class SelectOneMenuDto implements Serializable {
 
-	private String aaa = "1";
+    private static final long serialVersionUID = 1L;
+
+    private String aaa = "1";
 	
 	private Integer bbb;
 	

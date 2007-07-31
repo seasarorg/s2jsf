@@ -17,14 +17,17 @@ package examples.jsf.exception;
 
 public class EmployeeNotFoundRuntimeException extends AppRuntimeException {
 
-	private int empno;
+    private static final long serialVersionUID = 1L;
 
-	public EmployeeNotFoundRuntimeException(int empno) {
-		super("examples.jsf.EmployeeNotFound", new Object[]{String.valueOf(empno)});
-		this.empno = empno;
-	}
-	
-	public int getEmpno() {
-		return empno;
-	}
+    private int empno;
+
+    public EmployeeNotFoundRuntimeException(int empno) {
+        super("examples.jsf.EmployeeNotFound", new Object[] { String
+                .valueOf(empno) });
+        this.empno = empno;
+    }
+
+    public int getEmpno() {
+        return empno;
+    }
 }

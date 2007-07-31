@@ -17,7 +17,9 @@ package examples.jsf.exception;
 
 public class ErrorPage2RuntimeException extends RuntimeException {
 
-	/**
+    private static final long serialVersionUID = 1L;
+
+    /**
 	 * 
 	 */
 	public ErrorPage2RuntimeException() {

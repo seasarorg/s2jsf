@@ -29,7 +29,9 @@ import examples.jsf.exception.AppRuntimeException;
  */
 public class ActionThrowsInterceptor extends ThrowsInterceptor {
 	
-	public String handleThrowable(AppRuntimeException ex, MethodInvocation invocation) throws Throwable {
+    private static final long serialVersionUID = 1L;
+
+    public String handleThrowable(AppRuntimeException ex, MethodInvocation invocation) throws Throwable {
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, MessageUtil.getErrorMessage(ex.getMessageId(), ex.getArgs()));
 		return null;
