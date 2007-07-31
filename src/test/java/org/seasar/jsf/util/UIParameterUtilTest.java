@@ -21,6 +21,9 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIParameter;
 
 import org.seasar.extension.unit.S2TestCase;
+import org.seasar.jsf.mock.MockApplication;
+import org.seasar.jsf.mock.MockFacesContext;
+import org.seasar.jsf.mock.MockValueBinding;
 
 /**
  * @author yone
@@ -75,6 +78,38 @@ public class UIParameterUtilTest extends S2TestCase {
         // # Assert #
         assertEquals("1", getRequest().getAttribute("aaa"));
         assertEquals("2", getRequest().getAttribute("bbb"));
+    }
+    
+    // for s2jsf-example
+    public void testSaveParamsToRequestParamIsNull() throws Exception {
+        // # Arrange #
+        getRequest().addParameter("aaa", "");
+        getRequest().addParameter("bbb", "null");
+
+        UICommand command = new UICommand();
+        List childrenList = command.getChildren();
+        UIParameter parameter1 = new UIParameter();
+        parameter1.setName("aaa");
+        parameter1.setValue("AAA");
+        childrenList.add(parameter1);
+        UIParameter parameter2 = new UIParameter();
+        parameter2.setName("bbb");
+        MockFacesContext context = new MockFacesContext();
+        MockValueBinding vb = new MockValueBinding();
+        vb.setValue(context, new Integer(5));
+        parameter2.setValueBinding("value", vb);
+        childrenList.add(parameter2);
+        
+        
+        assertEquals(null, getRequest().getAttribute("aaa"));
+        assertEquals(null, getRequest().getAttribute("bbb"));
+
+        // # Act #
+        UIParameterUtil.saveParamsToRequest(command, getRequest());
+
+        // # Assert #
+        assertEquals("AAA", getRequest().getAttribute("aaa"));
+        assertEquals(new Integer("5"), getRequest().getAttribute("bbb"));
     }
 
     public static class Hoge {

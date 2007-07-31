@@ -43,11 +43,12 @@ public class UIParameterUtil {
             UIComponent child = (UIComponent) children.get(i);
             if (child instanceof UIParameter) {
                 UIParameter param = (UIParameter) child;
-                Object value = request.getParameter(param.getName());
-                if (value != null || "".equals(value)) {
-                    request.setAttribute(param.getName(), value);
+                final String paramName = param.getName();
+                Object value = request.getParameter(paramName);
+                if ("null".equals(value) || value == null || "".equals(value)) {
+                    request.setAttribute(paramName, param.getValue());
                 } else {
-                    request.setAttribute(param.getName(), param.getValue());
+                    request.setAttribute(paramName, value);
                 }
             }
         }
