@@ -18,9 +18,7 @@ package org.seasar.jsf.render.html;
 import java.util.Map;
 
 import javax.faces.application.Application;
-import javax.faces.application.ViewHandler;
 import javax.faces.component.html.HtmlCommandLink;
-import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.seasar.extension.unit.S2TestCase;
