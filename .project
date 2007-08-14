@@ -29,7 +29,7 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.seasar.s2jsfplugin.S2JSFNature</nature>
-		<nature>org.seasar.kijimuna.core.nature</nature>
 		<nature>com.sysdeo.eclipse.tomcat.tomcatnature</nature>
+		<nature>org.seasar.kijimuna.core.nature</nature>
 	</natures>
 </projectDescription>

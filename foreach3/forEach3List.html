@@ -12,7 +12,14 @@
     <span m:inject="s:forEach" m:items="#{forEach3DtoList}" m:var="e">
     <tr>
     	<span m:inject="s:forEach" m:items="#{e}" m:var="e2">
-    		<td><input type="text" m:value="#{e2.value}"</td>
+    		<td><input type="text" id="test" m:value="#{e2.value}">
+    				<span m:inject="s:validatorExt" m:validatorId="userNameLengthValidator">
+    				  <span m:inject="f:param" m:name="minimum" m:value="0"/>
+    				  <span m:inject="f:param" m:name="maximum" m:value="#{e2.value}"/>
+    				</span>
+    			</input>
+    			<span m:inject="h:message" m:for="test"/>
+    		</td>
     	</span>
     </tr>
     </span>
