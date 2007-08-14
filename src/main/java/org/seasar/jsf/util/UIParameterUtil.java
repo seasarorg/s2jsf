@@ -15,6 +15,7 @@
  */
 package org.seasar.jsf.util;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -69,5 +70,16 @@ public class UIParameterUtil {
                 }
             }
         }
+    }
+
+    public static UIParameter[] getParameters(UIComponent component) {
+        List list = new ArrayList();
+        for (Iterator itr = component.getChildren().iterator(); itr.hasNext();) {
+            Object o = itr.next();
+            if (o instanceof UIParameter) {
+                list.add(o);
+            }
+        }
+        return (UIParameter[]) list.toArray(new UIParameter[list.size()]);
     }
 }

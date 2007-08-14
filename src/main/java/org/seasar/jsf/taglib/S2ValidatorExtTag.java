@@ -29,6 +29,7 @@ import org.seasar.framework.container.S2Container;
 import org.seasar.framework.container.factory.SingletonS2ContainerFactory;
 import org.seasar.jsf.JsfConstants;
 import org.seasar.jsf.util.UIParameterUtil;
+import org.seasar.jsf.validator.ValidatorWrapper;
 
 /**
  * @author yone
@@ -52,7 +53,7 @@ public class S2ValidatorExtTag extends BodyTagSupport {
         if (!tag.getCreated()) {
             return EVAL_PAGE;
         }
-        Validator validator = createValidator();
+        Validator validator = new ValidatorWrapper(createValidator());
         UIComponent component = tag.getComponentInstance();
         if (component == null || !(component instanceof EditableValueHolder)) {
             throw new JspException(
@@ -77,9 +78,10 @@ public class S2ValidatorExtTag extends BodyTagSupport {
         UIComponent component = tag.getComponentInstance();
         Object attribute = pageContext.getAttribute(
                 JsfConstants.VALIDATOR_STACK_ATTR, PageContext.REQUEST_SCOPE);
-        if (attribute instanceof Validator) {
-            Validator validator = (Validator) attribute;
-            UIParameterUtil.saveParametersToInstance(component, validator);
+        if (attribute instanceof ValidatorWrapper) {
+            ValidatorWrapper validatorWrapper = (ValidatorWrapper) attribute;
+            validatorWrapper
+                    .setParams(UIParameterUtil.getParameters(component));
         }
         pageContext.removeAttribute(JsfConstants.VALIDATOR_STACK_ATTR,
                 PageContext.REQUEST_SCOPE);
@@ -94,7 +96,7 @@ public class S2ValidatorExtTag extends BodyTagSupport {
             }
             Validator validator = (Validator) getComponentNoException(validatorId);
             if (validator == null) {
-                validator = createValidatorApp(validatorId); 
+                validator = createValidatorApp(validatorId);
             }
             return validator;
         } catch (Exception e) {
@@ -136,7 +138,7 @@ public class S2ValidatorExtTag extends BodyTagSupport {
         }
         return null;
     }
-    
+
     private static S2Container getContainer() {
         return SingletonS2ContainerFactory.getContainer();
     }

@@ -33,6 +33,7 @@ import org.seasar.jsf.mock.MockFacesContext;
 import org.seasar.jsf.mock.MockPageContext;
 import org.seasar.jsf.taglib.html.HtmlInputTextTag;
 import org.seasar.jsf.validator.S2LengthValidator;
+import org.seasar.jsf.validator.ValidatorWrapper;
 
 /**
  * @author yone
@@ -113,6 +114,8 @@ public class S2ValidatorExtTagTest extends S2TestCase {
         Validator validator = (Validator) pageContext
                 .getAttribute(JsfConstants.VALIDATOR_STACK_ATTR);
         assertNotNull(validator);
+        assertTrue(validator instanceof ValidatorWrapper);
+        validator = ((ValidatorWrapper) validator).getValidator();
         assertTrue(validator instanceof S2LengthValidator);
     }
 
