@@ -91,7 +91,9 @@ public class LifecycleImpl extends Lifecycle {
             requestMap.put(EXECUTED_ATTR, EXECUTED_ATTR);
             applyRequestValues(context);
             if (isFinished(context)) {
-                initializeChildren(context, context.getViewRoot());
+                if (FacesContext.getCurrentInstance() != null) {
+                    initializeChildren(context, context.getViewRoot());
+                }
                 return;
             }
             if (postback || hasEvent(context)) {
@@ -134,7 +136,7 @@ public class LifecycleImpl extends Lifecycle {
             viewRoot = viewHandler.createView(context, viewId);
             // context.renderResponse();
         }
-        //String previousViewId = getViewIdFromSession(externalContext);
+        // String previousViewId = getViewIdFromSession(externalContext);
         context.setViewRoot(viewRoot);
         saveViewIdToSession(externalContext, viewId);
         initializeChildren(context, viewRoot);
@@ -142,9 +144,10 @@ public class LifecycleImpl extends Lifecycle {
             context.renderResponse();
         }
         afterPhase(context, PhaseId.RESTORE_VIEW);
-        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        HttpServletRequest request = (HttpServletRequest) externalContext
+                .getRequest();
         return request.getMethod().equals("POST");
-        //return viewId.equals(previousViewId);
+        // return viewId.equals(previousViewId);
     }
 
     protected void applyRequestValues(FacesContext context)
