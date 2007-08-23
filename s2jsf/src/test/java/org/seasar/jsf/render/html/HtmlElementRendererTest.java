@@ -30,6 +30,7 @@ public class HtmlElementRendererTest extends TeedaTestCase {
     /**
      * m:passthrough="true"の指定がない場合Test<br>
      * JIRA JSF-65(Seasar-user:8958)
+     * 
      * @throws Exception
      */
     public void testPassthroughFalse() throws Exception {
@@ -42,10 +43,11 @@ public class HtmlElementRendererTest extends TeedaTestCase {
         elem.setTagName("input");
         elem.setId("popWidth");
         elem.setIdSet(true);
-        elem.getAttributes().put(JsfConstants.TYPE_ATTR, JsfConstants.HIDDEN_VALUE);
+        elem.getAttributes().put(JsfConstants.TYPE_ATTR,
+                JsfConstants.HIDDEN_VALUE);
         elem.getAttributes().put(JsfConstants.VALUE_ATTR, "700");
         elem.setParent(form);
-        
+
         // ## Act ##
         FacesContext context = getFacesContext();
         renderer.encodeBegin(context, elem);
@@ -53,12 +55,15 @@ public class HtmlElementRendererTest extends TeedaTestCase {
 
         // ## Assert ##
         final String responseText = getResponse().getWriter().toString();
-        assertEquals("<input id=\"form1:popWidth\" value=\"700\" type=\"hidden\" />", responseText);
+        assertTrue(responseText.indexOf("id=\"form1:popWidth\"") > 0);
+        assertTrue(responseText.indexOf("value=\"700\"") > 0);
+        assertTrue(responseText.indexOf("type=\"hidden\"") > 0);
     }
 
     /**
      * m:passthrough="true"を想定したTest<br>
      * JIRA JSF-65(Seasar-user:8958)
+     * 
      * @throws Exception
      */
     public void testPassthroughTrue() throws Exception {
@@ -71,12 +76,13 @@ public class HtmlElementRendererTest extends TeedaTestCase {
         elem.setTagName("input");
         elem.setId("popWidth");
         elem.setIdSet(true);
-        elem.getAttributes().put(JsfConstants.TYPE_ATTR, JsfConstants.HIDDEN_VALUE);
+        elem.getAttributes().put(JsfConstants.TYPE_ATTR,
+                JsfConstants.HIDDEN_VALUE);
         elem.getAttributes().put(JsfConstants.VALUE_ATTR, "700");
         elem.getAttributes().put(JsfConstants.PASSTHROUGH_ATTR, "true");
-        
+
         elem.setParent(form);
-        
+
         // ## Act ##
         FacesContext context = getFacesContext();
         renderer.encodeBegin(context, elem);
@@ -84,7 +90,9 @@ public class HtmlElementRendererTest extends TeedaTestCase {
 
         // ## Assert ##
         final String responseText = getResponse().getWriter().toString();
-        assertEquals("<input id=\"popWidth\" value=\"700\" type=\"hidden\" />", responseText);
+        assertTrue(responseText.indexOf("id=\"popWidth\"") > 0);
+        assertTrue(responseText.indexOf("value=\"700\"") > 0);
+        assertTrue(responseText.indexOf("type=\"hidden\"") > 0);
     }
-    
+
 }
