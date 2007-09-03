@@ -49,7 +49,7 @@
 		</renderer>
 		<renderer>
 			<component-family>javax.faces.Input</component-family>
-			<renderer-type>javax.faces.TextArea</renderer-type>
+			<renderer-type>javax.faces.Text</renderer-type>
 			<renderer-class>
 				org.seasar.jsf.render.html.HtmlInputTextRenderer
 			</renderer-class>
