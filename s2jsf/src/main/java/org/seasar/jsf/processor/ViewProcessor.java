@@ -71,6 +71,11 @@ public class ViewProcessor extends TagProcessorImpl {
     }
 
     public String getContentType() {
+        ViewProcessor parent = getExtendsViewProcessor();
+        if (parent != null) {
+            return parent.getContentType();
+        }
+
         if (!BindingUtil.isValueReference(contentType)) {
             return contentType;
         }
@@ -99,6 +104,11 @@ public class ViewProcessor extends TagProcessorImpl {
     }
 
     public String getEncoding() {
+        ViewProcessor parent = getExtendsViewProcessor();
+        if (parent != null) {
+            return parent.getEncoding();
+        }
+
         if (encoding != null) {
             return encoding;
         }

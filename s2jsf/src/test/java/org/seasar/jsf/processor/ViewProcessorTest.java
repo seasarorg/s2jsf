@@ -18,6 +18,8 @@ package org.seasar.jsf.processor;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.seasar.jsf.JsfConfig;
+import org.seasar.jsf.ViewTemplateFactory;
 import org.seasar.teeda.core.mock.MockApplication;
 import org.seasar.teeda.core.mock.MockApplicationImpl;
 import org.seasar.teeda.core.mock.MockFacesContextImpl;
@@ -30,12 +32,39 @@ import org.seasar.teeda.core.unit.TeedaTestCase;
  */
 public class ViewProcessorTest extends TeedaTestCase {
 
+    private static final String PATH = "org/seasar/jsf/processor/layout.html";
+
+    private ViewTemplateFactory viewTemplateFactory;
+
+    private JsfConfig config;
+
     public ViewProcessorTest(String arg0) {
         super(arg0);
     }
 
     public static void main(String[] args) {
         junit.textui.TestRunner.run(ViewProcessorTest.class);
+    }
+
+    protected void setUp() throws Exception {
+        include("jsf.dicon");
+    }
+
+    public void testGetContentType() throws Exception {
+        ViewProcessor processor = new ViewProcessor(config, viewTemplateFactory);
+        processor.setContentType("text/html; charset=UTF-8");
+
+        assertEquals("text/html; charset=UTF-8", processor.getContentType());
+    }
+
+    public void testGetContentTypeFromParent() throws Exception {
+        ViewProcessor processor = new ViewProcessor(config, viewTemplateFactory);
+        processor.setContentType("text/html; charset=UTF-8");
+
+        processor.setExtendsPath(PATH);
+
+        assertEquals("text/html; charset=Windows-31j", processor
+                .getContentType());
     }
 
     public void testSetContentType() throws Exception {
@@ -82,6 +111,22 @@ public class ViewProcessorTest extends TeedaTestCase {
         application.setValueBinding(vb);
         processor.setExtendsPath("#{aaa}");
         assertEquals("hoge", processor.getExtendsPath());
+    }
+
+    public void testGetEncoding() throws Exception {
+        ViewProcessor processor = new ViewProcessor(config, viewTemplateFactory);
+        processor.setContentType("text/html; charset=UTF-8");
+
+        assertEquals("UTF-8", processor.getEncoding());
+    }
+
+    public void testGetEncodingFromParent() throws Exception {
+        ViewProcessor processor = new ViewProcessor(config, viewTemplateFactory);
+        processor.setContentType("text/html; charset=UTF-8");
+
+        processor.setExtendsPath(PATH);
+
+        assertEquals("Windows-31j", processor.getEncoding());
     }
 
     public void testAddInsertProcessor() throws Exception {
