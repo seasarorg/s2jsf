@@ -21,7 +21,6 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIParameter;
 
 import org.seasar.extension.unit.S2TestCase;
-import org.seasar.jsf.mock.MockApplication;
 import org.seasar.jsf.mock.MockFacesContext;
 import org.seasar.jsf.mock.MockValueBinding;
 
