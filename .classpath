@@ -13,8 +13,8 @@
 	<classpathentry kind="lib" path="lib/ognl-2.6.7.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.13.jar"/>
-	<classpathentry kind="lib" path="lib/s2-extension-2.3.19.jar"/>
-	<classpathentry kind="lib" path="lib/s2-framework-2.3.19.jar"/>
+	<classpathentry kind="lib" path="lib/s2-extension-2.3.23.jar"/>
+	<classpathentry kind="lib" path="lib/s2-framework-2.3.23.jar"/>
 	<classpathentry kind="lib" path="lib/javassist-3.4.ga.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
