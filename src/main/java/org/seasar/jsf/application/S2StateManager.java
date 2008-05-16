@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,30 +45,26 @@ import org.seasar.jsf.processor.ViewProcessor;
 /**
  * @author higa
  * @author dewa
- *
+ * @author shot
  */
 public class S2StateManager extends StateManager implements Serializable {
 
     static final long serialVersionUID = 0L;
 
     /**
-      * web.xml の初期化パラメータを使ってセッションに保持するUIViewRootの数を指定することができる
-      * （指定しない場合は、UIViewRootが際限なくセッションに溜まってしまう）
-      *   
-      * 設定例：
-      *      
-      *   <context-param>
-      *      <param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
-      *      <param-value>10</param-value>
-      *   </context-param>
-      *      
-      * ※ 初期化パラメータの値には、整数値をセットする
-      * ※ 初期化パラメータの推奨値は 10
-      */
-    public static final String UI_VIEW_ROOT_CACHE_SIZE = "org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE";       
-    
+     * web.xml の初期化パラメータを使ってセッションに保持するUIViewRootの数を指定することができる
+     * （指定しない場合は、UIViewRootが際限なくセッションに溜まってしまう）
+     * 
+     * 設定例：
+     * 
+     * <context-param> <param-name>org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE</param-name>
+     * <param-value>10</param-value> </context-param> ※ 初期化パラメータの値には、整数値をセットする ※
+     * 初期化パラメータの推奨値は 10
+     */
+    public static final String UI_VIEW_ROOT_CACHE_SIZE = "org.seasar.jsf.UI_VIEW_ROOT_CACHE_SIZE";
+
     private int viewRootCacheSize = 0;
-    
+
     private static final String SERIALIZED_VIEW_ATTR = S2StateManager.class
             .getName()
             + ".SERIALIZED_VIEW";
@@ -76,15 +73,14 @@ public class S2StateManager extends StateManager implements Serializable {
             .getName()
             + ".LAST_MODIFIED";
 
-    private static final String VIEW_ACCESS_INFO =S2StateManager.class
+    private static final String VIEW_ACCESS_INFO = S2StateManager.class
             .getName()
             + ".VIEW_ACCESS_INFO";
- 
-    
+
     private transient RenderKitFactory renderKitFactory;
 
-    private transient ViewTemplateFactory viewTemplateFactory;   
-    
+    private transient ViewTemplateFactory viewTemplateFactory;
+
     public S2StateManager() {
     }
 
@@ -102,12 +98,12 @@ public class S2StateManager extends StateManager implements Serializable {
         }
 
         saveSerializedViewToSession(externalContext, viewRoot.getViewId(),
-            serializedView);
-        
+                serializedView);
+
         if (getViewRootCacheSize(context) > 0) {
             updateViewRootCache(context, viewRoot.getViewId());
         }
-        
+
         return null;
     }
 
@@ -142,18 +138,41 @@ public class S2StateManager extends StateManager implements Serializable {
         return lastModifiedFromFile > lastModifiedFromSession;
     }
 
-    protected long getLastModifiedFromFile(String viewId) {
-        ViewTemplateFactory vtf = getViewTemplateFactory();
-        ViewTemplate vt = vtf.getViewTemplate(viewId);
+    protected long getLastModifiedFromFile(final String viewId) {
+        final ViewTemplateFactory vtf = getViewTemplateFactory();
+        final ViewTemplate vt = vtf.getViewTemplate(viewId);
         long lastModified = vt.getLastModified();
         if (lastModified == 0) {
             return lastModified;
         }
-        ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
-        String[] includes = vp.getIncludes();
+        final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+        final String[] includes = vp.getIncludes();
+        final Set calledIncludes = new HashSet();
         for (int i = 0; i < includes.length; ++i) {
-            vt = vtf.getViewTemplate(includes[i]);
-            long lm = vt.getLastModified();
+            long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
+            if (lm > lastModified) {
+                lastModified = lm;
+            }
+        }
+        return lastModified;
+    }
+
+    protected long getLastModifiedFromFile(final ViewTemplateFactory vtf,
+            final String viewId, final Set calledIncludes) {
+        long lastModified = 0;
+        if (calledIncludes.contains(viewId)) {
+            return lastModified;
+        }
+        final ViewTemplate vt = vtf.getViewTemplate(viewId);
+        lastModified = vt.getLastModified();
+        calledIncludes.add(viewId);
+        if (lastModified == 0) {
+            return lastModified;
+        }
+        final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+        final String[] includes = vp.getIncludes();
+        for (int i = 0; i < includes.length; ++i) {
+            long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
             if (lm > lastModified) {
                 lastModified = lm;
             }
@@ -257,7 +276,8 @@ public class S2StateManager extends StateManager implements Serializable {
             String renderKitId) {
 
         ExternalContext extContext = context.getExternalContext();
-        if (!isSavingStateInClient(context) && isViewModified(extContext, viewId)) {
+        if (!isSavingStateInClient(context)
+                && isViewModified(extContext, viewId)) {
             removeSerializedViewFromSession(extContext, viewId);
             removeLastModifiedFromSession(extContext, viewId);
             return null;
@@ -271,11 +291,10 @@ public class S2StateManager extends StateManager implements Serializable {
              * removeSerializedViewFromSession(context.getExternalContext(),
              * viewId); }
              */
-            
-//            if (getViewRootCacheSize(context) > 0) {
-//                updateViewRootCache(context, viewId);
-//            }
-            
+
+            // if (getViewRootCacheSize(context) > 0) {
+            // updateViewRootCache(context, viewId);
+            // }
         }
         return viewRoot;
     }
@@ -408,53 +427,55 @@ public class S2StateManager extends StateManager implements Serializable {
         Map viewAccessInfoMap = null;
         if (!sessionMap.containsKey(VIEW_ACCESS_INFO)) {
             viewAccessInfoMap = new HashMap();
-        } else {        
-            viewAccessInfoMap = (Map)sessionMap.get(VIEW_ACCESS_INFO);
+        } else {
+            viewAccessInfoMap = (Map) sessionMap.get(VIEW_ACCESS_INFO);
         }
 
         synchronized (viewAccessInfoMap) {
             Long currentTime = new Long(System.currentTimeMillis());
             viewAccessInfoMap.put(viewId, currentTime);
-                       
+
             if (viewAccessInfoMap.size() > getViewRootCacheSize(context)) {
                 String oldestAccessedViewId = getOldestAccessedViewId(viewAccessInfoMap);
                 viewAccessInfoMap.remove(oldestAccessedViewId);
-                
+
                 ExternalContext extContext = context.getExternalContext();
-                
-                removeSerializedViewFromSession(extContext, oldestAccessedViewId);
+
+                removeSerializedViewFromSession(extContext,
+                        oldestAccessedViewId);
                 removeLastModifiedFromSession(extContext, oldestAccessedViewId);
-                
-                // recursive 
+
+                // recursive
                 updateViewRootCache(context, viewId);
             }
         }
-        
+
         sessionMap.put(VIEW_ACCESS_INFO, viewAccessInfoMap);
     }
-        
+
     protected String getOldestAccessedViewId(Map viewAccessInfoMap) {
         String oldestAccessedViewId = null;
         Long oldestAccessedTimestamp = new Long(System.currentTimeMillis());
-        
+
         Set viewIdSet = viewAccessInfoMap.keySet();
         Iterator iterator = viewIdSet.iterator();
-        while(iterator.hasNext()) {
-            String viewId = (String)iterator.next();
-            Long accessTimestamp = (Long)viewAccessInfoMap.get(viewId);
+        while (iterator.hasNext()) {
+            String viewId = (String) iterator.next();
+            Long accessTimestamp = (Long) viewAccessInfoMap.get(viewId);
             if (oldestAccessedTimestamp.compareTo(accessTimestamp) > 0) {
                 oldestAccessedTimestamp = accessTimestamp;
                 oldestAccessedViewId = viewId;
             }
-        }        
-        return oldestAccessedViewId;              
+        }
+        return oldestAccessedViewId;
     }
 
     protected int getViewRootCacheSize(FacesContext context) {
         if (viewRootCacheSize == 0) {
             ExternalContext extContext = context.getExternalContext();
-            String initParameter = extContext.getInitParameter(UI_VIEW_ROOT_CACHE_SIZE);
-          
+            String initParameter = extContext
+                    .getInitParameter(UI_VIEW_ROOT_CACHE_SIZE);
+
             try {
                 viewRootCacheSize = Integer.valueOf(initParameter).intValue();
             } catch (NumberFormatException exception) {
@@ -463,5 +484,5 @@ public class S2StateManager extends StateManager implements Serializable {
         }
         return viewRootCacheSize;
     }
-        
+
 }
