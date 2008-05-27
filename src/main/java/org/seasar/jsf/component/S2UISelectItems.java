@@ -28,132 +28,137 @@ import javax.faces.model.SelectItem;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.jsf.util.BindingUtil;
 
 /**
  * @author higa
- *  
+ * 
  */
 public class S2UISelectItems extends UISelectItems {
 
-	private String itemLabel = "label";
+    private String itemLabel = "label";
 
-	private String itemValue = "value";
-	
-	private String nullLabel;
+    private String itemValue = "value";
 
-	public String getItemLabel() {
-		return itemLabel;
-	}
+    private String nullLabel;
 
-	public void setItemLabel(String itemLabel) {
-		this.itemLabel = itemLabel;
-	}
+    public String getItemLabel() {
+        return itemLabel;
+    }
 
-	public String getItemValue() {
-		return itemValue;
-	}
+    public void setItemLabel(String itemLabel) {
+        this.itemLabel = itemLabel;
+    }
 
-	public void setItemValue(String itemValue) {
-		this.itemValue = itemValue;
-	}
+    public String getItemValue() {
+        return itemValue;
+    }
 
-	public String getNullLabel() {
-		return nullLabel;
-	}
+    public void setItemValue(String itemValue) {
+        this.itemValue = itemValue;
+    }
 
-	public void setNullLabel(String nullLabel) {
-		this.nullLabel = nullLabel;
-	}
-	
-	public Object getValue() {
-		Object value = super.getValue();
-		if (value instanceof SelectItem[] || value instanceof SelectItem) {
-			return value;
-		}
-		List list = new ArrayList();
-		if (nullLabel != null) {
-			SelectItem si = new SelectItem();
-			si.setLabel(nullLabel);
-			list.add(si);
-		}
-		if (value instanceof Collection) {
-			for (Iterator it = ((Collection) value).iterator(); it.hasNext();) {
-				Object item = it.next();
-				if (item instanceof SelectItem) {
-					list.add(item);
-				} else if (item instanceof Map) {
-					Map map = (Map) item;
-					SelectItem si = new SelectItem();
-					Object itemValueValue = map.get(itemValue);
-					if (itemValueValue != null) {
-						si.setValue(itemValueValue);
-					}
-					Object itemLabelValue = map.get(itemLabel);
-					if (itemLabelValue == null) {
-						itemLabelValue = itemValueValue;
-					}
-					if (itemLabelValue != null) {
-						si.setLabel(itemLabelValue.toString());
-					}
-					list.add(si);
-				} else {
-					SelectItem si = new SelectItem();
-					BeanDesc beanDesc = BeanDescFactory.getBeanDesc(item
-							.getClass());
-					PropertyDesc pd = beanDesc.getPropertyDesc(itemValue);
-					Object itemValueValue = pd.getValue(item);
-					if (itemValueValue != null) {
-						si.setValue(itemValueValue);
-					}
-					Object itemLabelValue = null;
-					if (beanDesc.hasPropertyDesc(itemLabel)) {
-						pd = beanDesc.getPropertyDesc(itemLabel);
-						itemLabelValue = pd.getValue(item);
-					}
-					if (itemLabelValue == null) {
-						itemLabelValue = itemValueValue;
-					}
-					if (itemLabelValue != null) {
-						si.setLabel(itemLabelValue.toString());
-					}
-					list.add(si);
-				}
-			}
-		} else if (value instanceof Map) {
-			for (Iterator i = ((Map) value).entrySet().iterator(); i.hasNext();) {
-				Map.Entry entry = (Map.Entry) i.next();
-				SelectItem si = new SelectItem();
-				Object itemValueValue = entry.getValue();
-				if (itemValueValue != null) {
-					si.setValue(itemValueValue);
-				}
-				Object itemLabelValue = entry.getKey();
-				if (itemLabelValue == null) {
-					itemLabelValue = itemValueValue;
-				}
-				if (itemLabelValue != null) {
-					si.setLabel(itemLabelValue.toString());
-				}
-				list.add(si);
-			}
-		}
-		return list;
-	}
-	
-	public Object saveState(FacesContext context) {
-		Object[] values = new Object[4];
-		values[0] = super.saveState(context);
-		values[1] = itemValue;
-		values[2] = itemLabel;
-		values[3] = nullLabel;
-		return values;
-	}
+    public String getNullLabel() {
+        if (nullLabel != null && BindingUtil.isValueReference(nullLabel)) {
+            return BindingUtil.resolveBinding(nullLabel).toString();
+        }
+        return nullLabel;
+    }
 
-	public void restoreState(FacesContext context, Object state) {
-		Object values[] = (Object[]) state;
-		super.restoreState(context, values[0]);
-		itemValue = (String) values[1];
-		itemLabel = (String) values[2];
-		nullLabel = (String) values[3];
-	}
+    public void setNullLabel(String nullLabel) {
+        this.nullLabel = nullLabel;
+    }
+
+    public Object getValue() {
+        Object value = super.getValue();
+        if (value instanceof SelectItem[] || value instanceof SelectItem) {
+            return value;
+        }
+        List list = new ArrayList();
+        String nullLabel = getNullLabel();
+        if (nullLabel != null) {
+            SelectItem si = new SelectItem();
+            si.setLabel(nullLabel);
+            list.add(si);
+        }
+        if (value instanceof Collection) {
+            for (Iterator it = ((Collection) value).iterator(); it.hasNext();) {
+                Object item = it.next();
+                if (item instanceof SelectItem) {
+                    list.add(item);
+                } else if (item instanceof Map) {
+                    Map map = (Map) item;
+                    SelectItem si = new SelectItem();
+                    Object itemValueValue = map.get(getItemValue());
+                    if (itemValueValue != null) {
+                        si.setValue(itemValueValue);
+                    }
+                    Object itemLabelValue = map.get(getItemLabel());
+                    if (itemLabelValue == null) {
+                        itemLabelValue = itemValueValue;
+                    }
+                    if (itemLabelValue != null) {
+                        si.setLabel(itemLabelValue.toString());
+                    }
+                    list.add(si);
+                } else {
+                    SelectItem si = new SelectItem();
+                    BeanDesc beanDesc = BeanDescFactory.getBeanDesc(item
+                            .getClass());
+                    PropertyDesc pd = beanDesc.getPropertyDesc(getItemValue());
+                    Object itemValueValue = pd.getValue(item);
+                    if (itemValueValue != null) {
+                        si.setValue(itemValueValue);
+                    }
+                    Object itemLabelValue = null;
+                    if (beanDesc.hasPropertyDesc(getItemLabel())) {
+                        pd = beanDesc.getPropertyDesc(getItemLabel());
+                        itemLabelValue = pd.getValue(item);
+                    }
+                    if (itemLabelValue == null) {
+                        itemLabelValue = itemValueValue;
+                    }
+                    if (itemLabelValue != null) {
+                        si.setLabel(itemLabelValue.toString());
+                    }
+                    list.add(si);
+                }
+            }
+        } else if (value instanceof Map) {
+            for (Iterator i = ((Map) value).entrySet().iterator(); i.hasNext();) {
+                Map.Entry entry = (Map.Entry) i.next();
+                SelectItem si = new SelectItem();
+                Object itemValueValue = entry.getValue();
+                if (itemValueValue != null) {
+                    si.setValue(itemValueValue);
+                }
+                Object itemLabelValue = entry.getKey();
+                if (itemLabelValue == null) {
+                    itemLabelValue = itemValueValue;
+                }
+                if (itemLabelValue != null) {
+                    si.setLabel(itemLabelValue.toString());
+                }
+                list.add(si);
+            }
+        }
+        return list;
+    }
+
+    public Object saveState(FacesContext context) {
+        Object[] values = new Object[4];
+        values[0] = super.saveState(context);
+        values[1] = getItemValue();
+        values[2] = getItemLabel();
+        values[3] = nullLabel;
+        return values;
+    }
+
+    public void restoreState(FacesContext context, Object state) {
+        Object values[] = (Object[]) state;
+        super.restoreState(context, values[0]);
+        setItemValue((String) values[1]);
+        setItemLabel((String) values[2]);
+        nullLabel = (String) values[3];
+    }
 }
