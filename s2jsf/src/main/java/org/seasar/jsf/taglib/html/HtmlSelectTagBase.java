@@ -108,14 +108,7 @@ public abstract class HtmlSelectTagBase extends HtmlInputTagBase {
             if (itemLabel != null) {
                 child.setItemLabel(itemLabel);
             }
-            if (nullLabel != null) {
-                if (isValueReference(nullLabel)) {
-                    child.setNullLabel(BindingUtil.resolveBinding(nullLabel)
-                            .toString());
-                } else {
-                    child.setNullLabel(nullLabel);
-                }
-            }
+            child.setNullLabel(nullLabel);
             component.getChildren().add(child);
         }
     }

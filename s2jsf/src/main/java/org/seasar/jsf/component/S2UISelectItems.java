@@ -28,6 +28,7 @@ import javax.faces.model.SelectItem;
 import org.seasar.framework.beans.BeanDesc;
 import org.seasar.framework.beans.PropertyDesc;
 import org.seasar.framework.beans.factory.BeanDescFactory;
+import org.seasar.jsf.util.BindingUtil;
 
 /**
  * @author higa
@@ -58,7 +59,10 @@ public class S2UISelectItems extends UISelectItems {
 	}
 
 	public String getNullLabel() {
-		return nullLabel;
+        if (nullLabel != null && BindingUtil.isValueReference(nullLabel)) {
+            return BindingUtil.resolveBinding(nullLabel).toString();
+        }
+        return nullLabel;
 	}
 
 	public void setNullLabel(String nullLabel) {

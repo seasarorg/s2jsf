@@ -18,9 +18,11 @@ package org.seasar.jsf.application;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
@@ -110,24 +112,47 @@ public class S2StateManager extends StateManager implements Serializable {
 		return lastModifiedFromFile > lastModifiedFromSession;
 	}
 
-	protected long getLastModifiedFromFile(String viewId) {
-		ViewTemplateFactory vtf = getViewTemplateFactory();
-		ViewTemplate vt = vtf.getViewTemplate(viewId);
-		long lastModified = vt.getLastModified();
-		if (lastModified == 0) {
-			return lastModified;
-		}
-		ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
-		String[] includes = vp.getIncludes();
-		for (int i = 0; i < includes.length; ++i) {
-			vt = vtf.getViewTemplate(includes[i]);
-			long lm = vt.getLastModified();
-			if (lm > lastModified) {
-				lastModified = lm;
-			}
-		}
-		return lastModified;
-	}
+    protected long getLastModifiedFromFile(final String viewId) {
+        final ViewTemplateFactory vtf = getViewTemplateFactory();
+        final ViewTemplate vt = vtf.getViewTemplate(viewId);
+        long lastModified = vt.getLastModified();
+        if (lastModified == 0) {
+            return lastModified;
+        }
+        final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+        final String[] includes = vp.getIncludes();
+        final Set calledIncludes = new HashSet();
+        for (int i = 0; i < includes.length; ++i) {
+            long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
+            if (lm > lastModified) {
+                lastModified = lm;
+            }
+        }
+        return lastModified;
+    }
+
+    protected long getLastModifiedFromFile(final ViewTemplateFactory vtf,
+            final String viewId, final Set calledIncludes) {
+        long lastModified = 0;
+        if (calledIncludes.contains(viewId)) {
+            return lastModified;
+        }
+        final ViewTemplate vt = vtf.getViewTemplate(viewId);
+        lastModified = vt.getLastModified();
+        calledIncludes.add(viewId);
+        if (lastModified == 0) {
+            return lastModified;
+        }
+        final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+        final String[] includes = vp.getIncludes();
+        for (int i = 0; i < includes.length; ++i) {
+            long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
+            if (lm > lastModified) {
+                lastModified = lm;
+            }
+        }
+        return lastModified;
+    }
 
 	protected SerializedView getSerializedViewFromSession(
 			ExternalContext externalContext, String viewId) {
