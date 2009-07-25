@@ -57,6 +57,10 @@ public class S2StateManager extends StateManager implements Serializable {
 			.getName()
 			+ ".LAST_MODIFIED";
 
+	private static final String LAST_EXTENDS_PATH_ATTR = S2StateManager.class
+			.getName()
+			+ ".LAST_EXTENDS_PATH";
+
 	private transient RenderKitFactory renderKitFactory;
 
 	private transient ViewTemplateFactory viewTemplateFactory;
@@ -83,7 +87,7 @@ public class S2StateManager extends StateManager implements Serializable {
 
 	protected void saveLastModifiedToSession(ExternalContext externalContext,
 			String viewId) {
-		Long lm = new Long(getLastModifiedFromFile(viewId));
+		Long lm = new Long(getLastModifiedFromFile(externalContext, viewId));
 		externalContext.getSessionMap().put(LAST_MODIFIED_ATTR + "-" + viewId,
 				lm);
 	}
@@ -108,11 +112,13 @@ public class S2StateManager extends StateManager implements Serializable {
 			String viewId) {
 		long lastModifiedFromSession = getLastModifiedFromSession(
 				externalContext, viewId);
-		long lastModifiedFromFile = getLastModifiedFromFile(viewId);
+		long lastModifiedFromFile = getLastModifiedFromFile(externalContext,
+				viewId);
 		return lastModifiedFromFile > lastModifiedFromSession;
 	}
 
-	protected long getLastModifiedFromFile(final String viewId) {
+	protected long getLastModifiedFromFile(
+			final ExternalContext externalContext, final String viewId) {
 		final ViewTemplateFactory vtf = getViewTemplateFactory();
 		final ViewTemplate vt = vtf.getViewTemplate(viewId);
 		long lastModified = vt.getLastModified();
@@ -120,6 +126,10 @@ public class S2StateManager extends StateManager implements Serializable {
 			return lastModified;
 		}
 		final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+		if (isLayoutChanged(externalContext, vp, viewId)) {
+			lastModified = System.currentTimeMillis();
+		}
+
 		final String[] includes = vp.getIncludes();
 		final Set calledIncludes = new HashSet();
 		for (int i = 0; i < includes.length; ++i) {
@@ -129,6 +139,29 @@ public class S2StateManager extends StateManager implements Serializable {
 			}
 		}
 		return lastModified;
+	}
+
+	protected boolean isLayoutChanged(final ExternalContext externalContext,
+			final ViewProcessor vp, final String viewId) {
+		String key = LAST_EXTENDS_PATH_ATTR + "-" + viewId;
+		String extendsPath = vp.getExtendsPath();
+		Map sessionMap = externalContext.getSessionMap();
+
+		if (sessionMap.containsKey(key) == false) {
+			sessionMap.put(key, extendsPath);
+			return false;
+		}
+
+		String lastExtendsPath = (String) sessionMap.get(key);
+		boolean changed = (lastExtendsPath == null && extendsPath != null)
+				|| (lastExtendsPath != null && lastExtendsPath
+						.equals(extendsPath) == false);
+
+		if (changed) {
+			sessionMap.put(key, extendsPath);
+		}
+
+		return changed;
 	}
 
 	protected long getLastModifiedFromFile(final ViewTemplateFactory vtf,
