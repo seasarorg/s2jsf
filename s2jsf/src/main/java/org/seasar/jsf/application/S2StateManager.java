@@ -43,7 +43,7 @@ import org.seasar.jsf.processor.ViewProcessor;
 
 /**
  * @author higa
- *
+ * 
  */
 public class S2StateManager extends StateManager implements Serializable {
 
@@ -77,7 +77,7 @@ public class S2StateManager extends StateManager implements Serializable {
 			return serializedView;
 		}
 		saveSerializedViewToSession(externalContext, viewRoot.getViewId(),
-			serializedView);
+				serializedView);
 		return null;
 	}
 
@@ -112,47 +112,47 @@ public class S2StateManager extends StateManager implements Serializable {
 		return lastModifiedFromFile > lastModifiedFromSession;
 	}
 
-    protected long getLastModifiedFromFile(final String viewId) {
-        final ViewTemplateFactory vtf = getViewTemplateFactory();
-        final ViewTemplate vt = vtf.getViewTemplate(viewId);
-        long lastModified = vt.getLastModified();
-        if (lastModified == 0) {
-            return lastModified;
-        }
-        final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
-        final String[] includes = vp.getIncludes();
-        final Set calledIncludes = new HashSet();
-        for (int i = 0; i < includes.length; ++i) {
-            long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
-            if (lm > lastModified) {
-                lastModified = lm;
-            }
-        }
-        return lastModified;
-    }
+	protected long getLastModifiedFromFile(final String viewId) {
+		final ViewTemplateFactory vtf = getViewTemplateFactory();
+		final ViewTemplate vt = vtf.getViewTemplate(viewId);
+		long lastModified = vt.getLastModified();
+		if (lastModified == 0) {
+			return lastModified;
+		}
+		final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+		final String[] includes = vp.getIncludes();
+		final Set calledIncludes = new HashSet();
+		for (int i = 0; i < includes.length; ++i) {
+			long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
+			if (lm > lastModified) {
+				lastModified = lm;
+			}
+		}
+		return lastModified;
+	}
 
-    protected long getLastModifiedFromFile(final ViewTemplateFactory vtf,
-            final String viewId, final Set calledIncludes) {
-        long lastModified = 0;
-        if (calledIncludes.contains(viewId)) {
-            return lastModified;
-        }
-        final ViewTemplate vt = vtf.getViewTemplate(viewId);
-        lastModified = vt.getLastModified();
-        calledIncludes.add(viewId);
-        if (lastModified == 0) {
-            return lastModified;
-        }
-        final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
-        final String[] includes = vp.getIncludes();
-        for (int i = 0; i < includes.length; ++i) {
-            long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
-            if (lm > lastModified) {
-                lastModified = lm;
-            }
-        }
-        return lastModified;
-    }
+	protected long getLastModifiedFromFile(final ViewTemplateFactory vtf,
+			final String viewId, final Set calledIncludes) {
+		long lastModified = 0;
+		if (calledIncludes.contains(viewId)) {
+			return lastModified;
+		}
+		final ViewTemplate vt = vtf.getViewTemplate(viewId);
+		lastModified = vt.getLastModified();
+		calledIncludes.add(viewId);
+		if (lastModified == 0) {
+			return lastModified;
+		}
+		final ViewProcessor vp = (ViewProcessor) vt.getRootTagProcessor();
+		final String[] includes = vp.getIncludes();
+		for (int i = 0; i < includes.length; ++i) {
+			long lm = getLastModifiedFromFile(vtf, includes[i], calledIncludes);
+			if (lm > lastModified) {
+				lastModified = lm;
+			}
+		}
+		return lastModified;
+	}
 
 	protected SerializedView getSerializedViewFromSession(
 			ExternalContext externalContext, String viewId) {
@@ -250,7 +250,8 @@ public class S2StateManager extends StateManager implements Serializable {
 			String renderKitId) {
 
 		ExternalContext extContext = context.getExternalContext();
-		if (!isSavingStateInClient(context) && isViewModified(extContext, viewId)) {
+		if (!isSavingStateInClient(context)
+				&& isViewModified(extContext, viewId)) {
 			removeSerializedViewFromSession(extContext, viewId);
 			removeLastModifiedFromSession(extContext, viewId);
 			return null;
