@@ -1,0 +1,5 @@
+/target
+/surefire-classloader.properties
+/surefire.properties
+/.classpath
+/.project
